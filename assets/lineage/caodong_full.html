@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>曹洞宗全法脈總圖 (從唐代至近代台灣)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: "Microsoft JhengHei", "PingFang TC", sans-serif; background-color: #f8f5f0; margin: 0; }
+        #header { background: #3e2723; color: #d7ccc8; padding: 25px; text-align: center; border-bottom: 5px solid #8d6e63; position: sticky; top: 0; z-index: 1000; }
+        #diagram-container { padding: 40px; overflow: auto; min-width: 8000px; /* 確保超長橫圖有空間展開 */ }
+        .mermaid { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .legend { position: fixed; bottom: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 8px; border: 1px solid #d7ccc8; z-index: 1000; font-size: 14px; }
+        .legend span { display: inline-block; width: 15px; height: 15px; margin-right: 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <h1>曹洞宗法脈全圖：從唐代開宗至近代台灣傳承</h1>
+    <p>整合 Phoer.net 九張原始影像、壽昌中興、鼓山法派及月眉山分支</p>
+</div>
+
+<div class="legend">
+    <strong>顏色標示：</strong><br>
+    <span style="background:#c62828"></span> 唐宋祖師 (核心)<br>
+    <span style="background:#ef6c00"></span> 江西壽昌系 (中興)<br>
+    <span style="background:#1976d2"></span> 福建鼓山派 (祖庭)<br>
+    <span style="background:#2e7d32"></span> 近代台灣分支
+</div>
+
+<div id="diagram-container">
+    <div class="mermaid">
+    graph LR
+        %% 效能設定與樣式
+        classDef coreMaster fill:#c62828,color:#fff,stroke:#333,stroke-width:2px;
+        classDef shouchang fill:#ef6c00,color:#fff,stroke:#333;
+        classDef gushan fill:#1976d2,color:#fff,stroke:#333;
+        classDef taiwan fill:#2e7d32,color:#fff,stroke:#333;
+
+        %% 一、唐代開宗 (圖一、二)
+        A[<b>洞山良價</b><br/>807-869]:::coreMaster --- B(曹山本寂)
+        A --- C(洞山道全)
+        A --- D(<b>雲居道膺</b><br/>848-902):::coreMaster
+        
+        %% 二、五代至北宋 (圖三)
+        D --- D1(同安觀志) --- D2(梁山緣觀) --- D3(太陽警玄):::coreMaster
+        D3 --- E(投子義青) --- F(芙蓉道楷):::coreMaster
+        
+        %% 三、南宋至元明 (圖四、五)
+        F --- G(丹霞子淳)
+        G --- H1(宏智正覺 - 天童)
+        G --- H2(真歇清了 - 日本源)
+        F --- I(鹿門自覺) --- I1(歷代傳承) --- I2(萬松行秀)
+        I2 --- J(雪庭福裕 - 少林祖)
+        
+        %% 四、明末壽昌中興 (圖六、七)
+        I1 --- K(廩山常忠) --- L(<b>無明慧經</b><br/>江西壽昌寺):::shouchang
+        
+        %% 五、清初鼓山大興 (圖七、八)
+        L --- M1(無異元來 - 博山)
+        L --- M2(<b>永覺元賢</b><br/>福建鼓山湧泉寺):::gushan
+        L --- M3(晦台元鏡 - 覺浪道盛)
+        M2 --- N1(為霖道霈):::gushan --- N2(鼓山歷代傳統)
+        
+        %% 六、近代核心 (您的指定調整)
+        N2 --- ML["<b>妙蓮法師</b><br/>(妙蓮地華)"]:::master
+        
+        %% 妙蓮法師分支
+        ML --- BZ["本忠和尚"]:::gushan
+        ML --- YY["圓瑛長老"]:::gushan
+        
+        %% 台灣分支延伸
+        YY --- BS["白聖長老"]:::taiwan
+        BZ --- JL["覺力禪師<br/>(台灣月眉山系祖)"]:::taiwan
+        
+        %% 月眉山系細分
+        JL --- TW1[基隆靈泉禪寺]
+        JL --- TW2[台北大本山別院]
+        BS --- TW3[中國佛教會/十普寺]
+
+        %% 額外補遺 (瓦屋能光、琉山等圖九內容)
+        A --- AW[瓦屋能光]
+        D --- DA[琉山匡仁]
+
+        subgraph "唐宋奠基期"
+        A
+        D
+        D3
+        F
+        end
+
+        subgraph "明清中興期 (壽昌/鼓山)"
+        L
+        M2
+        N1
+        end
+
+        subgraph "近代台灣與海外傳承"
+        ML
+        BZ
+        YY
+        JL
+        BS
+        end
+    </div>
+</div>
+
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        maxNodes: 10000, 
+        flowchart: {
+            useMaxWidth: false, // 關鍵：讓圖表水平展開，不強行縮小
+            htmlLabels: true,
+            curve: 'linear'
+        },
+        theme: 'neutral'
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>壽昌法派．鼓山續派 歷代傳承</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:    #5d4037;
+    --accent:     #c6a059;
+    --accent-dim: rgba(198,160,89,0.35);
+    --paper:      #fffcf5;
+    --paper-dark: #f5eedc;
+    --vermillion: #8b3a2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    font-family: 'Noto Serif TC', serif;
+    color: var(--primary);
+    padding: 28px 32px 36px;
+    min-height: 100%;
+  }
+
+  /* ── 大標題 ── */
+  .title-block {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--accent-dim);
+    position: relative;
+  }
+  .title-block::after {
+    content: '❖';
+    position: absolute;
+    bottom: -11px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 10px;
+    font-size: 0.85rem;
+    color: rgba(198,160,89,0.55);
+  }
+  .main-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+  .sub-title {
+    font-size: 0.82rem;
+    letter-spacing: 0.45em;
+    color: var(--primary);
+    margin-top: 6px;
+    opacity: 0.75;
+  }
+
+  /* ── 章節標題 ── */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    margin: 22px 0 14px;
+  }
+  .section-title::before,
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+  }
+
+  /* ── 東土諸祖橫排 ── */
+  .patriarchs-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px 3px;
+    margin-bottom: 6px;
+  }
+  .patriarch-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .patriarch-num {
+    font-size: 0.58rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .patriarch-name {
+    background: linear-gradient(135deg, var(--paper), var(--paper-dark));
+    border: 1px solid var(--accent-dim);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  .arrow-r {
+    color: var(--accent);
+    font-size: 0.9rem;
+    padding-bottom: 2px;
+    opacity: 0.7;
+  }
+
+  .divider-dot {
+    text-align: center;
+    color: var(--accent);
+    font-size: 0.9rem;
+    letter-spacing: 0.5em;
+    margin: 14px 0 10px;
+    opacity: 0.45;
+  }
+
+  /* ── 傳承雙欄表格 ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 18px;
+  }
+
+  .lineage-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .lineage-table td {
+    padding: 5px 10px;
+    font-size: 0.83rem;
+    border-bottom: 1px solid rgba(198,160,89,0.12);
+    line-height: 1.5;
+  }
+  .lineage-table tr:hover td {
+    background: rgba(198,160,89,0.06);
+  }
+
+  .td-num {
+    width: 68px;
+    color: var(--accent);
+    font-size: 0.72rem;
+    text-align: center;
+    border-right: 1px solid rgba(198,160,89,0.2);
+    letter-spacing: 0.03em;
+  }
+  .td-name {
+    color: var(--primary);
+    padding-left: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  .highlight-row td { background: rgba(198,160,89,0.08); }
+  .highlight-row .td-num  { color: var(--vermillion); font-weight: 700; }
+  .highlight-row .td-name { color: var(--vermillion); font-weight: 700; }
+
+  .group-label td {
+    font-size: 0.65rem;
+    color: rgba(93,64,55,0.45);
+    letter-spacing: 0.2em;
+    padding: 10px 10px 3px;
+    border-bottom: none !important;
+    font-style: italic;
+  }
+
+  /* ── 末尾偈頌 ── */
+  .footer-verse {
+    text-align: center;
+    font-size: 0.72rem;
+    color: rgba(93,64,55,0.5);
+    margin-top: 24px;
+    letter-spacing: 0.25em;
+    padding-top: 14px;
+    border-top: 1px solid var(--accent-dim);
+    line-height: 2.2;
+  }
+
+  .seal {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--accent);
+    opacity: 0.2;
+    margin: 18px 0 0;
+    letter-spacing: 0.3em;
+  }
+
+  @media (max-width: 500px) {
+    body { padding: 20px 16px 28px; }
+    .two-col { grid-template-columns: 1fr; gap: 0; }
+    .main-title { font-size: 1.3rem; }
+    .patriarchs-grid { gap: 3px 2px; }
+    .patriarch-name { font-size: 0.7rem; padding: 3px 7px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="title-block">
+    <div class="main-title">曹洞正宗</div>
+    <div class="sub-title">壽昌法派 · 鼓山續派　正法眼藏　歷代傳承</div>
+  </div>
+
+  <div class="section-title">東 土 諸 祖</div>
+  <div class="patriarchs-grid">
+    <div class="patriarch-item"><div class="patriarch-num">初祖</div><div class="patriarch-name">達摩圓覺</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">二祖</div><div class="patriarch-name">慧可大師</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">三祖</div><div class="patriarch-name">僧璨大師</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">四祖</div><div class="patriarch-name">道信大師</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">五祖</div><div class="patriarch-name">弘忍大師</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">六祖</div><div class="patriarch-name">慧能大師</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">七祖</div><div class="patriarch-name">青原行思</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">八祖</div><div class="patriarch-name">石頭希遷</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">九祖</div><div class="patriarch-name">藥山惟儼</div></div>
+    <div class="arrow-r">›</div>
+    <div class="patriarch-item"><div class="patriarch-num">十祖</div><div class="patriarch-name">雲巖曇晟</div></div>
+  </div>
+
+  <div class="divider-dot">· · ·</div>
+
+  <div class="section-title">壽 昌 法 派　歷 代 傳 承</div>
+  <div class="two-col">
+    <table class="lineage-table">
+      <tr class="group-label"><td colspan="2">開宗至南宋</td></tr>
+      <tr><td class="td-num">第 1 代</td><td class="td-name">洞山良价禪師</td></tr>
+      <tr><td class="td-num">第 2 代</td><td class="td-name">雲居道膺禪師</td></tr>
+      <tr><td class="td-num">第 3 代</td><td class="td-name">同安道丕禪師</td></tr>
+      <tr><td class="td-num">第 4 代</td><td class="td-name">同安觀志禪師</td></tr>
+      <tr><td class="td-num">第 5 代</td><td class="td-name">梁山緣觀禪師</td></tr>
+      <tr><td class="td-num">第 6 代</td><td class="td-name">大陽警玄禪師</td></tr>
+      <tr><td class="td-num">第 7 代</td><td class="td-name">投子義青禪師</td></tr>
+      <tr><td class="td-num">第 8 代</td><td class="td-name">芙蓉道楷禪師</td></tr>
+      <tr><td class="td-num">第 9 代</td><td class="td-name">丹霞子淳禪師</td></tr>
+      <tr><td class="td-num">第 10 代</td><td class="td-name">真歇清了禪師</td></tr>
+      <tr><td class="td-num">第 11 代</td><td class="td-name">天童宗玨禪師</td></tr>
+      <tr><td class="td-num">第 12 代</td><td class="td-name">雪竇智鑑禪師</td></tr>
+      <tr><td class="td-num">第 13 代</td><td class="td-name">天童如淨禪師</td></tr>
+      <tr><td class="td-num">第 14 代</td><td class="td-name">鹿門自覺禪師</td></tr>
+      <tr><td class="td-num">第 15 代</td><td class="td-name">普照一辨禪師</td></tr>
+      <tr class="group-label"><td colspan="2">元明至中興</td></tr>
+      <tr><td class="td-num">第 16 代</td><td class="td-name">大明僧寶禪師</td></tr>
+      <tr><td class="td-num">第 17 代</td><td class="td-name">玉山師體禪師</td></tr>
+      <tr><td class="td-num">第 18 代</td><td class="td-name">雪巖慧滿禪師</td></tr>
+      <tr><td class="td-num">第 19 代</td><td class="td-name">萬松行秀禪師</td></tr>
+      <tr><td class="td-num">第 20 代</td><td class="td-name">雪庭福裕禪師</td></tr>
+      <tr><td class="td-num">第 21 代</td><td class="td-name">靈隱文泰禪師</td></tr>
+      <tr><td class="td-num">第 22 代</td><td class="td-name">還源福遇禪師</td></tr>
+      <tr><td class="td-num">第 23 代</td><td class="td-name">淳拙文才禪師</td></tr>
+      <tr><td class="td-num">第 24 代</td><td class="td-name">松庭子巖禪師</td></tr>
+      <tr><td class="td-num">第 25 代</td><td class="td-name">凝然了改禪師</td></tr>
+      <tr><td class="td-num">第 26 代</td><td class="td-name">俱空契斌禪師</td></tr>
+      <tr><td class="td-num">第 27 代</td><td class="td-name">無方可從禪師</td></tr>
+      <tr><td class="td-num">第 28 代</td><td class="td-name">月舟文載禪師</td></tr>
+      <tr><td class="td-num">第 29 代</td><td class="td-name">大章宗書禪師</td></tr>
+      <tr><td class="td-num">第 30 代</td><td class="td-name">蘊空嘗忠禪師</td></tr>
+    </table>
+
+    <table class="lineage-table">
+      <tr class="group-label"><td colspan="2">壽昌中興</td></tr>
+      <tr class="highlight-row"><td class="td-num">第 31 代</td><td class="td-name">壽昌慧經禪師</td></tr>
+      <tr class="group-label"><td colspan="2">鼓山續派</td></tr>
+      <tr class="highlight-row"><td class="td-num">第 32 代</td><td class="td-name">永覺元賢禪師</td></tr>
+      <tr class="highlight-row"><td class="td-num">第 33 代</td><td class="td-name">為霖道霈禪師</td></tr>
+      <tr><td class="td-num">第 34 代</td><td class="td-name">恒濤大心禪師</td></tr>
+      <tr><td class="td-num">第 35 代</td><td class="td-name">遍照興隆禪師</td></tr>
+      <tr><td class="td-num">第 36 代</td><td class="td-name">清純法源禪師</td></tr>
+      <tr><td class="td-num">第 37 代</td><td class="td-name">東陽界初禪師</td></tr>
+      <tr><td class="td-num">第 38 代</td><td class="td-name">道源一信禪師</td></tr>
+      <tr><td class="td-num">第 39 代</td><td class="td-name">繼雲鼎善禪師</td></tr>
+      <tr><td class="td-num">第 40 代</td><td class="td-name">增輝新灼禪師</td></tr>
+      <tr><td class="td-num">第 41 代</td><td class="td-name">圓智通完禪師</td></tr>
+      <tr><td class="td-num">第 42 代</td><td class="td-name">能持天性禪師</td></tr>
+      <tr><td class="td-num">第 43 代</td><td class="td-name">雲程兼忍禪師</td></tr>
+      <tr><td class="td-num">第 44 代</td><td class="td-name">淨空微印禪師</td></tr>
+      <tr><td class="td-num">第 45 代</td><td class="td-name">悟源地本禪師</td></tr>
+      <tr><td class="td-num">第 46 代</td><td class="td-name">圓瑛耀性禪師</td></tr>
+      <tr><td class="td-num">第 47 代</td><td class="td-name">白聖古航禪師</td></tr>
+      <tr class="highlight-row"><td class="td-num">第 48 代</td><td class="td-name">達能復融禪師</td></tr>
+    </table>
+  </div>
+
+  <div class="seal">卍</div>
+  <div class="footer-verse">
+    壽昌法派：慧元道大興　法界一鼎新　通天無徹地　耀古復騰今<br>
+    鼓山續派：今日禪宗振　宏開洞上傳　正中妙挾旨　虛融照獨圓
+  </div>
+
+</body>
+</html>
