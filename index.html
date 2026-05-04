@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曹洞正宗 通法禪寺 — 互動翻頁書</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav id="mainNav" class="main-nav">
+            <button onclick="flipToPage(0)" class="nav-btn active-nav">
+                封面
+                <span class="nav-submenu"></span>
+            </button>
+            <button onclick="flipToPage(1)" class="nav-btn">
+                簡介
+                <span class="nav-submenu"></span>
+            </button>
+            <button onclick="flipToPage(2)" class="nav-btn">
+                法脈傳承
+                <span class="nav-submenu">
+                    <a onclick="switchLineage('direct')">直系傳承</a>
+                    <a onclick="switchLineage('caodong')">曹洞宗全圖</a>
+                    <a onclick="switchLineage('full')">通法寺法脈</a>
+                    <a onclick="switchLineage('shouchang')">壽昌法派</a>
+                    <a onclick="switchLineage('biographies')">祖師傳記</a>
+                </span>
+            </button>
+            <button onclick="flipToPage(5)" class="nav-btn">
+                文物典藏
+                <span class="nav-submenu">
+                    <a>院外</a>
+                    <a>一樓大殿</a>
+                    <a>三樓地藏殿</a>
+                    <a>四樓文殊殿</a>
+                </span>
+            </button>
+            <button onclick="flipToPage(6)" class="nav-btn">
+                現任執事
+                <span class="nav-submenu"></span>
+            </button>
+            <button onclick="flipToPage(7)" class="nav-btn">
+                寺務活動
+                <span class="nav-submenu"></span>
+            </button>
+            <button onclick="flipToPage(8)" class="nav-btn">
+                聯絡我們
+                <span class="nav-submenu"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- 書頁右側章節標籤 -->
+    <div id="pageTablet" class="page-tablet">
+        <div class="tablet-content">
+            <div class="tablet-label" id="tabletLabel">章節</div>
+            <div class="tablet-submenu" id="tabletSubmenu"></div>
+        </div>
+    </div>
+
+    <div class="book-container">
+        <div id="bookFlip">
+
+            <!-- ===== LEAF-0: 封面 ===== -->
+            <div class="leaf" id="leaf-0">
+                <div class="page-front cover-front">
+                    <div class="content-container" style="padding: 0; border: none; background: transparent;">
+                        <!-- 空白書邊 -->
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none; display: flex; align-items: center; justify-content: center;">
+                        <!-- 右頁：曹洞正宗　通法禪寺 書法封面 -->
+                        <div class="vertical-title-box">
+                            <div class="title-calligraphy-wrapper">
+                                <svg class="svg-caodong" viewBox="0 0 160 300" preserveAspectRatio="xMidYMid slice">
+                                    <defs>
+                                        <linearGradient id="calligraphyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#5d4037" />
+                                            <stop offset="50%" stop-color="#8c7355" />
+                                            <stop offset="100%" stop-color="#5d4037" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M106.8,11.2 c-7.3,10.6-13.8,22.1-17.5,35.1 c-2.4,11.4-2.8,24-0.1,36.7 c3.3,18.7,11.2,35.7,21.8,50 c11.3,17.4,26.8,32.4,46.1,41.9 c-3.9,0.7-7.7,2.1-11.4,4 c-17.2,10.1-30.8,23.3-39.1,38.3 c-12.7,28.8-12.2,59-2.7,86.6 c5.1,19.2,14.7,36,29.1,49.1 c-1.3,0.3-2.6,0.5-3.9,0.7 c-17.4,6.7-29.9,16-36.1,26.5 c-6,11.3-7.5,23.7-4.1,36 c5.4,18.9,18.9,32.7,42.5,43 c-1,0.2-2.1,0.4-3.1,0.6 c-11.8,4.1-20.7,9.6-25.7,15.6 c-5.8,10.2-6.5,21.9-2.2,33.5 c5.7,19.3,21,32.7,43.2,43 c-0.6,0.1-1.3,0.3-1.9,0.4 c-2.9,0.9-5.8,1.9-8.7,2.8 c-24.8,12-42.3,27.1-50.6,41.3 c-8.3,16-8.9,32.8-1.1,48.2 c10.3,22.7,35,36.5,70.6,44.9 C111.4,547.4,113,541,114.7,534.6 c-15.3-3.9-26.6-8.9-32.5-14.7 c-7-9.5-6.6-20.5-0.1-30.4 c6.1-10.7,19.9-22.1,40.1-31.1 c3-1.1,6-2.1,9.1-3.2 c-21,11-36.6,21.5-44.5,29.3 c-5.8,10.2-6,21.2-0.2,32.1 c5.1,10.3,17.3,19,34.8,26 c-23.7-1.1-41-6-50.4-13.8 c-9.9-10.3-9.6-22-1.3-32.3 c8.4-11,26.1-21,50.7-28 c-20.9-1.9-36.3-8.8-44.3-19.1 c-6.6-11.3-5-23.8,4.2-35.3 c8.1-11.3,24.2-20.6,46.5-27 c-17.5-6.1-29.8-14.9-35.5-24.7 c-6.4-12.7-5.1-26.4,3.1-39.7 c7.7-14.2,23.1-26.6,45.4-36.2 c-12.1-10.9-19.3-22.6-21.2-34.1 c-3-18.7,4.8-35.1,23.5-48 c15.6-11,35-18.1,55-22 c1.9-0.3,3.8-0.6,5.8-0.8 C163.6,183.1,133.3,143.9,106.8,11.2 Z" fill="url(#calligraphyGradient)"/>
+                                </svg>
+                                <div class="title-divider"></div>
+                                <div style="text-align: center; color: var(--accent-color); font-size: 1.2rem; letter-spacing: 4px; margin: 10px 0;">正宗</div>
+                                <svg class="svg-tongfa" viewBox="0 0 160 300" preserveAspectRatio="xMidYMid slice">
+                                    <path d="M129.5,86.2 c-1.6,12.2-6.6,23.8-14.5,34.2 c-11,15.6-28,27.5-48.5,35 c2.5-0.2,5.1-0.4,7.6-0.6 c11.5-0.6,22.2-1.9,31.7-3.6 c-26.6,15.3-48,27.7-60.6,35 c-10,10.6-11.3,21.7-4.1,30.3 c5.7,11.5,19.6,19,37,22 c-18.7-1-31.9-6-37.4-12.4 c-6.2-9-5.1-19.3,2.9-28.5 c7.5-10.2,22.2-21,42.5-30 c-18,6.2-28.2,14.6-28.2,22.3 c0,6.9,8.7,12,23.5,14 c-17.1-1.6-27-8.1-27-16.7 c0-11,15.1-23.3,42.4-33 c2.1-0.8,4.2-1.5,6.3-2.3 c-16,8.2-25.2,16.8-25.2,23.5 c0,6.1,8.1,10,21.1,11 c-11.4-1.2-18.3-6.2-18.3-12.8 c0-9.2,13.6-19.1,38.1-27 c2.1-0.7,4.3-1.4,6.5-2 c-23.7,1.1-41-6-50.4-13.8 c-9.9-10.3-9.6-22-1.3-32.3 c8.4-11,26.1-21,50.7-28 c-20.9-1.9-36.3-8.8-44.3-19.1 c-6.6-11.3-5-23.8,4.2-35.3 c8.1-11.3,24.2-20.6,46.5-27 c-17.5-6.1-29.8-14.9-35.5-24.7 c-6.4-12.7-5.1-26.4,3.1-39.7 c7.7-14.2,23.1-26.6,45.4-36.2 c-12.1-10.9-19.3-22.6-21.2-34.1 c-3-18.7,4.8-35.1,23.5-48 c15.6-11,35-18.1,55-22 c1.9-0.3,3.8-0.6,5.8-0.8 C163.6,183.1,133.3,143.9,106.8,11.2 Z" fill="url(#calligraphyGradient)"/>
+                                </svg>
+                                <div class="title-divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== LEAF-1: 扉頁 ===== -->
+            <div class="leaf" id="leaf-1">
+                <div class="page-front">
+                    <div class="content-container" style="padding: 0; border: none; background: transparent;">
+                        <!-- 左頁：空白扉頁 -->
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none; display: flex; align-items: center; justify-content: center;">
+                        <!-- 右頁：禪師偈語 書法 -->
+                        <div style="text-align: center;">
+                            <div style="color: var(--accent-color); font-size: 1.4rem; letter-spacing: 6px; margin-bottom: 20px; opacity: 0.6;">禪師偈語</div>
+                            <svg viewBox="0 0 240 380" xmlns="http://www.w3.org/2000/svg" style="width: 200px; height: auto; margin: 20px auto;">
+                                <defs>
+                                    <linearGradient id="jgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#5d4037" />
+                                        <stop offset="50%" stop-color="#8c7355" />
+                                        <stop offset="100%" stop-color="#5d4037" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- 偈語第一行 -->
+                                <text x="120" y="50" font-family="'Noto Serif TC', serif" font-size="20" font-weight="bold" fill="url(#jgGradient)" text-anchor="middle" letter-spacing="3">朢佛本願</text>
+                                <text x="120" y="85" font-family="'Noto Serif TC', serif" font-size="20" font-weight="bold" fill="url(#jgGradient)" text-anchor="middle" letter-spacing="3">意在眾生</text>
+                                
+                                <!-- 分隔線 -->
+                                <line x1="60" y1="110" x2="180" y2="110" stroke="rgba(198,160,89,0.3)" stroke-width="1"/>
+                                
+                                <!-- 偈語中部 -->
+                                <text x="120" y="150" font-family="'Noto Serif TC', serif" font-size="19" fill="url(#jgGradient)" text-anchor="middle" letter-spacing="2">對上以靜</text>
+                                <text x="120" y="180" font-family="'Noto Serif TC', serif" font-size="19" fill="url(#jgGradient)" text-anchor="middle" letter-spacing="2">對下以慈</text>
+                                
+                                <!-- 分隔線 -->
+                                <line x1="60" y1="205" x2="180" y2="205" stroke="rgba(198,160,89,0.3)" stroke-width="1"/>
+                                
+                                <!-- 偈語下部 -->
+                                <text x="120" y="245" font-family="'Noto Serif TC', serif" font-size="19" fill="url(#jgGradient)" text-anchor="middle" letter-spacing="2">對人以和</text>
+                                <text x="120" y="275" font-family="'Noto Serif TC', serif" font-size="19" fill="url(#jgGradient)" text-anchor="middle" letter-spacing="2">對事以真</text>
+                                
+                                <!-- 署名 -->
+                                <text x="120" y="340" font-family="'Noto Serif TC', serif" font-size="16" fill="rgba(93,64,55,0.6)" text-anchor="middle" opacity="0.8" font-style="italic">禪法心傳</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== LEAF-2: 簡介 （左圖右文）===== -->
+            <div class="leaf" id="leaf-2">
+                <div class="page-front">
+                    <div class="content-container" style="padding: 0; border: none;">
+                        <!-- 左頁：寺廟照片 -->
+                        <img src="assets/images/1000010663.jpg" alt="通法禪寺" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container">
+                        <h2>本寺簡介</h2>
+                        <p>通法禪寺，溫柔地坐落於台北市中正區。這裡是一處都市中的心靈淨土，我們秉持著曹洞宗法脈，以慈悲與智慧接待每一位到訪的信眾。</p>
+                        <p>寺內環境清幽，殿宇巍峨，將傳統的禪宗美學引入現代都市。無論您是尋求身心安頓，還是想研習佛法智慧，通法禪寺都隨時為您敞開溫暖的大門。</p>
+                        <div class="page-num">壹</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== LEAF-3: 法脈傳承 （左文右圖 - 特殊）===== -->
+            <div class="leaf" id="leaf-3">
+                <div class="page-front">
+                    <div class="content-container">
+                        <h2>法脈傳承</h2>
+                        <p class="section-intro">通法禪寺傳承曹洞宗法脈，自洞山良价禪師至現世，經歷千年法乳滋潤，於台灣弘揚禪法。</p>
+                        <div class="mermaid-section" style="margin-top: 20px;">
+                            <div class="toggle-group">
+                                <button id="btn-direct" class="toggle-btn active" onclick="switchLineage('direct')">直系傳承</button>
+                                <button id="btn-caodong" class="toggle-btn" onclick="switchLineage('caodong')">曹洞宗全圖</button>
+                                <button id="btn-full" class="toggle-btn" onclick="switchLineage('full')">通法寺法脈</button>
+                                <button id="btn-shouchang" class="toggle-btn" onclick="switchLineage('shouchang')">壽昌法派</button>
+                                <button id="btn-biographies" class="toggle-btn" onclick="switchLineage('biographies')">祖師傳記</button>
+                            </div>
+                        </div>
+                        <div class="page-num">貳</div>
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none; overflow: hidden;">
+                        <!-- 右頁：法脈圖表展示 -->
+                        <div class="mermaid-viewer">
+                            <!-- 圖一：直系傳承 -->
+                            <div id="mermaid-direct" class="mermaid-scroll-area active">
+                                <div class="mermaid">
+graph TD
+    A["洞山 良價"] --> D1["雲居 道膺"]
+    D1 --> H_K["芙蓉 道楷"]
+    H_K --> H_K_2_b["萬松 行秀"]
+    H_K_2_b --> J_S["雪庭 福裕"]
+    J_S --> M_S["無明 慧經"]
+    M_S --> N2_G["永覺 元賢"]
+    N2_G --> O2_D["鼓山歷代"]
+    O2_D --> ML["妙蓮法師"]
+    ML --> BZ["本忠和尚"]
+    ML --> YY["圓瑛長老"]
+    YY --> BS["白聖長老"]
+    BZ --> JL["覺力禪師"]
+    JL --> MZ["妙振老和尚"]
+    BS --> MZ
+    MZ --> DN["【現脈】達能老師和尚"]
+    style DN fill:#e8c37e,stroke:#5d4037,stroke-width:3px
+                                </div>
+                            </div>
+
+                            <!-- 圖二：曹洞宗全圖 -->
+                            <div id="mermaid-caodong" class="mermaid-scroll-area mermaid-lr">
+                                <div class="mermaid">
+graph LR
+    classDef coreMaster fill:#5d4037,color:#fffcf5,stroke:#c6a059,stroke-width:2px;
+    classDef shouchang fill:#8b3a2a,color:#fffcf5,stroke:#c6a059;
+    classDef gushan fill:#c6a059,color:#5d4037,stroke:#5d4037,stroke-width:1.5px;
+    classDef taiwan fill:#e8c37e,color:#5d4037,stroke:#5d4037,stroke-width:1.5px;
+
+    A["洞山 良價 807-869"]:::coreMaster --- B["曹山 本寂"]
+    A --- C["洞山 道全"]
+    A --- D["雲居 道膺 848-902"]:::coreMaster
+    D --- D1["同安 觀志"] --- D2["梁山 緣觀"] --- D3["太陽 警玄"]:::coreMaster
+    D3 --- E["投子 義青"] --- F["芙蓉 道楷"]:::coreMaster
+    F --- G["丹霞 子淳"]
+    G --- H1["宏智 正覺"]
+    G --- H2["真歇 清了"]
+    F --- I["鹿門 自覺"] --- I1["歷代傳承"] --- I2["萬松 行秀"]
+    I2 --- J["雪庭 福裕"]
+    I1 --- K["廩山 常忠"] --- L["無明 慧經 壽昌寺"]:::shouchang
+    L --- M1["無異 元來"]
+    L --- M2["永覺 元賢 鼓山湧泉寺"]:::gushan
+    L --- M3["晦台 元鏡"]
+    M2 --- N1["為霖 道霈"]:::gushan --- N2["鼓山歷代"]:::gushan
+    N2 --- ML["妙蓮 法師"]:::gushan
+    ML --- BZ["本忠 和尚"]:::gushan
+    ML --- YY["圓瑛 大師"]:::gushan
+    YY --- BS["白聖 長老"]:::taiwan
+    BZ --- JL["覺力 禪師"]:::taiwan
+    BS --- MZ["妙振 老和尚"]:::taiwan
+    JL --- MZ
+    MZ --- DN["達能 老師和尚"]:::taiwan
+    A --- AW["瓦屋 能光"]
+    D --- DA["琉山 匡仁"]
+    style DN fill:#c6a059,stroke:#5d4037,stroke-width:3px,color:#fffcf5
+                                </div>
+                                <div class="caodong-legend">
+                                    <span><i style="background:#5d4037"></i>唐宋祖師</span>
+                                    <span><i style="background:#8b3a2a"></i>壽昌中興</span>
+                                    <span><i style="background:#c6a059"></i>鼓山法派</span>
+                                    <span><i style="background:#e8c37e"></i>近代台灣</span>
+                                </div>
+                            </div>
+
+                            <!-- 圖三：通法寺法脈 -->
+                            <div id="mermaid-full" class="mermaid-scroll-area">
+                                <div class="mermaid">
+graph TD
+    A["洞山 良價"] --- B["曹山 本寂"]
+    A --- D["龍牙 居遁"]
+    D --- D1["雲居 道膺"]
+    D1 --- H_K["芙蓉 道楷"]
+    H_K --- H_K_1_a["宏智 正覺"]
+    H_K --- H_K_mid["歷代祖師"]
+    H_K_mid --- H_K_2_b["萬松 行秀"]
+    H_K_2_b --- J_S["雪庭 福裕"]
+    J_S --- M_S["無明 慧經"]
+    M_S --- N2_G["永覺 元賢"]
+    N2_G --- O2_D["鼓山歷代"]
+    O2_D --- ML["妙蓮法師"]
+    ML --- BZ["本忠和尚"]
+    ML --- YY["圓瑛長老"]
+    YY --- BS["白聖長老"]
+    BZ --- JL["覺力禪師"]
+    JL --- MZ["妙振老和尚"]
+    BS --- MZ
+    MZ --- DN["【現脈】達能老師和尚"]
+    style DN fill:#e8c37e,stroke:#5d4037,stroke-width:3px
+                                </div>
+                            </div>
+
+                            <!-- 圖四：壽昌法派 -->
+                            <div id="mermaid-shouchang" class="mermaid-scroll-area mermaid-iframe-area">
+                                <iframe src="assets/lineage/shouchang_lineage.html" class="lineage-iframe" title="壽昌法派歷代傳承" loading="lazy" scrolling="yes"></iframe>
+                            </div>
+
+                            <!-- 圖五：祖師傳記 -->
+                            <div id="mermaid-biographies" class="mermaid-scroll-area monk-biographies-area">
+                                <div class="biographies-grid" id="biographiesGrid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== 祖師傳記 LEAF（左肖像右傳記） ===== -->
+            <!-- 這些會由 JavaScript 動態生成或在這裡編寫 -->
+
+            <!-- ===== LEAF-5: 文物典藏 ===== -->
+            <div class="leaf" id="leaf-4">
+                <div class="page-front">
+                    <div class="content-container" style="padding: 0; border: none;">
+                        <!-- 左頁：文物照片 -->
+                        <img src="assets/images/artifacts/院外/1耳藥師佛.jpg" alt="文物" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container">
+                        <h2>文物典藏</h2>
+                        <div class="artifacts-gallery">
+                            <!-- 分類一：院外 -->
+                            <div class="artifact-section">
+                                <h3 class="artifact-category">院外</h3>
+                                <div class="artifact-grid">
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/院外/1耳藥師佛.jpg" alt="耳藥師佛">
+                                        <p class="artifact-title">耳藥師佛</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/院外/2藥石佛銘文.jpg" alt="藥石佛銘文">
+                                        <p class="artifact-title">藥石佛銘文</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/院外/3十一面觀音.jpg" alt="十一面觀音">
+                                        <p class="artifact-title">十一面觀音</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/院外/4十一面觀音銘文.jpg" alt="十一面觀音銘文">
+                                        <p class="artifact-title">十一面觀音銘文</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/院外/5觀音.jpg" alt="觀音">
+                                        <p class="artifact-title">觀音</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/院外/6觀音銘文.jpg" alt="觀音銘文">
+                                        <p class="artifact-title">觀音銘文</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 分類二：一樓大殿 -->
+                            <div class="artifact-section">
+                                <h3 class="artifact-category">一樓大殿</h3>
+                                <div class="artifact-grid">
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/一樓大殿/1釋迦摩尼佛與二尊者.jpg" alt="釋迦摩尼佛與二尊者">
+                                        <p class="artifact-title">釋迦摩尼佛與二尊者</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/一樓大殿/2觀音.jpg" alt="觀音">
+                                        <p class="artifact-title">觀音</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/一樓大殿/3不動明王與二侍者.jpg" alt="不動明王與二侍者">
+                                        <p class="artifact-title">不動明王與二侍者</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/一樓大殿/4地藏王菩薩(右).jpg" alt="地藏王菩薩(右)">
+                                        <p class="artifact-title">地藏王菩薩(右)</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/一樓大殿/5地藏菩薩(左).jpg" alt="地藏菩薩(左)">
+                                        <p class="artifact-title">地藏菩薩(左)</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/一樓大殿/6韋馱聖眾菩薩.jpg" alt="韋馱聖眾菩薩">
+                                        <p class="artifact-title">韋馱聖眾菩薩</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/一樓大殿/7韋馱天.jpg" alt="韋馱天">
+                                        <p class="artifact-title">韋馱天</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 分類三：三樓地藏殿 -->
+                            <div class="artifact-section">
+                                <h3 class="artifact-category">三樓地藏殿</h3>
+                                <div class="artifact-grid">
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/三樓地藏殿/1地藏王菩薩(前).jpg" alt="地藏王菩薩(前)">
+                                        <p class="artifact-title">地藏王菩薩(前)</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/三樓地藏殿/2地藏王菩薩(右).jpg" alt="地藏王菩薩(右)">
+                                        <p class="artifact-title">地藏王菩薩(右)</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/三樓地藏殿/3地藏王菩薩(左).jpg" alt="地藏王菩薩(左)">
+                                        <p class="artifact-title">地藏王菩薩(左)</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/三樓地藏殿/4地藏王菩薩(後).jpg" alt="地藏王菩薩(後)">
+                                        <p class="artifact-title">地藏王菩薩(後)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 分類四：四樓文殊殿 -->
+                            <div class="artifact-section">
+                                <h3 class="artifact-category">四樓文殊殿</h3>
+                                <div class="artifact-grid">
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/四樓文殊殿/1本殿布局.jpg" alt="本殿布局">
+                                        <p class="artifact-title">本殿布局</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/四樓文殊殿/2文殊菩薩.jpg" alt="文殊菩薩">
+                                        <p class="artifact-title">文殊菩薩</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/四樓文殊殿/3妙振和尚.jpg" alt="妙振和尚">
+                                        <p class="artifact-title">妙振和尚</p>
+                                    </div>
+                                    <div class="artifact-item">
+                                        <img src="assets/images/artifacts/四樓文殊殿/4達能和尚.jpg" alt="達能和尚">
+                                        <p class="artifact-title">達能和尚</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-num">參</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== LEAF-6: 現任執事 ===== -->
+            <div class="leaf" id="leaf-5">
+                <div class="page-front">
+                    <div class="content-container" style="padding: 0; border: none;">
+                        <!-- 左頁：執事法照 -->
+                        <img src="https://via.placeholder.com/400/d4a373/ffffff?text=法照" alt="執事法照" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container">
+                        <h2>現任執事</h2>
+                        <div class="officer-info">
+                            <h3>住持：達能老師和尚</h3>
+                            <p>現任法脈傳承者，領大眾修習默照禪風。</p>
+                            <p>秉持曹洞宗「動靜體悟」之精神，於現代都市中弘揚禪法。</p>
+                        </div>
+                        <div class="page-num">肆</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== LEAF-7: 寺務活動 ===== -->
+            <div class="leaf" id="leaf-6">
+                <div class="page-front">
+                    <div class="content-container" style="padding: 0; border: none;">
+                        <!-- 左頁：活動照片 -->
+                        <img src="assets/images/1000010663.jpg" alt="寺務活動" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container">
+                        <h2>寺務活動</h2>
+                        <ul class="activity-list">
+                            <li><span class="activity-title">共修法會</span>每月初一、十五 09:00 - 11:30</li>
+                            <li><span class="activity-title">禪修班</span>每週日 09:00 - 11:00</li>
+                            <li><span class="activity-title">法華經持誦</span>每月初八 14:00 - 16:00</li>
+                            <li><span class="activity-title">念佛法會</span>每季舉辦一次</li>
+                        </ul>
+                        <div class="page-num">伍</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== LEAF-7: 聯絡方式 ===== -->
+            <div class="leaf" id="leaf-7">
+                <div class="page-front">
+                    <div class="content-container">
+                        <!-- 左頁：聯絡資訊（電話、Line） -->
+                        <h2>聯絡方式</h2>
+                        
+                        <div class="contact-highlight">
+                            <div class="contact-item phone">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <h3>電話</h3>
+                                    <p>(02) 2345-6789</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item line">
+                                <i class="fab fa-line"></i>
+                                <div>
+                                    <h3>Line</h3>
+                                    <p>@tongfasi</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-extra">
+                            <div class="extra-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <strong>地址</strong>
+                                <p>台北市中正區○○路○○號</p>
+                            </div>
+                            
+                            <div class="extra-item">
+                                <i class="fas fa-envelope"></i>
+                                <strong>信箱</strong>
+                                <p>info@tongfasi.tw</p>
+                            </div>
+                            
+                            <div class="extra-item">
+                                <i class="fas fa-clock"></i>
+                                <strong>開放時間</strong>
+                                <p>週一至週日<br>09:00 - 17:00</p>
+                            </div>
+                        </div>
+
+                        <div class="page-num">陸</div>
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none; display: flex; align-items: center; justify-content: center;">
+                        <!-- 右頁：Google地圖 -->
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.5723469823456!2d121.50850762341071!3d25.034234277393098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a98765af66d5%3A0x1234567890abcdef!2z5pil5pil6Jut6Jut!5e0!3m2!1szh-TW!2stw!4v1234567890"
+                                width="100%" 
+                                height="100%" 
+                                style="border:none;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== 最後一頁：祝福 ===== -->
+            <div class="leaf" id="leaf-8">
+                <div class="page-front">
+                    <div class="content-container" style="padding: 0; border: none; background: transparent;">
+                        <!-- 空白 -->
+                    </div>
+                </div>
+                <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none; display: flex; align-items: center; justify-content: center;">
+                        <!-- 動畫觀音石像 -->
+                        <svg class="guanyin-icon" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <radialGradient id="lightRays">
+                                    <stop offset="0%" stop-color="#c6a059" stop-opacity="0.8"/>
+                                    <stop offset="100%" stop-color="#c6a059" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <circle cx="100" cy="80" r="90" fill="none" stroke="#c6a059" stroke-width="1" opacity="0.3" class="light-ring-1"/>
+                            <circle cx="100" cy="80" r="70" fill="none" stroke="#c6a059" stroke-width="1" opacity="0.2" class="light-ring-2"/>
+                            <circle cx="100" cy="60" r="45" fill="#c6a059" opacity="0.15" filter="url(#glow)"/>
+                            <ellipse cx="100" cy="60" rx="28" ry="32" fill="#d4a574" stroke="#8b6f47" stroke-width="1.5"/>
+                            <path d="M 75 45 Q 100 25 125 45 Q 100 35 75 45 Z" fill="#8b6f47" stroke="#5d4037" stroke-width="1"/>
+                            <ellipse cx="100" cy="62" rx="18" ry="20" fill="#deb887"/>
+                            <circle cx="94" cy="58" r="2" fill="#5d4037"/>
+                            <circle cx="106" cy="58" r="2" fill="#5d4037"/>
+                            <line x1="100" y1="60" x2="100" y2="66" stroke="#5d4037" stroke-width="1"/>
+                            <path d="M 92 70 Q 100 72 108 70" stroke="#8b6f47" stroke-width="1" fill="none"/>
+                            <rect x="93" y="88" width="14" height="12" fill="#deb887"/>
+                            <path d="M 100 100 Q 75 115 70 150 L 70 180 Q 85 200 100 210 Q 115 200 130 180 L 130 150 Q 125 115 100 100 Z" fill="#c9a961" stroke="#8b6f47" stroke-width="1.5"/>
+                            <path d="M 72 140 Q 65 160 62 180" stroke="#a89a7f" stroke-width="2" fill="none" opacity="0.6" class="flowing"/>
+                            <path d="M 128 140 Q 135 160 138 180" stroke="#a89a7f" stroke-width="2" fill="none" opacity="0.6" class="flowing"/>
+                            <circle cx="68" cy="130" r="5" fill="#deb887"/>
+                            <circle cx="132" cy="130" r="5" fill="#deb887"/>
+                            <ellipse cx="100" cy="225" rx="35" ry="8" fill="#8b6f47" opacity="0.8"/>
+                            <rect x="85" y="215" width="30" height="6" fill="#9d7e54" opacity="0.6"/>
+                        </svg>
+                        <h3 style="margin-top: 15px;">願以此功德 莊嚴佛淨土</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <script src="js/device-switcher.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
