@@ -327,28 +327,7 @@ let isFlipping = false;
 
 // 初始化書本
 function initBook() {
-    const bookFlip = document.getElementById('bookFlip');
-    if (bookFlip && !isMobile()) {
-        const bookWidth = Math.min(1100, window.innerWidth - 40);
-        const bookHeight = Math.round(window.innerHeight * 0.84);
-        bookFlip.style.width = bookWidth + 'px';
-        bookFlip.style.maxWidth = bookWidth + 'px';
-        bookFlip.style.height = bookHeight + 'px';
-        bookFlip.style.margin = '0 auto';
-        bookFlip.style.position = 'relative';
-
-        // 封面：強制高度和 SVG 尺寸
-        setTimeout(() => {
-            const coverFront = document.querySelector('#leaf-0 .page-front');
-            if (coverFront) {
-                coverFront.style.height = bookHeight + 'px';
-                const inner = coverFront.querySelector('div');
-                if (inner) inner.style.height = '100%';
-                const svg = coverFront.querySelector('svg');
-                if (svg) { svg.style.width = '55%'; svg.style.height = '85%'; }
-            }
-        }, 100);
-    }
+    // 尺寸由 book-engine.js 管理
 
     if (isMobile()) {
         initMobile();

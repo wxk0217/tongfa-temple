@@ -2182,12 +2182,4 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
     background-image: linear-gradient(to left, rgba(0,0,0,0.06) 0%, transparent 8%);
 }
 
-/* ===== 書本最大寬度限制，避免超出視窗 ===== */
-#bookFlip {
-    max-width: var(--book-width) !important;
-    width: var(--book-width) !important;
-    position: relative !important;
-    margin: 0 auto !important;
-    transform: none !important;
-    left: auto !important;
-}
+/* 書本尺寸由 book-engine.js 動態管理 */
