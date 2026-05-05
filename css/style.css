@@ -2151,3 +2151,24 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
     padding: 6px 8px;
     font-size: 0.7rem;
 }
+
+/* ===== 翻頁熱區視覺提示 ===== */
+.flip-zone {
+    position: absolute;
+    top: 0;
+    width: 18%;
+    height: 100%;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 2rem;
+    color: rgba(198, 160, 89, 0.7);
+    pointer-events: none;
+}
+.flip-zone-left  { left: 0;  background: linear-gradient(to right, rgba(93,64,55,0.08), transparent); }
+.flip-zone-right { right: 0; background: linear-gradient(to left,  rgba(93,64,55,0.08), transparent); }
+.book-container:hover .flip-zone { opacity: 1; }

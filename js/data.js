@@ -6,17 +6,17 @@
 const monkDatabase = {
     "洞山 良價": {
         short: "【唐】(807-869) 曹洞宗創始人，提倡「偏正五位」之說，禪風綿密，強調於日常生活中體悟佛法。",
-        image: "assets/images/monks/洞山良价.jpg",
+        image: "assets/img/monks/monk_01.jpg",
         full: null
     },
     "曹山 本寂": {
         short: "【唐】(840-901) 與洞山良價共創曹洞宗，將師法加以發揮，詮釋「五位君臣」義理，著述豐富。",
-        image: "assets/images/monks/曹山本寂.webp",
+        image: "assets/img/monks/monk_03.webp",
         full: null
     },
     "雲居 道膺": {
         short: "【唐】(848-902) 洞山良價之重要法嗣，於江西雲居山真如寺弘法三十餘年，為曹洞宗唐末五代繁衍的關鍵推手。",
-        image: "assets/images/monks/雲居道膺.webp",
+        image: "assets/img/monks/monk_02.webp",
         full: null
     },
     "芙蓉 道楷": {
@@ -36,7 +36,7 @@ const monkDatabase = {
     },
     "無明 慧經": {
         short: "【明】(1548-1618) 主持江西壽昌寺，史稱「壽昌中興」，提倡參究話頭與嚴持戒律，重整明末禪風。",
-        image: "assets/images/monks/無明慧經.webp",
+        image: "assets/img/monks/monk_05.webp",
         full: `無明慧經，撫州崇仁人，俗姓裴，其母生產不順，因得祖父頌念金剛經護持而順利分娩。慧經自幼聰穎，但天性澹然無所慾求，形貌舉止像是凌雲飛起的白鶴那樣卓異。起初慧經學習儒道，剛入學就能提出深奧的問題，但他志不在舉業，十七歲便決定尋求更高深的智慧。在一次因緣巧合下，他偶然看見了《金剛經》，便被其中玄妙的道理折服，於是決定出家求法。
 
 蘊空禪師當在廩山說法，便拜訪廩山在其身邊不辭勞苦服事三年，未曾違背師訓。直到慧經苦思《金剛經‧四句偈》，聞蘊空禪師說「若論四句偈，應當不離身。」的語句，突然茅塞頓開，做「本來無一字，徧界放光明」一偈，並開始對佛理有更深的認識。後來慧經與師兄弟討論《金剛經》，蘊空禪師告訴徒弟們：「不明白本宗奧義，那就不能完全讀懂《金剛經》。」並給了慧經《五燈會元》，慧經每有不懂處，就去問蘊空禪師，但蘊空禪師卻不回答，只能讓慧經自立修行。
@@ -45,7 +45,7 @@ const monkDatabase = {
     },
     "永覺 元賢": {
         short: "【明/清】(1578-1657) 住持福建鼓山湧泉寺，訂立清規並開創「鼓山法派」，此法脈近代對台灣佛教有深遠影響。",
-        image: "assets/images/monks/永覺元賢.webp",
+        image: "assets/img/monks/monk_04.webp",
         full: null
     },
     "妙蓮 法師": {
@@ -64,12 +64,12 @@ const monkDatabase = {
     },
     "圓瑛 大師": {
         short: "【清/民】(1878-1953) 近代高僧，曾任中國佛教會會長，倡導「禪淨雙修」，一生致力講經弘法與培育僧才。",
-        image: "assets/images/monks/圓瑛大師.jpg",
+        image: "assets/img/monks/monk_07.jpg",
         full: null
     },
     "白聖 長老": {
         short: "【民】(1904-1989) 來台後創辦佛學院，對台灣佛教傳戒、制度化與國際化貢獻卓著，為台灣當代佛教領袖。",
-        image: "assets/images/monks/白聖長老.webp",
+        image: "assets/img/monks/monk_06.webp",
         full: null
     },
     "覺力 禪師": {

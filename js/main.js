@@ -69,12 +69,6 @@ function buildWelcomeInstructions() {
 }
 
 function enterTemple() {
-    // 利用使用者互動預熱音效（符合瀏覽器 autoplay 政策）
-    zenAudio.play().then(() => {
-        zenAudio.pause();
-        zenAudio.currentTime = 0;
-    }).catch(() => {}); // 即使失敗也不中斷，使用者可之後手動開啟
-
     const overlay = document.getElementById('welcomeOverlay');
     overlay.classList.add('fade-out');
     setTimeout(() => { overlay.style.display = 'none'; }, 800);
@@ -92,10 +86,10 @@ function showHelp() {
     btn.innerHTML = '<i class="fas fa-times"></i> 關閉';
 }
 
-// 3. 頌缽音效控制（移除 alert，改用 toast）
-const zenAudio = document.getElementById('zenAudio');
-const audioBtn  = document.getElementById('audioBtn');
-const audioIcon = document.getElementById('audioIcon');
+// 音效暫時停用
+const zenAudio = null;
+const audioBtn  = null;
+const audioIcon = null;
 let isAudioPlaying = false;
 
 function showAudioToast(msg) {
@@ -118,21 +112,9 @@ function showAudioToast(msg) {
 }
 
 function toggleZenAudio(e) {
+    // 音效功能暫停，待日後以外部連結實現
     if (e) e.stopPropagation();
-    if (isAudioPlaying) {
-        zenAudio.pause();
-        audioIcon.className = 'fas fa-volume-mute';
-        audioBtn.classList.remove('playing');
-        isAudioPlaying = false;
-    } else {
-        zenAudio.play().then(() => {
-            audioIcon.className = 'fas fa-compact-disc';
-            audioBtn.classList.add('playing');
-            isAudioPlaying = true;
-        }).catch(() => {
-            showAudioToast('請先點擊畫面任意處後再試');
-        });
-    }
+    showAudioToast('音樂功能即將上線');
 }
 
 // 3. 彈出式生平視窗邏輯 (雙擊觸發，需有 full 傳記才開啟)
@@ -353,15 +335,16 @@ function initDesktop() {
         // 添加點擊翻頁功能
         leaf.style.cursor = 'pointer';
         leaf.addEventListener('click', function(e) {
-            // 點擊右半邊向前翻，左半邊向後翻
+            // 如果點擊到互動元素（按鈕、連結等），不觸發翻頁
+            if (e.target.closest('button, a, input, select, [onclick], .lineage-btn, .artifact-btn, .monk-node')) return;
             const rect = leaf.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
-            const isRightHalf = clickX > rect.width / 2;
-            
-            if (isRightHalf) {
-                nextPage();
-            } else {
+            const relX = clickX / rect.width;
+            // 只在最左 20% 或最右 20% 才觸發翻頁（兩側熱區）
+            if (relX <= 0.2) {
                 prevPage();
+            } else if (relX >= 0.8) {
+                nextPage();
             }
         });
     });
@@ -567,7 +550,7 @@ function flipToPage(targetLeafIndex) {
         setTimeout(() => {
             isFlipping = false;
             if (isTablet()) updateTabletArrows();
-        }, Math.abs(targetLeafIndex - currentLeaf) * 150 + 1200);
+        }, Math.abs(targetLeafIndex - currentLeaf) * 150 + 400);
     }
 }
 
