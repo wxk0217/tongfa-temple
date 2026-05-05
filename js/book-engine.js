@@ -64,39 +64,10 @@
 
     // ─── 封面初始化（leaf-0）────────────────────────────────────────────────
     function initCover(bookH) {
-        const leaf0 = getLeaf(0);
-        if (!leaf0) return;
-
-        const front = leaf0.querySelector('.page-front');
-        if (!front) return;
-
-        // page-front 需要明確高度（絕對定位時繼承父高）
-        front.style.height = bookH + 'px';
-
-        // 找到 SVG 外層 div 和 SVG
-        const wrapper = front.querySelector('div');
-        const svg     = front.querySelector('svg');
-
-        if (wrapper) {
-            wrapper.style.width          = '100%';
-            wrapper.style.height         = '100%';
-            wrapper.style.display        = 'flex';
-            wrapper.style.alignItems     = 'center';
-            wrapper.style.justifyContent = 'center';
-            wrapper.style.boxSizing      = 'border-box';
-            wrapper.style.border         = '3px double #c6a059';
-            wrapper.style.background     = 'rgba(255,252,245,0.65)';
-            wrapper.style.boxShadow      = 'inset 0 0 20px rgba(198,160,89,0.2)';
-        }
-        if (svg) {
-            // viewBox 0 0 160 300 → 比例 1:1.875，用 height 為主
-            const svgH = Math.round(bookH * 0.80);
-            const svgW = Math.round(svgH / 1.875);
-            svg.style.width  = svgW + 'px';
-            svg.style.height = svgH + 'px';
-            svg.style.maxWidth  = '90%';
-            svg.style.maxHeight = '90%';
-        }
+        // 封面 panel 直接在 leaf-0 層級，不受 backface-visibility 影響
+        const panel = document.getElementById('cover-panel');
+        if (!panel) return;
+        panel.style.height = bookH + 'px';
     }
 
     // ─── 視窗 resize 自動更新 ─────────────────────────────────────────────────

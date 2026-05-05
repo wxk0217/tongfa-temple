@@ -65,10 +65,27 @@
         <div id="bookFlip" class="book">
 
             <!-- ===== LEAF-0: 封面 ===== -->
-            <div class="leaf" id="leaf-0">
-                <div class="page-front cover-front" style="display:flex;align-items:center;justify-content:center;">
-                    <div style="width:85%;height:88%;display:flex;align-items:center;justify-content:center;border:3px double #c6a059;background:rgba(255,252,245,0.65);box-shadow:inset 0 0 20px rgba(198,160,89,0.2);">
-                        <svg viewBox="0 0 160 300" preserveAspectRatio="xMidYMid meet" style="width:55%;height:90%;">
+            <div class="leaf" id="leaf-0" style="transform-style:preserve-3d;">
+                <!-- 封面：直接在 leaf 層級，不受 backface-visibility 影響 -->
+                <div id="cover-panel" style="
+                    position:absolute; top:0; right:0;
+                    width:50%; height:100%;
+                    display:flex; align-items:center; justify-content:center;
+                    background:var(--paper-light);
+                    border:1px solid #e3dcc8;
+                    z-index:2;
+                    pointer-events:none;
+                ">
+                    <div style="
+                        width:82%; height:86%;
+                        display:flex; align-items:center; justify-content:center;
+                        border:3px double #c6a059;
+                        background:rgba(255,252,245,0.65);
+                        box-shadow:inset 0 0 20px rgba(198,160,89,0.2);
+                    ">
+                        <svg id="cover-svg" viewBox="0 0 160 300"
+                             preserveAspectRatio="xMidYMid meet"
+                             style="width:52%; height:84%;">
                             <defs>
                                         <linearGradient id="calligraphyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                                             <stop offset="0%" stop-color="#5d4037" />
@@ -80,11 +97,13 @@
                                 
                         
                         
+                        
                         </svg>
                     </div>
                 </div>
-                <div class="page-back" style="background:transparent;border:none;">
-                </div>
+                <!-- 標準 page-front/back 結構（翻頁引擎需要） -->
+                <div class="page-front cover-front" style="background:transparent;border:none;box-shadow:none;background-image:none;"></div>
+                <div class="page-back" style="background:transparent;border:none;box-shadow:none;background-image:none;"></div>
             </div>
 
             <!-- ===== LEAF-1: 扉頁 ===== -->
