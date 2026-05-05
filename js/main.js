@@ -246,57 +246,7 @@ document.addEventListener('mouseout', function(e) {
 // -------------------------------------------------------------------------
 
 // 5. 法脈圖切換邏輯（五圖）
-const LINEAGE_TABS = ['direct', 'caodong', 'full', 'shouchang', 'biographies'];
-
-function switchLineage(type) {
-    // 所有的頁籤 ID
-    const tabs = ['direct', 'caodong', 'full', 'shouchang', 'biographies'];
-    
-    tabs.forEach(t => {
-        document.getElementById('btn-' + t)?.classList.remove('active');
-        document.getElementById('mermaid-' + t)?.classList.remove('active');
-    });
-
-    document.getElementById('btn-' + type)?.classList.add('active');
-    const target = document.getElementById('mermaid-' + type);
-    
-    if (target) {
-        target.classList.add('active');
-        // 核心修正：強制重新渲染 Mermaid，否則隱藏頁籤會變空白
-        if (type !== 'shouchang' && type !== 'biographies') {
-            mermaid.init(undefined, target.querySelectorAll('.mermaid'));
-        }
-    }
-    
-    if (type === 'biographies') {
-        renderBiographiesGrid();
-    }
-}
-function renderBiographiesGrid() {
-    const grid = document.getElementById('biographiesGrid');
-    if (!grid || grid.children.length > 0) return; // 已生成過就不再生成
-    
-    const monksWithBio = Object.entries(monkDatabase).filter(([name, data]) => data.full || data.image);
-    
-    monksWithBio.forEach(([name, data]) => {
-        const card = document.createElement('div');
-        card.className = 'bio-card';
-        
-        const imgHtml = data.image ? `<img src="${data.image}" alt="${name}" class="bio-card-img">` : '';
-        const shortText = data.short.length > 80 ? data.short.substring(0, 77) + '...' : data.short;
-        
-        card.innerHTML = `
-            ${imgHtml}
-            <div class="bio-card-content">
-                <h3 class="bio-card-name">${name}</h3>
-                <p class="bio-card-short">${shortText}</p>
-                <button class="bio-card-btn" onclick="openModal('${name}')">查看完整傳記</button>
-            </div>
-        `;
-        
-        grid.appendChild(card);
-    });
-}
+// → lineage.js
 
 // 6. 裝置偵測（三段式：桌機 / 觸控平板 / 手機）
 // 優先檢查device-switcher的設置，否則自動檢測
@@ -515,23 +465,30 @@ function flipToPage(targetLeafIndex) {
     isFlipping = true;
     updateNavActive(targetLeafIndex);
 
-    // --- 新增：控制封面隱藏 ---
-    if (targetLeafIndex === 0) {
-        document.body.classList.remove('not-at-cover');
-    } else {
-        document.body.classList.add('not-at-cover');
-    }
-    // -----------------------
-
     if (isMobile()) {
-        // ... (保持原本手機版翻頁代碼)
-    } else {
-        // ... (保持原本桌機版翻頁代碼)
-    }
-    
-    currentLeaf = targetLeafIndex;
-    // ... (其餘邏輯)
-}
+        // 手機：淡出淡入動畫（上下滑動效果）
+        const outLeaf = leaves[currentLeaf];
+        const inLeaf  = leaves[targetLeafIndex];
+
+        // 準備：新頁先設為不可見
+        inLeaf.style.transition = 'none';
+        inLeaf.style.opacity = '0';
+        inLeaf.classList.remove('mobile-active', 'mobile-prev');
+        inLeaf.style.display = 'block';
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                // 開始動畫
+                inLeaf.style.transition = 'opacity 0.4s ease';
+                inLeaf.style.opacity = '1';
+                inLeaf.classList.add('mobile-active');
+
+                outLeaf.style.transition = 'opacity 0.4s ease';
+                outLeaf.style.opacity = '0';
+                outLeaf.classList.remove('mobile-active');
+                outLeaf.classList.add('mobile-prev');
+            });
+        });
 
         currentLeaf = targetLeafIndex;
         updateMobileNavBar();

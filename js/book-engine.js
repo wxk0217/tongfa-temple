@@ -103,21 +103,22 @@
 
 })();
 
-    // ─── 封面覆蓋層顯示/隱藏 ─────────────────────────────────────────────────
-    function updateCoverOverlay(currentLeaf) {
-        const overlay = document.getElementById('cover-overlay');
-        if (!overlay) return;
-        overlay.style.display = currentLeaf === 0 ? 'flex' : 'none';
+    // ─── 封面覆蓋層顯示/隱藏（配合 fix.css 的 body.not-at-cover）──────────
+    function updateCoverOverlay(leafIndex) {
+        if (leafIndex === 0) {
+            document.body.classList.remove('not-at-cover');
+        } else {
+            document.body.classList.add('not-at-cover');
+        }
     }
 
-    // 監聽 flipToPage 呼叫（透過自定義事件）
     document.addEventListener('pageChanged', function(e) {
         updateCoverOverlay(e.detail.leaf);
     });
 
-    // 初始顯示
     onReady(function() {
-        setTimeout(function() { updateCoverOverlay(0); }, 100);
+        // 初始在封面頁，確保封面顯示
+        setTimeout(function() { updateCoverOverlay(0); }, 80);
     });
 
     window.BookEngine.updateCoverOverlay = updateCoverOverlay;
