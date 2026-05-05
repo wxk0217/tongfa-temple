@@ -2184,3 +2184,23 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
 #leaf-0 .page-back {
     display: none;
 }
+
+/* ===== 封面 SVG 填滿右半頁 ===== */
+#leaf-0 .page-front .content-container {
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+#leaf-0 .vertical-title-box {
+    width: 80% !important;
+    height: 85% !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+#leaf-0 .svg-caodong {
+    width: 100% !important;
+    height: 100% !important;
+}
