@@ -1,4 +1,4 @@
-/**
+//**
  * flip-engine.js
  * 翻頁書核心引擎
  * 負責：3D翻頁動畫、桌機/平板/手機三種模式初始化、手勢偵測
@@ -85,6 +85,8 @@ function _flipDesktop(targetIdx) {
 
     if (isForward) {
         for (let i = currentLeaf; i < targetIdx; i++) {
+            // 顯示即將翻到的 leaf
+            if (leaves[i + 1]) leaves[i + 1].style.visibility = 'visible';
             setTimeout(() => {
                 leaves[i].classList.add('flipping', 'flipped');
                 setTimeout(() => {
@@ -96,6 +98,7 @@ function _flipDesktop(targetIdx) {
         }
     } else {
         for (let i = currentLeaf - 1; i >= targetIdx; i--) {
+            leaves[i].style.visibility = 'visible';
             setTimeout(() => {
                 leaves[i].classList.add('flipping');
                 leaves[i].classList.remove('flipped');
@@ -124,6 +127,13 @@ function initDesktop() {
         leaf.style.zIndex = leaves.length - index;
         leaf.style.transform = '';
         leaf.classList.remove('mobile-active', 'mobile-prev');
+        // 初始只顯示 leaf-0，其他 leaf 等翻頁時才顯示 iframe
+        // 防止低層 leaf 的 page-front 透出來
+        if (index > 0) {
+            leaf.style.visibility = 'hidden';
+        } else {
+            leaf.style.visibility = 'visible';
+        }
 
         // 翻頁熱區（左右20%）
         if (!leaf.dataset.clickInited) {
