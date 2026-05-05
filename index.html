@@ -6,51 +6,21 @@
     <title>曹洞正宗 通法禪寺 — 互動翻頁書</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fix.css"> <!-- 新增這一行 -->
 </head>
 <body>
 
     <header>
-        <nav id="mainNav" class="main-nav">
-            <button onclick="flipToPage(0)" class="nav-btn active-nav">
-                封面
-                <span class="nav-submenu"></span>
-            </button>
-            <button onclick="flipToPage(2)" class="nav-btn">
-                簡介
-                <span class="nav-submenu"></span>
-            </button>
-            <button onclick="flipToPage(3)" class="nav-btn">
-                法脈傳承
-                <span class="nav-submenu">
-                    <a onclick="switchLineage('direct')">直系傳承</a>
-                    <a onclick="switchLineage('caodong')">曹洞宗全圖</a>
-                    <a onclick="switchLineage('full')">通法寺法脈</a>
-                    <a onclick="switchLineage('shouchang')">壽昌法派</a>
-                    <a onclick="switchLineage('biographies')">祖師傳記</a>
-                </span>
-            </button>
-            <button onclick="flipToPage(4)" class="nav-btn">
-                文物典藏
-                <span class="nav-submenu">
-                    <a>院外</a>
-                    <a>一樓大殿</a>
-                    <a>三樓地藏殿</a>
-                    <a>四樓文殊殿</a>
-                </span>
-            </button>
-            <button onclick="flipToPage(5)" class="nav-btn">
-                現任執事
-                <span class="nav-submenu"></span>
-            </button>
-            <button onclick="flipToPage(6)" class="nav-btn">
-                寺務活動
-                <span class="nav-submenu"></span>
-            </button>
-            <button onclick="flipToPage(7)" class="nav-btn">
-                聯絡我們
-                <span class="nav-submenu"></span>
-            </button>
-        </nav>
+        
+           <nav id="mainNav" class="main-nav">
+    <button onclick="flipToPage(0)" class="nav-btn active-nav">封面</button>
+    <button onclick="flipToPage(2)" class="nav-btn">簡介</button>
+    <button onclick="flipToPage(3)" class="nav-btn">法脈傳承</button>
+    <button onclick="flipToPage(4)" class="nav-btn">文物典藏</button>
+    <button onclick="flipToPage(5)" class="nav-btn">現任執事</button>
+    <button onclick="flipToPage(6)" class="nav-btn">寺務活動</button>
+    <button onclick="flipToPage(7)" class="nav-btn">聯絡我們</button>
+</nav>
     </header>
 
     <!-- 書頁右側章節標籤 -->
