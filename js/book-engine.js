@@ -61,64 +61,8 @@
 
         return { w, h, mode };
     }
-
-    // ─── 封面初始化（leaf-0）────────────────────────────────────────────────
-    function initCover(bookH) {
-        // 封面 panel 直接在 leaf-0 層級，不受 backface-visibility 影響
-        const panel = document.getElementById('cover-panel');
-        if (!panel) return;
-        panel.style.height = bookH + 'px';
-    }
-
-    // ─── 視窗 resize 自動更新 ─────────────────────────────────────────────────
-    let resizeTimer = null;
-    window.addEventListener('resize', function () {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-            const result = applyBookSize();
-            if (result) initCover(result.h);
-        }, 200);
-    });
-
-    // ─── DOM 載入完成後執行 ────────────────────────────────────────────────────
-    function onReady(fn) {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', fn);
-        } else {
-            fn();
-        }
-    }
-
-    onReady(function () {
-        const result = applyBookSize();
-        if (result) {
-            // 等 main.js 的 initBook() 執行完再修封面
-            // （initBook 在 DOMContentLoaded 裡呼叫，與這個 handler 同批次）
-            setTimeout(function () { initCover(result.h); }, 50);
-        }
-    });
-
-    // 公開 API（方便 main.js 或 console 呼叫）
-    window.BookEngine = { applyBookSize, initCover, calcBookSize };
+    // 公開 API
+    window.BookEngine = { applyBookSize, calcBookSize };
 
 })();
-
-    // ─── 封面覆蓋層顯示/隱藏（配合 fix.css 的 body.not-at-cover）──────────
-    function updateCoverOverlay(leafIndex) {
-        if (leafIndex === 0) {
-            document.body.classList.remove('not-at-cover');
-        } else {
-            document.body.classList.add('not-at-cover');
-        }
-    }
-
-    document.addEventListener('pageChanged', function(e) {
-        updateCoverOverlay(e.detail.leaf);
-    });
-
-    onReady(function() {
-        // 初始在封面頁，確保封面顯示
-        setTimeout(function() { updateCoverOverlay(0); }, 80);
-    });
-
-    window.BookEngine.updateCoverOverlay = updateCoverOverlay;
+    // 封面改為 iframe，不再需要 overlay 控制
