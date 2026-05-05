@@ -2183,9 +2183,11 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
 }
 
 /* ===== 書本最大寬度限制，避免超出視窗 ===== */
-.book-flip {
+#bookFlip {
     max-width: var(--book-width) !important;
+    width: var(--book-width) !important;
+    position: relative !important;
     margin: 0 auto !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    transform: none !important;
+    left: auto !important;
 }
