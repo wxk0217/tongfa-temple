@@ -564,6 +564,7 @@ function flipToPage(targetLeafIndex) {
             }
         }
         currentLeaf = targetLeafIndex;
+        document.dispatchEvent(new CustomEvent("pageChanged", {detail:{leaf:currentLeaf}}));
         setTimeout(() => {
             isFlipping = false;
             if (isTablet()) updateTabletArrows();
