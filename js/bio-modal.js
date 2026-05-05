@@ -1,4 +1,4 @@
-/**
+//**
  * bio-modal.js
  * 祖師傳記彈窗 + Tooltip 懸浮卡片
  * 依賴：data.js（monkDatabase）
@@ -197,3 +197,41 @@ function _showMonkSheet(name) {
 function closeMonkSheet() {
     document.getElementById('monkInfoSheet')?.classList.remove('show');
 }
+
+// ─── 接收來自 lineage iframe 的訊息 ──────────────────────────────────────────
+window.addEventListener('message', function(e) {
+    const d = e.data;
+    if (!d || !d.action) return;
+
+    if (d.action === 'openModal') {
+        openModal(d.name);
+    }
+    else if (d.action === 'showTooltip') {
+        const data = _getMonkData(d.name);
+        if (!data) return;
+        const tip = document.getElementById('hoverTooltip');
+        if (!tip) return;
+        let short = data.short || '資料整理中...';
+        if (short.length > 60) short = short.slice(0, 57) + '…';
+        const hint = data.full ? '<span class="tooltip-hint">雙擊查看完整傳記</span>' : '';
+        const img  = data.image
+            ? `<img class="tooltip-portrait" src="${data.image}" alt="${d.name}" onerror="this.style.display='none'">`
+            : '';
+        tip.innerHTML = `<div class="tooltip-inner">${img}<div class="tooltip-text">
+            <span class="tooltip-name">${d.name}</span>
+            <span class="tooltip-short">${short}</span>
+            ${hint}
+        </div></div>`;
+        tip.classList.add('show');
+        // 定位到法脈圖 iframe 中央上方
+        const frame = document.getElementById('lineage-frame');
+        if (frame) {
+            const r = frame.getBoundingClientRect();
+            tip.style.left = (r.left + r.width / 2 - 150) + 'px';
+            tip.style.top  = (r.top + 40) + 'px';
+        }
+    }
+    else if (d.action === 'hideTooltip') {
+        document.getElementById('hoverTooltip')?.classList.remove('show');
+    }
+});

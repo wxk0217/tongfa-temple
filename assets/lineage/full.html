@@ -101,5 +101,58 @@ graph TD
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({{ startOnLoad: true, theme: "base", themeVariables: {{ primaryColor: "#5d4037", primaryTextColor: "#fffcf5", primaryBorderColor: "#c6a059", lineColor: "#c6a059", secondaryColor: "#f5eedc", tertiaryColor: "#fffcf5" }} }});</script>
     
+
+    <script>
+    // 法脈圖節點點擊 → 通知主頁面開啟傳記彈窗
+    (function() {
+        var tapTimer = null;
+
+        function getName(node) {
+            var label = node.querySelector('.nodeLabel, .label, text');
+            if (!label) return '';
+            return (label.textContent || label.innerHTML || '').replace(/<[^>]*>/g, '').trim();
+        }
+
+        // 桌機：雙擊
+        document.addEventListener('dblclick', function(e) {
+            var node = e.target.closest('.node');
+            if (!node) return;
+            var name = getName(node);
+            if (name) window.parent.postMessage({ action: 'openModal', name: name }, '*');
+        });
+
+        // 觸控：單點顯示 tooltip，雙點開彈窗
+        document.addEventListener('touchend', function(e) {
+            var node = e.target.closest('.node');
+            if (!node) return;
+            e.preventDefault();
+            var name = getName(node);
+            if (!name) return;
+            if (tapTimer) {
+                clearTimeout(tapTimer);
+                tapTimer = null;
+                window.parent.postMessage({ action: 'openModal', name: name }, '*');
+            } else {
+                tapTimer = setTimeout(function() {
+                    tapTimer = null;
+                    window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+                }, 280);
+            }
+        }, { passive: false });
+
+        // 桌機：hover → tooltip
+        document.addEventListener('mouseover', function(e) {
+            var node = e.target.closest('.node');
+            if (!node) return;
+            var name = getName(node);
+            if (name) window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+        });
+        document.addEventListener('mouseout', function(e) {
+            if (e.target.closest('.node'))
+                window.parent.postMessage({ action: 'hideTooltip' }, '*');
+        });
+    })();
+    </script>
+
 </body>
 </html>
