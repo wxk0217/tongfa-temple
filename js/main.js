@@ -292,16 +292,16 @@ function renderBiographiesGrid() {
 // 優先檢查device-switcher的設置，否則自動檢測
 const isTouchDevice = () => ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 const getDevicePreference = () => document.documentElement.getAttribute('data-device');
-const isMobile  = () => getDevicePreference() === 'mobile' || (getDevicePreference() === null && window.innerWidth <= 767);
-const isTablet  = () => getDevicePreference() === 'tablet' || (getDevicePreference() === null && isTouchDevice() && !isMobile());
-const isDesktop = () => getDevicePreference() === 'desktop' || (getDevicePreference() === null && !isTouchDevice());
+const isMobile  = () => getDevicePreference() === 'mobile'  || (getDevicePreference() === null && window.innerWidth <= 767);
+const isTablet  = () => getDevicePreference() === 'tablet'  || (getDevicePreference() === null && window.innerWidth > 767 && window.innerWidth <= 1100 && isTouchDevice());
+const isDesktop = () => getDevicePreference() === 'desktop' || (getDevicePreference() === null && window.innerWidth > 767 && !(window.innerWidth <= 1100 && isTouchDevice()));
 
 function getDeviceType() {
     const pref = getDevicePreference();
     if (pref) return pref;
     if (window.innerWidth <= 767) return 'mobile';
-    if (isTouchDevice()) return 'tablet';
-    return 'desktop';
+    if (window.innerWidth <= 1100 && isTouchDevice()) return 'tablet';
+    return 'desktop';  // 寬度 > 1100px 一律桌機模式，不管有沒有觸控
 }
 
 // 7. 翻書引擎核心
