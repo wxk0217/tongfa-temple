@@ -59,17 +59,19 @@ const INSTRUCTIONS = {
 };
 
 function buildWelcomeInstructions() {
+    const el = document.getElementById('welcomeInstructions');
+    if (!el) return;
     const type = getDeviceType();
     const inst  = INSTRUCTIONS[type];
     const ul    = inst.items.map(t => `<li>${t}</li>`).join('');
-    document.getElementById('welcomeInstructions').innerHTML =
-        `<span class="inst-title">◈ ${inst.title}</span><ul>${ul}</ul>`;
-    document.getElementById('welcomeAudioNote').textContent =
-        '點擊入寺後即可啟用頌缽背景音樂';
+    el.innerHTML = `<span class="inst-title">◈ ${inst.title}</span><ul>${ul}</ul>`;
+    const note = document.getElementById('welcomeAudioNote');
+    if (note) note.textContent = '點擊入寺後即可啟用頌缽背景音樂';
 }
 
 function enterTemple() {
     const overlay = document.getElementById('welcomeOverlay');
+    if (!overlay) return;
     overlay.classList.add('fade-out');
     setTimeout(() => { overlay.style.display = 'none'; }, 800);
 }
@@ -77,13 +79,14 @@ function enterTemple() {
 // 說明按鈕（右下角）
 function showHelp() {
     buildWelcomeInstructions();
-    document.getElementById('welcomeAudioNote').textContent = '';
+    const note = document.getElementById('welcomeAudioNote');
+    if (note) note.textContent = '';
     const overlay = document.getElementById('welcomeOverlay');
+    if (!overlay) return;
     overlay.style.display = 'flex';
     overlay.classList.remove('fade-out');
-    // 把「入寺參禮」按鈕文字改為「關閉」
     const btn = overlay.querySelector('.welcome-enter-btn');
-    btn.innerHTML = '<i class="fas fa-times"></i> 關閉';
+    if (btn) btn.innerHTML = '<i class="fas fa-times"></i> 關閉';
 }
 
 // 音效暫時停用
@@ -628,7 +631,7 @@ window.addEventListener('resize', () => {
 
 // 啟動
 document.addEventListener('DOMContentLoaded', () => {
-    // 歡迎頁初始化
+    // 歡迎頁初始化（如果有的話）
     buildWelcomeInstructions();
 
     // 注入右下角說明按鈕
