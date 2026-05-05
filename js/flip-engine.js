@@ -1,13 +1,13 @@
-//**
+/**
  * flip-engine.js
  * 翻頁書核心引擎
  * 負責：3D翻頁動畫、桌機/平板/手機三種模式初始化、手勢偵測
  */
 
 // ─── 全域狀態 ────────────────────────────────────────────────────────────────
-const leaves     = document.querySelectorAll('.leaf');
-let currentLeaf  = 0;
-let isFlipping   = false;
+let leaves      = [];   // 在 initBook 時才初始化，確保 DOM 已就緒
+let currentLeaf = 0;
+let isFlipping  = false;
 
 // ─── 裝置偵測（與 main.js 共用）────────────────────────────────────────────
 const isTouchDevice  = () => ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
@@ -232,6 +232,9 @@ function _updateMobilePageInfo() {
 
 // ─── 書本入口 ─────────────────────────────────────────────────────────────────
 function initBook() {
+    // 每次初始化都重新取得，確保 DOM 已就緒
+    leaves = Array.from(document.querySelectorAll('.leaf'));
+
     // 清除錯誤的 localStorage 偏好
     const saved = localStorage.getItem('devicePreference');
     if ((saved === 'mobile' || saved === 'tablet') && window.innerWidth > 1100) {

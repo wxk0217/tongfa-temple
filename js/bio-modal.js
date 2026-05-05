@@ -1,23 +1,18 @@
-//**
+/**
  * bio-modal.js
  * 祖師傳記彈窗 + Tooltip 懸浮卡片
  * 依賴：data.js（monkDatabase）
  * 讀取優先順序：docs/monk/{name}.md → data.js full → data.js short
  */
 
-// ─── MD 路徑解析 ─────────────────────────────────────────────────────────────
-// monkDatabase 的 key 可能含空格，統一移除後對應到 docs/monk/{name}.md
-function _mdPath(name) {
-    return `docs/monk/${name.replace(/\s/g, '')}.md`;
-}
-
+// ─── 資料查詢（使用 data.js 的 getMonkData）──────────────────────────────
 function _getMonkData(name) {
+    if (typeof getMonkData === 'function') return getMonkData(name);
     if (typeof monkDatabase === 'undefined') return null;
     if (monkDatabase[name]) return monkDatabase[name];
-    // 容錯：移除空格後比對
-    const clean = name.replace(/\s/g, '');
+    const clean = name.replace(/\s+/g, '');
     for (const key of Object.keys(monkDatabase)) {
-        if (key.replace(/\s/g, '') === clean) return monkDatabase[key];
+        if (key.replace(/\s+/g, '') === clean) return monkDatabase[key];
     }
     return null;
 }
@@ -28,14 +23,18 @@ function openModal(name) {
     const data = _getMonkData(cleanName);
     if (!data) return;
 
-    // 優先讀 docs/monk/*.md
-    fetch(_mdPath(cleanName))
-        .then(r => { if (!r.ok) throw new Error('no md'); return r.text(); })
-        .then(md  => _showModal(cleanName, md, data.image))
-        .catch(()  => {
-            // fallback：data.js 的 full 欄位
-            if (data.full) _showModal(cleanName, data.full, data.image);
-        });
+    // 優先使用 data.js 指定的 mdFile 路徑
+    if (data.mdFile) {
+        fetch(data.mdFile)
+            .then(r => { if (!r.ok) throw new Error('md 404'); return r.text(); })
+            .then(md => _showModal(cleanName, md, data.image))
+            .catch(() => {
+                // fallback：data.js 的 full 欄位
+                if (data.full) _showModal(cleanName, data.full, data.image);
+            });
+    } else if (data.full) {
+        _showModal(cleanName, data.full, data.image);
+    }
 }
 
 function _showModal(name, content, imgPath) {

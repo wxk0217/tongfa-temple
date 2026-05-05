@@ -1,101 +1,58 @@
 /**
- * 裝置版本切換系統
- * 允許用戶在 Desktop / Tablet / Mobile 間切換
+ * device-switcher.js
+ * 裝置切換（桌機 / 平板 / 手機）
+ * 不重複建立 UI — index.html 已有按鈕，這裡只負責邏輯
  */
+(function () {
+    'use strict';
 
-class DeviceSwitcher {
-    constructor() {
-        this.userPreference = localStorage.getItem('devicePreference');
-        this.actualDevice = this.detectActualDevice();
-        this.currentMode = this.userPreference || this.actualDevice;
-        this.init();
-    }
-
-    detectActualDevice() {
-        const width = window.innerWidth;
-        if (width < 768) return 'mobile';
-        if (width < 1200) return 'tablet';
+    function detectDevice() {
+        const saved = localStorage.getItem('devicePreference');
+        if (saved) return saved;
+        const w = window.innerWidth;
+        if (w <= 767)  return 'mobile';
+        if (w <= 1100) return 'tablet';
         return 'desktop';
     }
 
-    init() {
-        document.documentElement.setAttribute('data-device', this.currentMode);
-        this.createSwitcher();
-        window.addEventListener('resize', () => this.onResize());
+    function applyDevice(device) {
+        document.documentElement.setAttribute('data-device', device);
+
+        // 更新按鈕 active 狀態
+        document.querySelectorAll('.device-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.device === device);
+        });
+
+        // 重新初始化書本
+        if (typeof initBook === 'function') initBook();
     }
 
-    createSwitcher() {
-        const nav = document.querySelector('nav');
-        if (!nav) return;
+    // 全域切換函數（供 onclick 呼叫）
+    window.setDevice = function (device) {
+        localStorage.setItem('devicePreference', device);
+        applyDevice(device);
+    };
 
-        const switcherHTML = `
-            <div class="device-switcher">
-                <button class="device-btn" data-device="desktop" title="電腦版">
-                    <i class="fas fa-desktop"></i>
-                </button>
-                <button class="device-btn" data-device="tablet" title="平板版">
-                    <i class="fas fa-tablet-alt"></i>
-                </button>
-                <button class="device-btn" data-device="mobile" title="手機版">
-                    <i class="fas fa-mobile-alt"></i>
-                </button>
-            </div>
-        `;
-
-        nav.insertAdjacentHTML('beforeend', switcherHTML);
-
-        // 設置活動按鈕
-        this.updateSwitcherUI();
-
-        // 添加事件監聽
-        document.querySelectorAll('.device-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const device = e.currentTarget.dataset.device;
-                this.switchToDevice(device);
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function () {
+        // 綁定 index.html 裡已有的按鈕
+        document.querySelectorAll('.device-btn[data-device]').forEach(btn => {
+            btn.addEventListener('click', function () {
+                window.setDevice(this.dataset.device);
             });
         });
-    }
 
-    switchToDevice(device) {
-        this.currentMode = device;
-        localStorage.setItem('devicePreference', device);
-        document.documentElement.setAttribute('data-device', device);
-        this.updateSwitcherUI();
-        this.onDeviceSwitch();
-    }
+        // 套用初始裝置
+        applyDevice(detectDevice());
+    });
 
-    updateSwitcherUI() {
-        document.querySelectorAll('.device-btn').forEach(btn => {
-            if (btn.dataset.device === this.currentMode) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-    }
-
-    onResize() {
-        // 只有在用戶沒有手動選擇時才自動調整
-        if (!this.userPreference) {
-            const newDevice = this.detectActualDevice();
-            if (newDevice !== this.currentMode) {
-                this.currentMode = newDevice;
-                document.documentElement.setAttribute('data-device', newDevice);
-                this.updateSwitcherUI();
-                this.onDeviceSwitch();
-            }
-        }
-    }
-
-    onDeviceSwitch() {
-        // 重新初始化書籍
-        if (window.initBook) {
-            window.initBook();
-        }
-    }
-}
-
-// 初始化
-document.addEventListener('DOMContentLoaded', () => {
-    new DeviceSwitcher();
-});
+    // resize 自動偵測（僅在無手動偏好時生效）
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+        if (localStorage.getItem('devicePreference')) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            applyDevice(detectDevice());
+        }, 300);
+    });
+})();

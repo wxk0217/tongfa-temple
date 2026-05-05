@@ -1,4 +1,4 @@
-//**
+/**
  * main.js — 初始化進入點
  * 只負責：啟動書本、音效 toast、說明按鈕
  * 翻頁邏輯 → flip-engine.js
@@ -62,12 +62,17 @@ function _injectHelpBtn() {
 
 // ─── 啟動 ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // 書本尺寸
+    // 1. 書本尺寸
     if (window.BookEngine) window.BookEngine.applyBookSize();
 
-    // 翻頁引擎
+    // 2. 翻頁引擎初始化
     initBook();
 
-    // 說明按鈕
+    // 3. 強制從第0頁（封面）開始，更新 zIndex 和 nav
+    // 因為 currentLeaf 初始已是 0，用 flipToPage 會 return，
+    // 所以直接呼叫 initDesktop 並更新 nav
+    updateNavActive(0);
+
+    // 4. 說明按鈕
     _injectHelpBtn();
 });
