@@ -331,8 +331,10 @@ function initBook() {
     const bookFlip = document.getElementById('bookFlip');
     if (bookFlip && !isMobile()) {
         const bookWidth = Math.min(1100, window.innerWidth - 40);
+        const bookHeight = Math.round(window.innerHeight * 0.84);
         bookFlip.style.width = bookWidth + 'px';
         bookFlip.style.maxWidth = bookWidth + 'px';
+        bookFlip.style.height = bookHeight + 'px';
         bookFlip.style.margin = '0 auto';
         bookFlip.style.position = 'relative';
     }
