@@ -2152,68 +2152,32 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
     font-size: 0.7rem;
 }
 
-/* ===== 翻頁熱區視覺提示 ===== */
-.flip-zone {
+
+
+
+
+
+
+
+/* ===== 書本固定背景頁（最底層，不翻動）===== */
+.book-bg-left,
+.book-bg-right {
     position: absolute;
     top: 0;
-    width: 18%;
-    height: 100%;
-    z-index: 10;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-size: 2rem;
-    color: rgba(198, 160, 89, 0.7);
-    pointer-events: none;
-}
-.flip-zone-left  { left: 0;  background: linear-gradient(to right, rgba(93,64,55,0.08), transparent); }
-.flip-zone-right { right: 0; background: linear-gradient(to left,  rgba(93,64,55,0.08), transparent); }
-.book-container:hover .flip-zone { opacity: 1; }
-
-/* ===== 封面：右頁佔滿整個 leaf ===== */
-#leaf-0 .page-front.cover-front {
-    position: absolute;
-    left: 50%;
     width: 50%;
     height: 100%;
-    backface-visibility: hidden;
+    z-index: 0;
+    background-color: var(--paper-dark);
+    background-image:
+        radial-gradient(circle at 50% 50%, transparent 20%, rgba(198,160,89,0.02) 80%);
+    border: 1px solid #e3dcc8;
+    pointer-events: none;
 }
-#leaf-0 .page-back {
-    display: none;
+.book-bg-left {
+    left: 0;
+    background-image: linear-gradient(to right, rgba(0,0,0,0.06) 0%, transparent 8%);
 }
-
-/* ===== 封面 SVG 填滿右半頁 ===== */
-#leaf-0 .page-front .content-container {
-    padding: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-#leaf-0 .vertical-title-box {
-    width: 80% !important;
-    height: 85% !important;
-    padding: 20px !important;
-    box-sizing: border-box !important;
-}
-#leaf-0 .svg-caodong {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-/* ===== 封面 SVG wrapper 填滿 ===== */
-#leaf-0 .title-calligraphy-wrapper {
-    width: 100% !important;
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-#leaf-0 .svg-caodong {
-    width: 70% !important;
-    height: 90% !important;
+.book-bg-right {
+    right: 0;
+    background-image: linear-gradient(to left, rgba(0,0,0,0.06) 0%, transparent 8%);
 }
