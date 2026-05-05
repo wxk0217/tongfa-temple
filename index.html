@@ -164,12 +164,6 @@
             <!-- ===== LEAF-2: 簡介 （左圖右文）===== -->
             <div class="leaf" id="leaf-2">
                 <div class="page-front">
-                    <div class="content-container" style="padding: 0; border: none;">
-                        <!-- 左頁：寺廟照片 -->
-                        <img src="assets/img/1000010663.jpg" alt="通法禪寺" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <div class="page-back">
                     <div class="content-container">
                         <h2>本寺簡介</h2>
                         <p>通法禪寺，溫柔地坐落於台北市中正區。這裡是一處都市中的心靈淨土，我們秉持著曹洞宗法脈，以慈悲與智慧接待每一位到訪的信眾。</p>
@@ -180,7 +174,13 @@
             </div>
 
             <!-- ===== LEAF-3: 法脈傳承 （左文右圖 - 特殊）===== -->
-            <div class="leaf" id="leaf-3">
+            <div class="leaf" <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none;">
+                        <!-- 左頁：寺廟照片 -->
+                        <img src="assets/img/1000010663.jpg" alt="通法禪寺" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                id="leaf-3">
                 <div class="page-front">
                     <div class="content-container">
                         <h2>法脈傳承</h2>
@@ -315,12 +315,6 @@ graph TD
             <!-- ===== LEAF-5: 文物典藏 ===== -->
             <div class="leaf" id="leaf-4">
                 <div class="page-front">
-                    <div class="content-container" style="padding: 0; border: none;">
-                        <!-- 左頁：文物照片 -->
-                        <img src="assets/img/artifacts/outside/outside_01.jpg" alt="文物" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <div class="page-back">
                     <div class="content-container">
                         <h2>文物典藏</h2>
                         <div class="artifacts-gallery">
@@ -439,14 +433,14 @@ graph TD
             </div>
 
             <!-- ===== LEAF-6: 現任執事 ===== -->
-            <div class="leaf" id="leaf-5">
-                <div class="page-front">
+            <div class="leaf" <div class="page-back">
                     <div class="content-container" style="padding: 0; border: none;">
-                        <!-- 左頁：執事法照 -->
-                        <img src="https://via.placeholder.com/400/d4a373/ffffff?text=法照" alt="執事法照" style="width: 100%; height: 100%; object-fit: cover;">
+                        <!-- 左頁：文物照片 -->
+                        <img src="assets/img/artifacts/outside/outside_01.jpg" alt="文物" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="page-back">
+                id="leaf-5">
+                <div class="page-front">
                     <div class="content-container">
                         <h2>現任執事</h2>
                         <div class="officer-info">
@@ -460,14 +454,14 @@ graph TD
             </div>
 
             <!-- ===== LEAF-7: 寺務活動 ===== -->
-            <div class="leaf" id="leaf-6">
-                <div class="page-front">
+            <div class="leaf" <div class="page-back">
                     <div class="content-container" style="padding: 0; border: none;">
-                        <!-- 左頁：活動照片 -->
-                        <img src="assets/img/1000010663.jpg" alt="寺務活動" style="width: 100%; height: 100%; object-fit: cover;">
+                        <!-- 左頁：執事法照 -->
+                        <img src="https://via.placeholder.com/400/d4a373/ffffff?text=法照" alt="執事法照" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
-                <div class="page-back">
+                id="leaf-6">
+                <div class="page-front">
                     <div class="content-container">
                         <h2>寺務活動</h2>
                         <ul class="activity-list">
@@ -482,7 +476,13 @@ graph TD
             </div>
 
             <!-- ===== LEAF-7: 聯絡方式 ===== -->
-            <div class="leaf" id="leaf-7">
+            <div class="leaf" <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none;">
+                        <!-- 左頁：活動照片 -->
+                        <img src="assets/img/1000010663.jpg" alt="寺務活動" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                id="leaf-7">
                 <div class="page-front">
                     <div class="content-container">
                         <!-- 左頁：聯絡資訊（電話、Line） -->
@@ -550,11 +550,6 @@ graph TD
             <!-- ===== 最後一頁：祝福 ===== -->
             <div class="leaf" id="leaf-8">
                 <div class="page-front">
-                    <div class="content-container" style="padding: 0; border: none; background: transparent;">
-                        <!-- 空白 -->
-                    </div>
-                </div>
-                <div class="page-back">
                     <div class="content-container" style="padding: 0; border: none; display: flex; align-items: center; justify-content: center;">
                         <!-- 動畫觀音石像 -->
                         <svg class="guanyin-icon" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
@@ -605,7 +600,12 @@ graph TD
     <script src="js/book-engine.js"></script>
     <script src="js/main.js"></script>
 
-    <!-- ===== 封面覆蓋層：獨立於翻頁書，固定顯示在書本右半頁 ===== -->
+    <div class="page-back">
+                    <div class="content-container" style="padding: 0; border: none; background: transparent;">
+                        <!-- 空白 -->
+                    </div>
+                </div>
+                <!-- ===== 封面覆蓋層：獨立於翻頁書，固定顯示在書本右半頁 ===== -->
     <div id="cover-overlay" style="
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
@@ -680,71 +680,60 @@ graph TD
                 background: var(--paper-light, #fffcf5);
             ">
                 <!-- 封面 SVG：外框 + 直書標題 -->
-                <svg viewBox="0 0 300 480" xmlns="http://www.w3.org/2000/svg"
-                     style="width:78%; height:88%;">
+                <svg viewBox="0 0 280 440" xmlns="http://www.w3.org/2000/svg"
+                     style="width:82%; height:90%;">
 
                     <!-- 底色 -->
-                    <rect width="300" height="480" fill="#fffcf5"/>
+                    <rect width="280" height="440" fill="#fffcf5"/>
 
                     <!-- 外框 -->
-                    <rect x="12" y="12" width="276" height="456"
+                    <rect x="10" y="10" width="260" height="420"
                           fill="none" stroke="#c6a059" stroke-width="2"/>
                     <!-- 內框 -->
-                    <rect x="22" y="22" width="256" height="436"
+                    <rect x="18" y="18" width="244" height="404"
                           fill="none" stroke="#c6a059" stroke-width="0.6" opacity="0.7"/>
 
                     <!-- 四角花飾 -->
                     <g fill="#c6a059" opacity="0.55">
-                        <!-- 左上 -->
-                        <path d="M12,12 L32,12 L12,32 Z"/>
-                        <circle cx="12" cy="12" r="2.5"/>
-                        <circle cx="32" cy="12" r="1.5"/>
-                        <circle cx="12" cy="32" r="1.5"/>
-                        <!-- 右上 -->
-                        <path d="M288,12 L268,12 L288,32 Z"/>
-                        <circle cx="288" cy="12" r="2.5"/>
-                        <circle cx="268" cy="12" r="1.5"/>
-                        <circle cx="288" cy="32" r="1.5"/>
-                        <!-- 左下 -->
-                        <path d="M12,468 L32,468 L12,448 Z"/>
-                        <circle cx="12" cy="468" r="2.5"/>
-                        <circle cx="32" cy="468" r="1.5"/>
-                        <circle cx="12" cy="448" r="1.5"/>
-                        <!-- 右下 -->
-                        <path d="M288,468 L268,468 L288,448 Z"/>
-                        <circle cx="288" cy="468" r="2.5"/>
-                        <circle cx="268" cy="468" r="1.5"/>
-                        <circle cx="288" cy="448" r="1.5"/>
+                        <path d="M10,10 L28,10 L10,28 Z"/>
+                        <circle cx="10" cy="10" r="2.5"/>
+                        <path d="M270,10 L252,10 L270,28 Z"/>
+                        <circle cx="270" cy="10" r="2.5"/>
+                        <path d="M10,430 L28,430 L10,412 Z"/>
+                        <circle cx="10" cy="430" r="2.5"/>
+                        <path d="M270,430 L252,430 L270,412 Z"/>
+                        <circle cx="270" cy="430" r="2.5"/>
                     </g>
 
                     <!-- 邊框中點菱形 -->
                     <g fill="#c6a059" opacity="0.5">
-                        <polygon points="150,8  154,12  150,16  146,12"/>
-                        <polygon points="150,452 154,456 150,460 146,456"/>
-                        <polygon points="8,240  12,244  16,240  12,236"/>
-                        <polygon points="284,240 288,244 292,240 288,236"/>
+                        <polygon points="140,6  144,10  140,14  136,10"/>
+                        <polygon points="140,416 144,420 140,424 136,420"/>
+                        <polygon points="6,220  10,224  14,220  10,216"/>
+                        <polygon points="256,220 260,224 264,220 260,216"/>
                     </g>
 
-                    <!-- 正文：「曹洞正宗」直書（右欄，從右往左第一列）-->
+                    <!-- 「曹洞正宗」— 右欄，x=195（tb-rl 從右往左，所以右欄先寫）-->
                     <text
                         font-family="'Noto Serif TC', 'STSong', 'SimSun', serif"
-                        font-size="44" font-weight="900"
-                        fill="#3d2b1f" letter-spacing="12"
-                        writing-mode="tb-rl" text-anchor="middle"
-                        x="178" y="65">曹洞正宗</text>
+                        font-size="38" font-weight="900"
+                        fill="#3d2b1f"
+                        writing-mode="tb-rl"
+                        x="195" y="38">曹洞正宗</text>
 
                     <!-- 細分隔線 -->
-                    <line x1="90" y1="255" x2="210" y2="255"
+                    <line x1="75" y1="225" x2="205" y2="225"
                           stroke="#c6a059" stroke-width="0.8" opacity="0.5"/>
-                    <polygon points="150,249 154,255 150,261 146,255" fill="#c6a059" opacity="0.45"/>
+                    <polygon points="140,219 144,225 140,231 136,225"
+                             fill="#c6a059" opacity="0.45"/>
 
-                    <!-- 正文：「通法禪寺」直書（左欄，從右往左第二列）-->
+                    <!-- 「通法禪寺」— 左欄，x=85 -->
                     <text
                         font-family="'Noto Serif TC', 'STSong', 'SimSun', serif"
-                        font-size="44" font-weight="900"
-                        fill="#3d2b1f" letter-spacing="12"
-                        writing-mode="tb-rl" text-anchor="middle"
-                        x="122" y="275">通法禪寺</text>
+                        font-size="38" font-weight="900"
+                        fill="#3d2b1f"
+                        writing-mode="tb-rl"
+                        x="85" y="248">通法禪寺</text>
 
                 </svg>
             </div>
