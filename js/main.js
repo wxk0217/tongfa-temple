@@ -327,6 +327,16 @@ let isFlipping = false;
 
 // 初始化書本
 function initBook() {
+    // 強制限制書本寬度，讓封面不超出視窗
+    const bookFlip = document.getElementById('bookFlip');
+    if (bookFlip && !isMobile()) {
+        const bookWidth = Math.min(1100, window.innerWidth - 40);
+        bookFlip.style.width = bookWidth + 'px';
+        bookFlip.style.maxWidth = bookWidth + 'px';
+        bookFlip.style.margin = '0 auto';
+        bookFlip.style.position = 'relative';
+    }
+
     if (isMobile()) {
         initMobile();
     } else {
