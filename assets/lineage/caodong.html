@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曹洞宗全圖</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background: transparent;
+            overflow: auto;
+        }
+        .lineage-frame-wrap {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 16px;
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+        .mermaid {
+            min-width: 1800px;
+            padding: 20px;
+        }
+        /* 傳記卡片 */
+        .biographies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            padding: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .bio-card {
+            background: rgba(255,252,245,0.9);
+            border: 1px solid #e3dcc8;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .bio-card-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 8px;
+        }
+        .bio-card-name {
+            font-size: 1rem;
+            color: var(--primary-color, #5d4037);
+            margin: 4px 0;
+        }
+        .bio-card-short {
+            font-size: 0.8rem;
+            color: #7a6a5a;
+            line-height: 1.5;
+        }
+        .bio-card-btn {
+            margin-top: 8px;
+            padding: 4px 10px;
+            background: var(--primary-color, #5d4037);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="lineage-frame-wrap">
+        <div class="mermaid">
+graph LR
+    classDef coreMaster fill:#5d4037,color:#fffcf5,stroke:#c6a059,stroke-width:2px;
+    classDef shouchang fill:#8b3a2a,color:#fffcf5,stroke:#c6a059;
+    classDef gushan fill:#c6a059,color:#5d4037,stroke:#5d4037,stroke-width:1.5px;
+    classDef taiwan fill:#e8c37e,color:#5d4037,stroke:#5d4037,stroke-width:1.5px;
+
+    A["洞山 良價 807-869"]:::coreMaster --- B["曹山 本寂"]
+    A --- C["洞山 道全"]
+    A --- D["雲居 道膺 848-902"]:::coreMaster
+    D --- D1["同安 觀志"] --- D2["梁山 緣觀"] --- D3["太陽 警玄"]:::coreMaster
+    D3 --- E["投子 義青"] --- F["芙蓉 道楷"]:::coreMaster
+    F --- G["丹霞 子淳"]
+    G --- H1["宏智 正覺"]
+    G --- H2["真歇 清了"]
+    F --- I["鹿門 自覺"] --- I1["歷代傳承"] --- I2["萬松 行秀"]
+    I2 --- J["雪庭 福裕"]
+    I1 --- K["廩山 常忠"] --- L["無明 慧經 壽昌寺"]:::shouchang
+    L --- M1["無異 元來"]
+    L --- M2["永覺 元賢 鼓山湧泉寺"]:::gushan
+    L --- M3["晦台 元鏡"]
+    M2 --- N1["為霖 道霈"]:::gushan --- N2["鼓山歷代"]:::gushan
+    N2 --- ML["妙蓮 法師"]:::gushan
+    ML --- BZ["本忠 和尚"]:::gushan
+    ML --- YY["圓瑛 大師"]:::gushan
+    YY --- BS["白聖 長老"]:::taiwan
+    BZ --- JL["覺力 禪師"]:::taiwan
+    BS --- MZ["妙振 老和尚"]:::taiwan
+    JL --- MZ
+    MZ --- DN["達能 老師和尚"]:::taiwan
+    A --- AW["瓦屋 能光"]
+    D --- DA["琉山 匡仁"]
+    style DN fill:#c6a059,stroke:#5d4037,stroke-width:3px,color:#fffcf5
+                                </div>
+                                <div class="caodong-legend">
+                                    <span><i style="background:#5d4037"></i>唐宋祖師</span>
+                                    <span><i style="background:#8b3a2a"></i>壽昌中興</span>
+                                    <span><i style="background:#c6a059"></i>鼓山法派</span>
+                                    <span><i style="background:#e8c37e"></i>近代台灣</span>
+                                </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({{ startOnLoad: true, theme: "base", themeVariables: {{ primaryColor: "#5d4037", primaryTextColor: "#fffcf5", primaryBorderColor: "#c6a059", lineColor: "#c6a059", secondaryColor: "#f5eedc", tertiaryColor: "#fffcf5" }} }});</script>
+    
+</body>
+</html>
