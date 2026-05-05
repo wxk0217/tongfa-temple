@@ -78,16 +78,24 @@
         const svg     = front.querySelector('svg');
 
         if (wrapper) {
-            wrapper.style.width          = '85%';
-            wrapper.style.height         = '88%';
+            wrapper.style.width          = '100%';
+            wrapper.style.height         = '100%';
             wrapper.style.display        = 'flex';
             wrapper.style.alignItems     = 'center';
             wrapper.style.justifyContent = 'center';
             wrapper.style.boxSizing      = 'border-box';
+            wrapper.style.border         = '3px double #c6a059';
+            wrapper.style.background     = 'rgba(255,252,245,0.65)';
+            wrapper.style.boxShadow      = 'inset 0 0 20px rgba(198,160,89,0.2)';
         }
         if (svg) {
-            svg.style.width  = '56%';
-            svg.style.height = '88%';
+            // viewBox 0 0 160 300 → 比例 1:1.875，用 height 為主
+            const svgH = Math.round(bookH * 0.80);
+            const svgW = Math.round(svgH / 1.875);
+            svg.style.width  = svgW + 'px';
+            svg.style.height = svgH + 'px';
+            svg.style.maxWidth  = '90%';
+            svg.style.maxHeight = '90%';
         }
     }
 
