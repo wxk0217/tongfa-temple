@@ -2172,3 +2172,15 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
 .flip-zone-left  { left: 0;  background: linear-gradient(to right, rgba(93,64,55,0.08), transparent); }
 .flip-zone-right { right: 0; background: linear-gradient(to left,  rgba(93,64,55,0.08), transparent); }
 .book-container:hover .flip-zone { opacity: 1; }
+
+/* ===== 封面：右頁佔滿整個 leaf ===== */
+#leaf-0 .page-front.cover-front {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+#leaf-0 .page-back {
+    display: none;
+}

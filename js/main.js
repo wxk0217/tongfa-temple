@@ -305,6 +305,21 @@ function getDeviceType() {
 }
 
 // 7. 翻書引擎核心
+// 清除上次手動切換的裝置偏好，讓寬度自動決定
+(function() {
+    const saved = localStorage.getItem('devicePreference');
+    const w = window.innerWidth;
+    // 如果儲存的是 mobile 但視窗寬度 > 1100px，清除它
+    if (saved === 'mobile' && w > 1100) {
+        localStorage.removeItem('devicePreference');
+        document.documentElement.removeAttribute('data-device');
+    }
+    if (saved === 'tablet' && w > 1100) {
+        localStorage.removeItem('devicePreference');
+        document.documentElement.removeAttribute('data-device');
+    }
+})();
+
 const leaves = document.querySelectorAll('.leaf');
 const navButtons = document.querySelectorAll('nav button');
 let currentLeaf = 0;
