@@ -2204,3 +2204,16 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
     width: 100% !important;
     height: 100% !important;
 }
+
+/* ===== 封面 SVG wrapper 填滿 ===== */
+#leaf-0 .title-calligraphy-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+#leaf-0 .svg-caodong {
+    width: 70% !important;
+    height: 90% !important;
+}
