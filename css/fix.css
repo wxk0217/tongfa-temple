@@ -1,6 +1,6 @@
 /* ===== fix.css — 補充和覆蓋 style.css 的必要修正 ===== */
 
-/* 頁面 iframe 填滿 leaf 的整個面，保持正常互動（滾動、點擊） */
+/* iframe 正常互動，滾動不受影響 */
 .page-iframe {
     position: absolute;
     top: 0; left: 0;
@@ -15,29 +15,55 @@
     overflow: hidden;
 }
 
-/* 透明翻頁熱區：z-index 9999 蓋在 iframe 邊緣 15% */
-.click-zone-left,
-.click-zone-right {
+/* ── 翻頁按鈕：固定在書本左右兩側，不覆蓋內容 ── */
+.book-container {
+    position: relative;
+}
+
+.flip-btn {
     position: absolute;
-    top: 0;
-    height: 100%;
-    width: 15%;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 9999;
-    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: rgba(93, 64, 55, 0.75);
+    color: #fffcf5;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 10px;
+    cursor: pointer;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    writing-mode: vertical-rl;
+    transition: background 0.2s, opacity 0.2s;
+    opacity: 0.7;
     pointer-events: auto;
 }
-.click-zone-left  { left: 0;  cursor: w-resize; }
-.click-zone-right { right: 0; cursor: e-resize; }
 
-/* 法脈圖滾動 */
-.mermaid-scroll-area {
-    display: block !important;
-    overflow: auto !important;
-    width: 100%; height: 100%;
-    -webkit-overflow-scrolling: touch;
+.flip-btn:hover {
+    background: rgba(93, 64, 55, 0.95);
+    opacity: 1;
 }
 
-/* 書本固定背景 */
+.flip-btn-left  { left: -44px; }
+.flip-btn-right { right: -44px; }
+
+.flip-arrow {
+    font-size: 1rem;
+    writing-mode: horizontal-tb;
+    line-height: 1;
+}
+
+.flip-label {
+    writing-mode: vertical-rl;
+    letter-spacing: 2px;
+}
+
+/* 書本背景 */
 .book-bg-left, .book-bg-right {
     position: absolute;
     top: 0;

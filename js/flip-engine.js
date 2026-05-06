@@ -135,18 +135,25 @@ function prevPage() { flipToPage(currentLeaf - 1); }
 
 // ─── 透明熱區（取代 iframe 吞掉點擊的問題） ──────────────────────────────────
 function _createClickZones(flip) {
-    if (flip.querySelector('.click-zone-left')) return;
+    if (document.querySelector('.flip-btn-left')) return;
 
-    var left = document.createElement('div');
-    left.className = 'click-zone-left';
-    left.addEventListener('click', prevPage);
+    // 翻頁按鈕掛在 book-container 外層，不影響書本內容區域
+    var container = flip.closest('.book-container') || flip.parentElement;
 
-    var right = document.createElement('div');
-    right.className = 'click-zone-right';
-    right.addEventListener('click', nextPage);
+    function makeBtn(side, handler, label) {
+        var btn = document.createElement('button');
+        btn.className = 'flip-btn flip-btn-' + side;
+        btn.setAttribute('aria-label', label);
+        btn.innerHTML =
+            side === 'left'
+            ? '<span class="flip-arrow">&#10094;</span><span class="flip-label">翻頁</span>'
+            : '<span class="flip-label">翻頁</span><span class="flip-arrow">&#10095;</span>';
+        btn.addEventListener('click', handler);
+        return btn;
+    }
 
-    flip.appendChild(left);
-    flip.appendChild(right);
+    container.appendChild(makeBtn('left',  prevPage, '上一頁'));
+    container.appendChild(makeBtn('right', nextPage, '下一頁'));
 }
 
 // ─── Desktop 初始化 ───────────────────────────────────────────────────────────
