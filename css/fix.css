@@ -1,7 +1,6 @@
 /* ===== fix.css — 補充和覆蓋 style.css 的必要修正 ===== */
-/* ===== fix.css — 補充和覆蓋 style.css 的必要修正 ===== */
 
-/* 頁面 iframe 填滿 leaf 的整個面 */
+/* 頁面 iframe 填滿 leaf 的整個面，保持正常互動（滾動、點擊） */
 .page-iframe {
     position: absolute;
     top: 0; left: 0;
@@ -9,15 +8,14 @@
     border: none;
     display: block;
     background: transparent;
-    /* pointer-events: auto — 保持正常，滾動/互動由 iframe 自己處理 */
+    pointer-events: auto;
 }
 
-/* page-front / page-back 作為 iframe 的定位容器 */
 .page-front, .page-back {
     overflow: hidden;
 }
 
-/* ── 透明翻頁熱區：蓋在 iframe 上，攔截邊緣點擊 ── */
+/* 透明翻頁熱區：z-index 9999 蓋在 iframe 邊緣 15% */
 .click-zone-left,
 .click-zone-right {
     position: absolute;
@@ -31,19 +29,15 @@
 .click-zone-left  { left: 0;  cursor: w-resize; }
 .click-zone-right { right: 0; cursor: e-resize; }
 
-/* 法脈圖滾動修正 */
+/* 法脈圖滾動 */
 .mermaid-scroll-area {
     display: block !important;
     overflow: auto !important;
     width: 100%; height: 100%;
     -webkit-overflow-scrolling: touch;
 }
-.mermaid-lr .mermaid {
-    min-width: 1800px;
-    padding: 30px;
-}
 
-/* 書本固定背景底色 */
+/* 書本固定背景 */
 .book-bg-left, .book-bg-right {
     position: absolute;
     top: 0;
