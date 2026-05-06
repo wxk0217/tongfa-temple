@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文物典藏</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%;
+            background: var(--paper-light, #fffcf5);
+            font-family: 'Noto Serif TC', serif;
+            overflow: hidden;
+        }
+        .spread {
+            display: flex;
+            width: 100%; height: 100%;
+        }
+
+        /* 左頁：主照片 */
+        .photo-panel {
+            width: 50%; height: 100%;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+            background: #1b3040;
+        }
+        .photo-panel img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.4s;
+        }
+
+        /* 右頁：文物清單 */
+        .text-panel {
+            width: 50%;
+            overflow-y: auto;
+            padding: 24px 20px;
+            border-left: 1px solid #e3dcc8;
+        }
+        .text-panel h2 {
+            font-size: 1.2rem;
+            color: #5d4037;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(198,160,89,0.35);
+        }
+
+        /* 分類按鈕 */
+        .cat-tabs {
+            display: flex; flex-wrap: wrap; gap: 6px;
+            margin-bottom: 14px;
+        }
+        .cat-tab {
+            padding: 4px 10px;
+            border: 1px solid #c6a059;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            color: #5d4037;
+            cursor: pointer;
+            background: transparent;
+            font-family: inherit;
+        }
+        .cat-tab.active {
+            background: #5d4037;
+            color: #fffcf5;
+        }
+
+        /* 縮圖格 */
+        .artifact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .artifact-item {
+            cursor: pointer;
+            text-align: center;
+        }
+        .artifact-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 3px;
+            border: 1px solid #e3dcc8;
+            transition: border-color 0.2s;
+        }
+        .artifact-item:hover img,
+        .artifact-item.active img {
+            border-color: #c6a059;
+        }
+        .artifact-item p {
+            font-size: 0.7rem;
+            color: #7a6a5a;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+<div class="spread">
+    <!-- 左頁：大圖 -->
+    <div class="photo-panel">
+        <img id="mainPhoto" src="../../assets/img/artifacts/outside/outside_01.jpg" alt="文物">
+    </div>
+
+    <!-- 右頁：分類 + 縮圖 -->
+    <div class="text-panel">
+        <h2>文物典藏</h2>
+
+        <div class="cat-tabs">
+            <button class="cat-tab" onclick="showCat('outside')">院外</button>
+            <button class="cat-tab" onclick="showCat('floor1')">一樓大殿</button>
+            <button class="cat-tab active" onclick="showCat('floor3')">三樓地藏殿</button>
+            <button class="cat-tab" onclick="showCat('floor4')">四樓文殊殿</button>
+        </div>
+
+        <div class="artifact-grid" id="artifactGrid"></div>
+    </div>
+</div>
+
+<script>
+const BASE = '../../assets/img/artifacts/';
+const CATS = {
+    outside: [
+        { src: 'outside/outside_01.jpg', title: '耳藥師佛' },
+        { src: 'outside/outside_02.jpg', title: '藥石佛銘文' },
+        { src: 'outside/outside_03.jpg', title: '十一面觀音' },
+        { src: 'outside/outside_04.jpg', title: '十一面觀音銘文' },
+        { src: 'outside/outside_05.jpg', title: '觀音' },
+        { src: 'outside/outside_06.jpg', title: '觀音銘文' },
+    ],
+    floor1: [
+        { src: 'floor1/floor1_01.jpg', title: '釋迦摩尼佛' },
+        { src: 'floor1/floor1_02.jpg', title: '阿難尊者' },
+        { src: 'floor1/floor1_03.jpg', title: '迦葉尊者' },
+        { src: 'floor1/floor1_04.jpg', title: '不動明王' },
+        { src: 'floor1/floor1_05.jpg', title: '不動明王侍者' },
+        { src: 'floor1/floor1_06.jpg', title: '矜羯羅童子' },
+    ],
+    floor3: [
+        { src: 'floor3/floor3_01.jpg', title: '地藏菩薩' },
+        { src: 'floor3/floor3_02.jpg', title: '道明和尚' },
+        { src: 'floor3/floor3_03.jpg', title: '閔公居士' },
+    ],
+    floor4: [
+        { src: 'floor4/floor4_01.jpg', title: '文殊菩薩' },
+        { src: 'floor4/floor4_02.jpg', title: '妙振老和尚' },
+        { src: 'floor4/floor4_03.jpg', title: '達能老和尚' },
+        { src: 'floor4/floor4_04.jpg', title: '林圓貴居士' },
+    ],
+};
+
+let currentCat = 'outside';
+let currentItem = 0;
+
+function showCat(cat) {
+    currentCat = cat;
+    currentItem = 0;
+
+    // 更新分類按鈕
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // 渲染縮圖
+    renderGrid();
+    // 更新主圖
+    setMain(0);
+}
+
+function renderGrid() {
+    const items = CATS[currentCat] || [];
+    const grid = document.getElementById('artifactGrid');
+    grid.innerHTML = items.map((item, i) => `
+        <div class="artifact-item ${i === currentItem ? 'active' : ''}" onclick="setMain(${i})">
+            <img src="${BASE}${item.src}" alt="${item.title}"
+                 onerror="this.style.opacity='0.3'">
+            <p>${item.title}</p>
+        </div>
+    `).join('');
+}
+
+function setMain(idx) {
+    currentItem = idx;
+    const items = CATS[currentCat] || [];
+    const item = items[idx];
+    if (!item) return;
+    const mainPhoto = document.getElementById('mainPhoto');
+    mainPhoto.style.opacity = '0';
+    setTimeout(() => {
+        mainPhoto.src = BASE + item.src;
+        mainPhoto.alt = item.title;
+        mainPhoto.onload = () => mainPhoto.style.opacity = '1';
+    }, 200);
+    // 更新縮圖 active 狀態
+    document.querySelectorAll('.artifact-item').forEach((el, i) => {
+        el.classList.toggle('active', i === idx);
+    });
+}
+
+// 初始渲染
+showCat('floor3', null);
+</script>
+</body>
+</html>
