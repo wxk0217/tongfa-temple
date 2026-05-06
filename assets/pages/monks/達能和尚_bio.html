@@ -51,7 +51,7 @@
     </div>
     <script>
     // 優先讀 md 檔案，失敗則顯示備援文字
-    fetch('../../../docs/monk/達能老師和尚.md')
+    fetch('../../../docs/monk/達能和尚.md')
         .then(r => { if(!r.ok) throw new Error('404'); return r.text(); })
         .then(text => {
             const lines = text.replace(/\r/g,'').split('\n').filter(l=>l.trim());
