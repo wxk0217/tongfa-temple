@@ -40,6 +40,13 @@ function updateNavActive(leafIndex) {
 
 // ─── 主翻頁函數 ───────────────────────────────────────────────────────────────
 function flipToPage(targetLeafIndex) {
+    // leaves 若未初始化，先初始化後再執行
+    if (leaves.length === 0) {
+        initBook();
+        // initBook 後延遲執行，確保狀態已就緒
+        setTimeout(function() { flipToPage(targetLeafIndex); }, 50);
+        return;
+    }
     if (isFlipping) return;
     if (targetLeafIndex === currentLeaf) return;
     if (targetLeafIndex < 0 || targetLeafIndex >= leaves.length) return;
@@ -127,39 +134,53 @@ function initDesktop() {
         leaf.style.zIndex = leaves.length - index;
         leaf.style.transform = '';
         leaf.classList.remove('mobile-active', 'mobile-prev');
-        // 初始只顯示 leaf-0，其他 leaf 等翻頁時才顯示 iframe
-        // 防止低層 leaf 的 page-front 透出來
-        if (index > 0) {
-            leaf.style.visibility = 'hidden';
-        } else {
-            leaf.style.visibility = 'visible';
-        }
 
-        // 翻頁熱區（左右20%）
-        if (!leaf.dataset.clickInited) {
-            leaf.dataset.clickInited = '1';
-            leaf.addEventListener('click', function(e) {
-                if (e.target.closest('button, a, input, select, [onclick]')) return;
-                // iframe 內的點擊無法偵測，只偵測 leaf 邊緣
-                const rect = leaf.getBoundingClientRect();
-                const relX = (e.clientX - rect.left) / rect.width;
-                if (relX <= 0.12)      prevPage();
-                else if (relX >= 0.88) nextPage();
-            });
-        }
+        // 初始只顯示 leaf-0
+        leaf.style.visibility = index === 0 ? 'visible' : 'hidden';
     });
 
-    // 書脊陰影
-    const book = document.getElementById('bookFlip');
-    if (book && !book.querySelector('.spine-shadow')) {
-        const spine = document.createElement('div');
-        spine.className = 'spine-shadow';
-        book.appendChild(spine);
-    }
+    // 建立透明點擊熱區（覆蓋在書本左右兩側，不被 iframe 攔截）
+    _createClickZones();
 
     // 移除手機UI
     ['mobileNavBar','tabletArrowLeft','tabletArrowRight','swipeHintBar']
         .forEach(id => document.getElementById(id)?.remove());
+}
+
+function _createClickZones() {
+    const book = document.getElementById('bookFlip');
+    if (!book || book.querySelector('.click-zone-left')) return;
+
+    // 左側熱區（上一頁）
+    const zoneL = document.createElement('div');
+    zoneL.className = 'click-zone-left';
+    zoneL.style.cssText = [
+        'position:absolute', 'top:0', 'left:0',
+        'width:15%', 'height:100%',
+        'z-index:9999', 'cursor:pointer',
+        'background:transparent',
+    ].join(';');
+    zoneL.addEventListener('click', function(e) {
+        e.stopPropagation();
+        prevPage();
+    });
+
+    // 右側熱區（下一頁）
+    const zoneR = document.createElement('div');
+    zoneR.className = 'click-zone-right';
+    zoneR.style.cssText = [
+        'position:absolute', 'top:0', 'right:0',
+        'width:15%', 'height:100%',
+        'z-index:9999', 'cursor:pointer',
+        'background:transparent',
+    ].join(';');
+    zoneR.addEventListener('click', function(e) {
+        e.stopPropagation();
+        nextPage();
+    });
+
+    book.appendChild(zoneL);
+    book.appendChild(zoneR);
 }
 
 // ─── 平板初始化 ───────────────────────────────────────────────────────────────
