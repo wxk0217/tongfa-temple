@@ -137,9 +137,7 @@ function prevPage() { flipToPage(currentLeaf - 1); }
 function _createClickZones(flip) {
     if (document.querySelector('.flip-btn-left')) return;
 
-    // 翻頁按鈕掛在 book-container 外層，不影響書本內容區域
-    var container = flip.closest('.book-container') || flip.parentElement;
-
+    // 翻頁按鈕掛在 body，固定定位對齊書本左右側
     function makeBtn(side, handler, label) {
         var btn = document.createElement('button');
         btn.className = 'flip-btn flip-btn-' + side;
@@ -152,8 +150,8 @@ function _createClickZones(flip) {
         return btn;
     }
 
-    container.appendChild(makeBtn('left',  prevPage, '上一頁'));
-    container.appendChild(makeBtn('right', nextPage, '下一頁'));
+    document.body.appendChild(makeBtn('left',  prevPage, '上一頁'));
+    document.body.appendChild(makeBtn('right', nextPage, '下一頁'));
 }
 
 // ─── Desktop 初始化 ───────────────────────────────────────────────────────────
