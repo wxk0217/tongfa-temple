@@ -3,212 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>曹洞正宗 通法禪寺 — 互動翻頁書</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/fix.css">
+    <title>本寺簡介</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%;
+            background: var(--paper-light, #fffcf5);
+            font-family: 'Noto Serif TC', 'STSong', serif;
+            overflow: auto;
+        }
+        .intro-wrap {
+            width: 100%; height: 100%;
+        }
+
+        /* 全頁文字內容 */
+        .intro-text {
+            width: 100%;
+            padding: 32px 28px;
+            overflow-y: auto;
+        }
+        .intro-text h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #5d4037;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(198,160,89,0.3);
+        }
+        .intro-text .content {
+            font-size: 0.88rem;
+            line-height: 2.1;
+            color: #3d2b1f;
+            white-space: pre-wrap;
+        }
+        .intro-text .content p {
+            margin-bottom: 14px;
+        }
+        .loading {
+            color: #c6a059;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+    </style>
 </head>
 <body>
-
-    <header>
-        <nav id="mainNav" class="main-nav">
-            <button onclick="flipTo('cover')"      class="nav-btn active-nav" data-nav="cover">封面</button>
-            <button onclick="flipTo('intro')"      class="nav-btn" data-nav="intro">簡介</button>
-            <button onclick="flipTo('lineage')"    class="nav-btn" data-nav="lineage">法脈傳承</button>
-            <button onclick="flipTo('artifacts')"  class="nav-btn" data-nav="artifacts">文物典藏</button>
-            <button onclick="flipTo('members')"    class="nav-btn" data-nav="members">現任執事</button>
-            <button onclick="flipTo('activities')" class="nav-btn" data-nav="activities">寺務活動</button>
-            <button onclick="flipTo('contact')"    class="nav-btn" data-nav="contact">聯絡我們</button>
-        </nav>
-        <div class="device-switcher" id="deviceSwitcher">
-            <button class="device-btn active" data-device="desktop" title="桌機版"><i class="fas fa-desktop"></i></button>
-            <button class="device-btn" data-device="tablet"  title="平板版"><i class="fas fa-tablet-alt"></i></button>
-            <button class="device-btn" data-device="mobile"  title="手機版"><i class="fas fa-mobile-alt"></i></button>
-        </div>
-    </header>
-
-    <div id="submenuBar" style="display:none;"></div>
-
-    <main id="viewport">
-        <div class="book-container">
-            <div id="bookFlip" class="book">
-                <div class="book-bg-left"></div>
-                <div class="book-bg-right"></div>
-                
-                <!-- LEAF-0: cover -->
-                <div class="leaf" id="leaf-0" data-nav="cover" data-sub="">
-                    <div class="page-front"><iframe src="assets/pages/cover.html" class="page-iframe" title="leaf-0-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-1:  -->
-                <div class="leaf" id="leaf-1" data-nav="" data-sub="">
-                    <div class="page-front"><iframe src="assets/pages/colophon.html" class="page-iframe" title="leaf-1-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-2: intro -->
-                <div class="leaf" id="leaf-2" data-nav="intro" data-sub="">
-                    <div class="page-front"><iframe src="assets/pages/intro.html" class="page-iframe" title="leaf-2-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/intro.html"  class="page-iframe" title="leaf-2-back"></iframe></div>
-                </div>
-                <!-- LEAF-3: 法脈說明 | front=法脈導言, back=通法寺法脈圖 -->
-                <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="法脈說明">
-                    <div class="page-front"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-3-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/lineage/full.html" class="page-iframe" title="leaf-3-back"></iframe></div>
-                </div>
-                <!-- LEAF-4: 直系傳承 -->
-                <div class="leaf" id="leaf-4" data-nav="lineage" data-sub="直系傳承">
-                    <div class="page-front"><iframe src="assets/lineage/direct.html" class="page-iframe" title="leaf-4-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-5: 壽昌法派 -->
-                <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="壽昌法派">
-                    <div class="page-front"><iframe src="assets/lineage/shouchang.html" class="page-iframe" title="leaf-5-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-6: 曹洞全圖 | back=祖師傳記導言（出現在左頁） -->
-                <div class="leaf" id="leaf-6" data-nav="lineage" data-sub="曹洞全圖">
-                    <div class="page-front"><iframe src="assets/lineage/caodong.html" class="page-iframe" title="leaf-6-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monk_intro.html" class="page-iframe" title="leaf-6-back"></iframe></div>
-                </div>
-                <!-- LEAF-7: 無明慧經（右=傳記，左=肖像由 leaf-7 back 提供給 leaf-8） -->
-                <div class="leaf" id="leaf-7" data-nav="lineage" data-sub="無明慧經">
-                    <div class="page-front"><iframe src="assets/pages/monks/無明慧經_bio.html" class="page-iframe" title="leaf-7-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monks/無明慧經_portrait.html" class="page-iframe" title="leaf-7-back"></iframe></div>
-                </div>
-                <!-- LEAF-8: 妙蓮法師傳記 | back=圓瑛大師肖像 -->
-                <div class="leaf" id="leaf-8" data-nav="lineage" data-sub="妙蓮法師">
-                    <div class="page-front"><iframe src="assets/pages/monks/妙蓮法師_bio.html" class="page-iframe" title="leaf-8-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monks/圓瑛大師_portrait.html" class="page-iframe" title="leaf-8-back"></iframe></div>
-                </div>
-                <!-- LEAF-9: 圓瑛大師傳記 | back=白聖長老肖像 -->
-                <div class="leaf" id="leaf-9" data-nav="lineage" data-sub="圓瑛大師">
-                    <div class="page-front"><iframe src="assets/pages/monks/圓瑛大師_bio.html" class="page-iframe" title="leaf-9-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monks/白聖長老_portrait.html" class="page-iframe" title="leaf-9-back"></iframe></div>
-                </div>
-                <!-- LEAF-10: 白聖長老傳記 | back=覺力禪師肖像 -->
-                <div class="leaf" id="leaf-10" data-nav="lineage" data-sub="白聖長老">
-                    <div class="page-front"><iframe src="assets/pages/monks/白聖長老_bio.html" class="page-iframe" title="leaf-10-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monks/覺力禪師_portrait.html" class="page-iframe" title="leaf-10-back"></iframe></div>
-                </div>
-                <!-- LEAF-11: 覺力禪師傳記 | back=妙振老和尚肖像 -->
-                <div class="leaf" id="leaf-11" data-nav="lineage" data-sub="覺力禪師">
-                    <div class="page-front"><iframe src="assets/pages/monks/覺力禪師_bio.html" class="page-iframe" title="leaf-11-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monks/妙振老和尚_portrait.html" class="page-iframe" title="leaf-11-back"></iframe></div>
-                </div>
-                <!-- LEAF-12: 妙振老和尚傳記 | back=達能和尚肖像 -->
-                <div class="leaf" id="leaf-12" data-nav="lineage" data-sub="妙振老和尚">
-                    <div class="page-front"><iframe src="assets/pages/monks/妙振老和尚_bio.html" class="page-iframe" title="leaf-12-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monks/達能和尚_portrait.html" class="page-iframe" title="leaf-12-back"></iframe></div>
-                </div>
-                <!-- LEAF-13: 達能和尚傳記 | back=林圓貴居士肖像 -->
-                <div class="leaf" id="leaf-13" data-nav="lineage" data-sub="達能和尚">
-                    <div class="page-front"><iframe src="assets/pages/monks/達能和尚_bio.html" class="page-iframe" title="leaf-13-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/monks/林圓貴居士_portrait.html" class="page-iframe" title="leaf-13-back"></iframe></div>
-                </div>
-                <!-- LEAF-14: 林圓貴居士傳記 | back=空白 -->
-                <div class="leaf" id="leaf-14" data-nav="lineage" data-sub="林圓貴居士">
-                    <div class="page-front"><iframe src="assets/pages/monks/林圓貴居士_bio.html" class="page-iframe" title="leaf-14-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-15: 空白過渡頁 -->
-                <div class="leaf" id="leaf-15" data-nav="" data-sub="">
-                    <div class="page-front"></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-16: 文物說明 -->
-                <div class="leaf" id="leaf-16" data-nav="artifacts" data-sub="文物說明">
-                    <div class="page-front"><iframe src="assets/pages/artifacts.html" class="page-iframe" title="leaf-16-front"></iframe></div>
-                    <div class="page-back"><iframe src="assets/pages/artifacts_desc.html"  class="page-iframe" title="leaf-16-back"></iframe></div>
-                </div>
-                <!-- LEAF-17: 一樓大殿 -->
-                <div class="leaf" id="leaf-17" data-nav="artifacts" data-sub="一樓大殿">
-                    <div class="page-front"><iframe src="assets/pages/artifacts_floor1.html" class="page-iframe" title="leaf-17-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-18: 三/四樓 -->
-                <div class="leaf" id="leaf-18" data-nav="artifacts" data-sub="三/四樓">
-                    <div class="page-front"><iframe src="assets/pages/artifacts_floor34.html" class="page-iframe" title="leaf-18-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-19: members -->
-                <div class="leaf" id="leaf-19" data-nav="members" data-sub="">
-                    <div class="page-front"><iframe src="assets/pages/members.html" class="page-iframe" title="leaf-19-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-20: activities -->
-                <div class="leaf" id="leaf-20" data-nav="activities" data-sub="">
-                    <div class="page-front"><iframe src="assets/pages/activities.html" class="page-iframe" title="leaf-20-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-21: contact -->
-                <div class="leaf" id="leaf-21" data-nav="contact" data-sub="">
-                    <div class="page-front"><iframe src="assets/pages/contact.html" class="page-iframe" title="leaf-21-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-                <!-- LEAF-22:  -->
-                <div class="leaf" id="leaf-22" data-nav="" data-sub="">
-                    <div class="page-front"><iframe src="assets/pages/blessing.html" class="page-iframe" title="leaf-22-front"></iframe></div>
-                    <div class="page-back"></div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <div id="bioModal" class="bio-modal" style="display:none;">
-        <div class="bio-modal-content">
-            <button class="bio-modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
-            <div style="display:flex;gap:20px;align-items:flex-start;">
-                <img id="bioPortrait" style="width:100px;height:120px;object-fit:cover;border-radius:4px;flex-shrink:0;display:none;">
-                <div style="flex:1;">
-                    <h2 id="bioName" style="margin:0 0 12px;font-size:1.3rem;color:var(--primary-color)"></h2>
-                    <p id="bioStory" style="white-space:pre-wrap;line-height:1.9;font-size:0.9rem;"></p>
-                </div>
+    <div class="intro-wrap">
+        <!-- 簡介文字 -->
+        <div class="intro-text">
+            <h2>本寺簡介</h2>
+            <div class="content" id="introContent">
+                <span class="loading">載入中...</span>
             </div>
         </div>
     </div>
 
-    <div id="hoverTooltip" class="hover-tooltip"></div>
-
     <script>
-    const PAGE_MAP = {
-    'cover': 0,
-    'colophon': 1,
-    'intro': 2,
-    'lineage': 3,
-    'direct': 4,
-    'caodong': 6,
-    'shouchang': 5,
-    'monks': 7,
-    '無明慧經': 7,
-    '妙蓮法師': 8,
-    '圓瑛大師': 9,
-    '白聖長老': 10,
-    '覺力禪師': 11,
-    '妙振老和尚': 12,
-    '達能和尚': 13,
-    '林圓貴居士': 14,
-    'artifacts': 16,
-    'floor1': 17,
-    'floor34': 18,
-    'members': 19,
-    'activities': 20,
-    'contact': 21,
-    'blessing': 22,
-};
-
-    function flipTo(name) {
-        var idx = PAGE_MAP[name];
-        if (idx !== undefined) flipToPage(idx);
-    }
+    fetch('../../docs/temple/寺廟簡介.md')
+        .then(r => { if (!r.ok) throw new Error('404'); return r.text(); })
+        .then(text => {
+            const el = document.getElementById('introContent');
+            // 移除第一行標題（已有 h2），並把段落分開
+            const lines = text.replace(/\r/g, '').split('\n').filter(l => l.trim());
+            // 第一行若是標題就略過
+            const start = (lines[0] && !lines[0].startsWith('1') && lines[0].length < 20) ? 1 : 0;
+            el.innerHTML = lines.slice(start)
+                .map(l => `<p>${l}</p>`)
+                .join('');
+        })
+        .catch(() => {
+            document.getElementById('introContent').innerHTML =
+                '<p>通法禪寺座落於台北市中正區，承曹洞宗法脈，持戒清修，廣開法門，歡迎各方信士到訪。</p>';
+        });
     </script>
-
-    <script src="js/data.js"></script>
-    <script src="js/flip-engine.js"></script>
-    <script src="js/bio-modal.js"></script>
-    <script src="js/lineage.js"></script>
-    <script src="js/book-engine.js"></script>
-    <script src="js/device-switcher.js"></script>
-    <script src="js/main.js"></script>
-
 </body>
 </html>
