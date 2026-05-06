@@ -3,203 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>曹洞宗全圖</title>
-    <link rel="stylesheet" href="../../css/style.css">
+    <title>曹洞正宗法脈全圖</title>
+    <!-- 原版樣式保留，補充 iframe 嵌入所需調整 -->
     <style>
-        html, body {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            background: transparent;
-            overflow: auto;
-        }
-        .lineage-frame-wrap {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding: 16px;
-            box-sizing: border-box;
-            overflow-x: auto;
-        }
-        .mermaid {
-            min-width: 1800px;
-            padding: 20px;
-        }
-        /* 傳記卡片 */
-        .biographies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-            padding: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .bio-card {
-            background: rgba(255,252,245,0.9);
-            border: 1px solid #e3dcc8;
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-        }
-        .bio-card-img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 8px;
-        }
-        .bio-card-name {
-            font-size: 1rem;
-            color: var(--primary-color, #5d4037);
-            margin: 4px 0;
-        }
-        .bio-card-short {
-            font-size: 0.8rem;
-            color: #7a6a5a;
-            line-height: 1.5;
-        }
-        .bio-card-btn {
-            margin-top: 8px;
-            padding: 4px 10px;
-            background: var(--primary-color, #5d4037);
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-    
-/* 修正曹洞全圖被截斷問題：讓 SVG 完整顯示並可橫向捲動 */
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow: auto !important;
-    margin: 0;
-    padding: 0;
-}
-.mermaid {
-    min-width: 2900px !important;
-    overflow: visible !important;
-    padding: 40px 20px 20px 20px;
-}
-.mermaid svg {
-    min-width: 2800px !important;
-    width: 2800px !important;
-    height: auto !important;
-    overflow: visible !important;
-}
-</style>
+        body { font-family: "Microsoft JhengHei", "PingFang TC", sans-serif; background-color: #f8f5f0; margin: 0; height: 100%; }
+        #header { background: #3e2723; color: #d7ccc8; padding: 12px 25px; text-align: center; border-bottom: 5px solid #8d6e63; position: sticky; top: 0; z-index: 1000; }
+        #header h1 { margin: 0; font-size: 1.1rem; letter-spacing: 3px; }
+        #header p  { margin: 4px 0 0; font-size: 0.75rem; opacity: 0.8; }
+        #diagram-container { padding: 20px; overflow: auto; }
+        .mermaid { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: inline-block; }
+        .legend { background: rgba(255,255,255,0.9); padding: 10px 15px; border-radius: 8px; border: 1px solid #d7ccc8; font-size: 13px; display: inline-flex; gap: 14px; flex-wrap: wrap; margin: 0 20px 10px; }
+        .legend span { display: inline-flex; align-items: center; gap: 5px; }
+        .legend i { display: inline-block; width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+    </style>
 </head>
-<body style="position:relative;">
-    <div style="
-        position:absolute; top:12px; left:50%; transform:translateX(-50%);
-        font-family:'Noto Serif TC','STSong',serif;
-        font-size:0.95rem; font-weight:700; color:#5d4037;
-        letter-spacing:4px; white-space:nowrap;
-        background:rgba(255,252,245,0.9); padding:4px 16px;
-        border-bottom:1px solid rgba(198,160,89,0.4);
-        z-index:100; pointer-events:none;
-    ">曹洞宗全圖</div>
+<body>
 
-    <div class="lineage-frame-wrap">
-        <div class="mermaid">
-graph LR
-    classDef coreMaster fill:#5d4037,color:#fffcf5,stroke:#c6a059,stroke-width:2px;
-    classDef shouchang fill:#8b3a2a,color:#fffcf5,stroke:#c6a059;
-    classDef gushan fill:#c6a059,color:#5d4037,stroke:#5d4037,stroke-width:1.5px;
-    classDef taiwan fill:#e8c37e,color:#5d4037,stroke:#5d4037,stroke-width:1.5px;
+<div id="header">
+    <h1>曹洞正宗法脈全圖</h1>
+    <p>依據《壽昌法派．鼓山續派》歷代傳承校訂人名</p>
+</div>
 
-    A["洞山 良價 807-869"]:::coreMaster --- B["曹山 本寂"]
-    A --- C["洞山 道全"]
-    A --- D["雲居 道膺 848-902"]:::coreMaster
-    D --- D1["同安 觀志"] --- D2["梁山 緣觀"] --- D3["太陽 警玄"]:::coreMaster
-    D3 --- E["投子 義青"] --- F["芙蓉 道楷"]:::coreMaster
-    F --- G["丹霞 子淳"]
-    G --- H1["宏智 正覺"]
-    G --- H2["真歇 清了"]
-    F --- I["鹿門 自覺"] --- I1["歷代傳承"] --- I2["萬松 行秀"]
-    I2 --- J["雪庭 福裕"]
-    I1 --- K["廩山 常忠"] --- L["無明 慧經 壽昌寺"]:::shouchang
-    L --- M1["無異 元來"]
-    L --- M2["永覺 元賢 鼓山湧泉寺"]:::gushan
-    L --- M3["晦台 元鏡"]
-    M2 --- N1["為霖 道霈"]:::gushan --- N2["鼓山歷代"]:::gushan
-    N2 --- ML["妙蓮 法師"]:::gushan
-    ML --- BZ["本忠 和尚"]:::gushan
-    ML --- YY["圓瑛 大師"]:::gushan
-    YY --- BS["白聖 長老"]:::taiwan
-    BZ --- JL["覺力 禪師"]:::taiwan
-    BS --- MZ["妙振 老和尚"]:::taiwan
-    JL --- MZ
-    MZ --- DN["達能 老師和尚"]:::taiwan
-    A --- AW["瓦屋 能光"]
-    D --- DA["琉山 匡仁"]
-    style DN fill:#c6a059,stroke:#5d4037,stroke-width:3px,color:#fffcf5
-                                </div>
-                                <div class="caodong-legend">
-                                    <span><i style="background:#5d4037"></i>唐宋祖師</span>
-                                    <span><i style="background:#8b3a2a"></i>壽昌中興</span>
-                                    <span><i style="background:#c6a059"></i>鼓山法派</span>
-                                    <span><i style="background:#e8c37e"></i>近代台灣</span>
-                                </div>
+<div class="legend">
+    <strong>顏色標示：</strong>
+    <span><i style="background:#c62828"></i>唐宋祖師 (核心)</span>
+    <span><i style="background:#ef6c00"></i>江西壽昌系 (中興)</span>
+    <span><i style="background:#1976d2"></i>福建鼓山派 (祖庭)</span>
+    <span><i style="background:#2e7d32"></i>近代台灣分支</span>
+</div>
+
+<div id="diagram-container">
+    <div class="mermaid">
+    graph LR
+        %% 樣式設定
+        classDef coreMaster fill:#c62828,color:#fff,stroke:#333,stroke-width:2px;
+        classDef shouchang fill:#ef6c00,color:#fff,stroke:#333;
+        classDef gushan fill:#1976d2,color:#fff,stroke:#333;
+        classDef taiwan fill:#2e7d32,color:#fff,stroke:#333;
+
+        %% 一、唐代開宗
+        A["<b>洞山良价禪師</b><br/>(第1代)"]:::coreMaster --- B(曹山本寂)
+        A --- C(洞山道全)
+        A --- D["<b>雲居道膺禪師</b><br/>(第2代)"]:::coreMaster
+
+        %% 二、五代至北宋
+        D --- D1(同安道丕) --- D2(同安觀志) --- D3["<b>大陽警玄禪師</b><br/>(第6代)"]:::coreMaster
+        D3 --- E(投子義青) --- F["<b>芙蓉道楷禪師</b><br/>(第8代)"]:::coreMaster
+
+        %% 三、南宋至元明
+        F --- G(丹霞子淳)
+        G --- H1(宏智正覺)
+        G --- H2(真歇清了)
+        F --- I(鹿門自覺) --- I1(歷代傳承) --- I2(萬松行秀)
+        I2 --- J(雪庭福裕)
+
+        %% 四、明末壽昌中興
+        I1 --- K(大章宗書) --- L["<b>壽昌慧經禪師</b><br/>(第31代)"]:::shouchang
+
+        %% 五、清初鼓山大興
+        L --- M1(無異元來)
+        L --- M2["<b>永覺元賢禪師</b><br/>(第32代)"]:::gushan
+        M2 --- N1["<b>為霖道霈禪師</b><br/>(第33代)"]:::gushan --- N2(鼓山歷代傳統)
+
+        %% 六、近代與台灣傳承
+        N2 --- ML["<b>妙蓮禪師</b><br/>(妙蓮地華)"]:::gushan
+
+        ML --- BZ["本忠和尚"]:::gushan
+        ML --- YY["<b>圓瑛耀性禪師</b><br/>(第46代)"]:::gushan
+
+        BZ --- JL["<b>覺力禪師</b><br/>(台灣大湖法雲寺系始祖)"]:::taiwan
+        JL --- MZ["<b>妙振老和尚</b><br/>(通法禪寺第一代住持)"]:::taiwan
+        YY --- BS["<b>白聖古航禪師</b><br/>(第47代)"]:::taiwan
+
+        MZ --- DN["<b>達能復融禪師</b><br/>(第48代)"]:::taiwan
+        BS --- DN
+
+        subgraph "唐宋奠基"
+        A
+        D
+        D3
+        F
+        end
+
+        subgraph "明清中興"
+        L
+        M2
+        N1
+        end
+
+        subgraph "台灣傳承"
+        JL
+        MZ
+        BS
+        DN
+        end
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({{ startOnLoad: true, theme: "base", themeVariables: {{ primaryColor: "#5d4037", primaryTextColor: "#fffcf5", primaryBorderColor: "#c6a059", lineColor: "#c6a059", secondaryColor: "#f5eedc", tertiaryColor: "#fffcf5" }} }});</script>
-    
+</div>
 
-    <script>
-    // 法脈圖節點點擊 → 通知主頁面開啟傳記彈窗
-    (function() {
-        var tapTimer = null;
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        maxNodes: 1000,
+        flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' },
+        theme: 'neutral'
+    });
+</script>
 
-        function getName(node) {
-            var label = node.querySelector('.nodeLabel, .label, text');
-            if (!label) return '';
-            return (label.textContent || label.innerHTML || '').replace(/<[^>]*>/g, '').trim();
-        }
-
-        // 桌機：雙擊
-        document.addEventListener('dblclick', function(e) {
-            var node = e.target.closest('.node');
-            if (!node) return;
-            var name = getName(node);
-            if (name) window.parent.postMessage({ action: 'openModal', name: name }, '*');
-        });
-
-        // 觸控：單點顯示 tooltip，雙點開彈窗
-        document.addEventListener('touchend', function(e) {
-            var node = e.target.closest('.node');
-            if (!node) return;
-            e.preventDefault();
-            var name = getName(node);
-            if (!name) return;
-            if (tapTimer) {
-                clearTimeout(tapTimer);
+<script>
+// 節點互動：hover tooltip、雙擊/雙點開傳記彈窗
+(function() {
+    var tapTimer = null;
+    function getName(node) {
+        var label = node.querySelector('.nodeLabel, .label, text');
+        if (!label) return '';
+        return (label.textContent || label.innerHTML || '').replace(/<[^>]*>/g, '').trim();
+    }
+    document.addEventListener('dblclick', function(e) {
+        var node = e.target.closest('.node');
+        if (!node) return;
+        var name = getName(node);
+        if (name) window.parent.postMessage({ action: 'openModal', name: name }, '*');
+    });
+    document.addEventListener('touchend', function(e) {
+        var node = e.target.closest('.node');
+        if (!node) return;
+        e.preventDefault();
+        var name = getName(node);
+        if (!name) return;
+        if (tapTimer) {
+            clearTimeout(tapTimer); tapTimer = null;
+            window.parent.postMessage({ action: 'openModal', name: name }, '*');
+        } else {
+            tapTimer = setTimeout(function() {
                 tapTimer = null;
-                window.parent.postMessage({ action: 'openModal', name: name }, '*');
-            } else {
-                tapTimer = setTimeout(function() {
-                    tapTimer = null;
-                    window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
-                }, 280);
-            }
-        }, { passive: false });
-
-        // 桌機：hover → tooltip
-        document.addEventListener('mouseover', function(e) {
-            var node = e.target.closest('.node');
-            if (!node) return;
-            var name = getName(node);
-            if (name) window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
-        });
-        document.addEventListener('mouseout', function(e) {
-            if (e.target.closest('.node'))
-                window.parent.postMessage({ action: 'hideTooltip' }, '*');
-        });
-    })();
-    </script>
+                window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+            }, 280);
+        }
+    }, { passive: false });
+    document.addEventListener('mouseover', function(e) {
+        var node = e.target.closest('.node');
+        if (!node) return;
+        var name = getName(node);
+        if (name) window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+    });
+    document.addEventListener('mouseout', function(e) {
+        if (e.target.closest('.node'))
+            window.parent.postMessage({ action: 'hideTooltip' }, '*');
+    });
+})();
+</script>
 
 </body>
 </html>

@@ -1,4 +1,5 @@
 /* ===== fix.css — 補充和覆蓋 style.css 的必要修正 ===== */
+/* ===== fix.css — 補充和覆蓋 style.css 的必要修正 ===== */
 
 /* 頁面 iframe 填滿 leaf 的整個面 */
 .page-iframe {
@@ -8,8 +9,7 @@
     border: none;
     display: block;
     background: transparent;
-    /* iframe 不攔截點擊，讓熱區 div 處理 */
-    pointer-events: none;
+    /* pointer-events: auto — 保持正常，滾動/互動由 iframe 自己處理 */
 }
 
 /* page-front / page-back 作為 iframe 的定位容器 */
@@ -17,7 +17,7 @@
     overflow: hidden;
 }
 
-/* ── 透明翻頁熱區 ── */
+/* ── 透明翻頁熱區：蓋在 iframe 上，攔截邊緣點擊 ── */
 .click-zone-left,
 .click-zone-right {
     position: absolute;
@@ -26,7 +26,7 @@
     width: 15%;
     z-index: 9999;
     background: transparent;
-    /* 開發時可改成 rgba(255,0,0,0.15) 看位置 */
+    pointer-events: auto;
 }
 .click-zone-left  { left: 0;  cursor: w-resize; }
 .click-zone-right { right: 0; cursor: e-resize; }

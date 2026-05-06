@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通法寺法脈</title>
+    <title>壽昌法派</title>
     <link rel="stylesheet" href="../../css/style.css">
     <style>
         html, body {
@@ -72,34 +72,22 @@
         }
     </style>
 </head>
-<body>
+<body style="position:relative;">
+    <div style="
+        position:absolute; top:12px; left:50%; transform:translateX(-50%);
+        font-family:'Noto Serif TC','STSong',serif;
+        font-size:0.95rem; font-weight:700; color:#5d4037;
+        letter-spacing:4px; white-space:nowrap;
+        background:rgba(255,252,245,0.9); padding:4px 16px;
+        border-bottom:1px solid rgba(198,160,89,0.4);
+        z-index:100; pointer-events:none;
+    ">壽昌法派</div>
+
     <div class="lineage-frame-wrap">
-        <div class="mermaid">
-graph TD
-    A["洞山 良價"] --- B["曹山 本寂"]
-    A --- D["龍牙 居遁"]
-    D --- D1["雲居 道膺"]
-    D1 --- H_K["芙蓉 道楷"]
-    H_K --- H_K_1_a["宏智 正覺"]
-    H_K --- H_K_mid["歷代祖師"]
-    H_K_mid --- H_K_2_b["萬松 行秀"]
-    H_K_2_b --- J_S["雪庭 福裕"]
-    J_S --- M_S["無明 慧經"]
-    M_S --- N2_G["永覺 元賢"]
-    N2_G --- O2_D["鼓山歷代"]
-    O2_D --- ML["妙蓮法師"]
-    ML --- BZ["本忠和尚"]
-    ML --- YY["圓瑛長老"]
-    YY --- BS["白聖長老"]
-    BZ --- JL["覺力禪師"]
-    JL --- MZ["妙振老和尚"]
-    BS --- MZ
-    MZ --- DN["【現脈】達能老師和尚"]
-    style DN fill:#e8c37e,stroke:#5d4037,stroke-width:3px
-                                </div>
+        <iframe src="assets/lineage/shouchang_lineage.html" class="lineage-iframe" title="壽昌法派歷代傳承" loading="lazy" scrolling="yes"></iframe>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({{ startOnLoad: true, theme: "base", themeVariables: {{ primaryColor: "#5d4037", primaryTextColor: "#fffcf5", primaryBorderColor: "#c6a059", lineColor: "#c6a059", secondaryColor: "#f5eedc", tertiaryColor: "#fffcf5" }} }});</script>
+    
+    
     
 
     <script>
