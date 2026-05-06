@@ -14,7 +14,15 @@
         <nav id="mainNav" class="main-nav">
             <button onclick="flipTo('cover')"      class="nav-btn active-nav" data-nav="cover">封面</button>
             <button onclick="flipTo('intro')"      class="nav-btn" data-nav="intro">簡介</button>
-            <button onclick="flipTo('lineage')"    class="nav-btn" data-nav="lineage">法脈傳承</button>
+            <div class="nav-dropdown" data-nav="lineage">
+                <button onclick="flipTo('lineage')" class="nav-btn" data-nav="lineage">法脈傳承</button>
+                <div class="nav-submenu">
+                    <button onclick="flipTo('caodong')"  class="submenu-btn">曹洞正宗法脈全圖</button>
+                    <button onclick="flipTo('shouchang')" class="submenu-btn">壽昌法派</button>
+                    <button onclick="flipTo('direct')"   class="submenu-btn">直系傳承</button>
+                    <button onclick="flipTo('monks')"    class="submenu-btn">祖師傳記</button>
+                </div>
+            </div>
             <button onclick="flipTo('artifacts')"  class="nav-btn" data-nav="artifacts">文物典藏</button>
             <button onclick="flipTo('members')"    class="nav-btn" data-nav="members">現任執事</button>
             <button onclick="flipTo('activities')" class="nav-btn" data-nav="activities">寺務活動</button>
@@ -50,15 +58,15 @@
                     <div class="page-front"><iframe src="assets/pages/intro.html" class="page-iframe" title="leaf-2-front"></iframe></div>
                     <div class="page-back"></div>
                 </div>
-                <!-- LEAF-3: 右=空白, back=法脈導言(左頁) -->
+                <!-- LEAF-3: 右=法脈導言 -->
                 <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="法脈說明">
-                    <div class="page-front"></div>
-                    <div class="page-back"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-3-back"></iframe></div>
+                    <div class="page-front"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-3-front"></iframe></div>
+                    <div class="page-back"></div>
                 </div>
-                <!-- LEAF-4: 右=caodong, back=caodong(左頁) — 大橫圖跨兩頁 -->
+                <!-- LEAF-4: 曹洞全圖跨兩頁（front+back 都是 caodong） -->
                 <div class="leaf" id="leaf-4" data-nav="lineage" data-sub="曹洞全圖">
                     <div class="page-front"><iframe src="assets/lineage/caodong.html" class="page-iframe" title="leaf-4-front"></iframe></div>
-                    <div class="page-back"></div>
+                    <div class="page-back"><iframe src="assets/lineage/caodong.html" class="page-iframe" title="leaf-4-back"></iframe></div>
                 </div>
                 <!-- LEAF-5: 右=壽昌法派, back=直系傳承(左頁) -->
                 <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="壽昌法派">
