@@ -8,13 +8,28 @@
     border: none;
     display: block;
     background: transparent;
+    /* iframe 不攔截點擊，讓熱區 div 處理 */
+    pointer-events: none;
 }
 
 /* page-front / page-back 作為 iframe 的定位容器 */
-.page-front,
-.page-back {
+.page-front, .page-back {
     overflow: hidden;
 }
+
+/* ── 透明翻頁熱區 ── */
+.click-zone-left,
+.click-zone-right {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 15%;
+    z-index: 9999;
+    background: transparent;
+    /* 開發時可改成 rgba(255,0,0,0.15) 看位置 */
+}
+.click-zone-left  { left: 0;  cursor: w-resize; }
+.click-zone-right { right: 0; cursor: e-resize; }
 
 /* 法脈圖滾動修正 */
 .mermaid-scroll-area {
@@ -29,10 +44,10 @@
 }
 
 /* 書本固定背景底色 */
-.book-bg-left,
-.book-bg-right {
+.book-bg-left, .book-bg-right {
     position: absolute;
-    top: 0; width: 50%; height: 100%;
+    top: 0;
+    width: 50%; height: 100%;
     z-index: 0;
     pointer-events: none;
     background: var(--paper-dark, #f5eedc);
