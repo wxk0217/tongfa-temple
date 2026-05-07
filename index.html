@@ -60,11 +60,10 @@
         <div class="page-back"></div>
       </div>
 
-      <!-- LEAF-3: front=壽昌法派, back=法脈導言 -->
-      <!-- 顯示時：左頁(leaf-2 back=空白) | 右頁(leaf-3 front=壽昌法派) -->
-      <!-- 翻到 leaf-3 後：左頁(leaf-3 back=法脈導言) | 右頁(leaf-4 front=曹洞全圖) -->
-      <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="壽昌法派">
-        <div class="page-front"><iframe src="assets/lineage/shouchang.html" class="page-iframe" title="leaf-3-front"></iframe></div>
+      <!-- LEAF-3: front=空白, back=法脈導言 -->
+      <!-- 停在 leaf-3：左頁(leaf-3 back=法脈導言) | 右頁(leaf-4 front=曹洞全圖) -->
+      <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="">
+        <div class="page-front"></div>
         <div class="page-back"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-3-back"></iframe></div>
       </div>
 
@@ -74,11 +73,11 @@
         <div class="page-back"><iframe src="assets/lineage/caodong.html" class="page-iframe" title="leaf-4-back"></iframe></div>
       </div>
 
-      <!-- LEAF-5: front=空白, back=直系傳承 -->
-      <!-- 顯示時：左頁(leaf-4 back=曹洞全圖右) | 右頁(leaf-5 front=空白) -->
-      <!-- 翻到 leaf-5 後：左頁(leaf-5 back=直系傳承) | 右頁(leaf-6 front=空白) -->
-      <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="直系傳承">
-        <div class="page-front"></div>
+      <!-- LEAF-5: front=壽昌法派, back=直系傳承 -->
+      <!-- 停在 leaf-5：左頁(leaf-5 back=直系傳承) | 右頁(leaf-6 front=空白) -->
+      <!-- 翻到 leaf-5 前：左頁(leaf-4 back=曹洞全圖) | 右頁(leaf-5 front=壽昌法派) -->
+      <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="壽昌法派">
+        <div class="page-front"><iframe src="assets/lineage/shouchang.html" class="page-iframe" title="leaf-5-front"></iframe></div>
         <div class="page-back"><iframe src="assets/lineage/direct.html" class="page-iframe" title="leaf-5-back"></iframe></div>
       </div>
 
@@ -208,8 +207,8 @@ const PAGE_MAP = {
   'cover':       0,
   'colophon':    1,
   'intro':       2,
-  'shouchang':   3,   // ← 壽昌法派 (原 5，現在移到 leaf-3 front)
-  'lineage':     3,   // ← 法脈導言在 leaf-3 back，導航到 leaf-3
+  'shouchang':   5,   // ← 壽昌法派在 leaf-5 front
+  'lineage':     3,   // ← 法脈導言在 leaf-3 back，翻到 leaf-3 後顯示
   'caodong':     4,
   'direct':      5,   // ← 直系傳承在 leaf-5 back
   'monks':       6,   // ← 祖師傳記導言在 leaf-6 back (原 leaf-7)
