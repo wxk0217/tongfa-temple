@@ -232,16 +232,22 @@ window.addEventListener('message', function(e) {
         }
     }
     else if (d.action === 'navigateToMonk') {
-        // 跳轉到祖師傳記對應頁面
+        // 點擊人名跳到肖像頁（停在該 leaf 時左=肖像，右=傳記）
         const monkPageMap = {
-            '妙蓮法師': 5, '本忠和尚': 6, '圓瑛大師': 7,
-            '白聖長老': 8, '覺力禪師': 9, '妙振老和尚': 10,
-            '達能和尚': 11, '達能老師和尚': 11,
+            '妙蓮法師':   5,
+            '本忠和尚':   6,
+            '圓瑛大師':   7,
+            '圓瑛長老':   7,
+            '白聖長老':   8,
+            '覺力禪師':   9,
+            '妙振老和尚': 10,
+            '達能老和尚': 11,
+            '達能和尚':   11,
         };
-        const name = d.name.replace(/\s+/g,'').replace(/【[^】]*】/g,'');
+        const clean = d.name.replace(/\s+/g,'').replace(/【[^】]*】/g,'');
         let leafIdx = null;
         for (const [key, idx] of Object.entries(monkPageMap)) {
-            if (name.includes(key.replace(/\s+/g,'')) || key.replace(/\s+/g,'').includes(name)) {
+            if (clean.includes(key.replace(/\s+/g,'')) || key.replace(/\s+/g,'').includes(clean)) {
                 leafIdx = idx;
                 break;
             }

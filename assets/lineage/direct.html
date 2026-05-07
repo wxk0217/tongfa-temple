@@ -173,6 +173,8 @@ graph TD
         document.addEventListener('click', function(e) {
             var node = e.target.closest('.node');
             if (!node) return;
+            e.stopPropagation();
+            e.preventDefault();
             var name = getName(node);
             if (!name) return;
             var clean = name.replace(/\s+/g, '').replace(/【[^】]*】/g, '');
