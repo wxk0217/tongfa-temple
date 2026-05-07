@@ -108,11 +108,17 @@
 
 <script>
 function openImageModal() {
-  const modal = document.getElementById('imageModal');
-  const iframe = document.getElementById('modalIframe');
-  iframe.src = 'caodong.html';
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  // 嘗試呼叫父頁面的 Modal，若在 iframe 內則往上傳遞
+  try {
+    const top = window.top;
+    top.openCaodongModal('assets/lineage/caodong.html');
+  } catch(e) {
+    // fallback：在本頁開啟
+    const modal = document.getElementById('imageModal');
+    const iframe = document.getElementById('modalIframe');
+    iframe.src = 'caodong.html';
+    modal.style.display = 'flex';
+  }
 }
 
 function closeImageModal() {
@@ -120,7 +126,6 @@ function closeImageModal() {
   const iframe = document.getElementById('modalIframe');
   modal.style.display = 'none';
   iframe.src = '';
-  document.body.style.overflow = '';
 }
 
 document.getElementById('imageModal').addEventListener('click', e => {

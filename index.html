@@ -177,6 +177,11 @@
   </div>
 </main>
 
+<div id="caodongModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;justify-content:center;align-items:center;z-index:99999;">
+  <button onclick="closeCaodongModal()" style="position:absolute;top:16px;right:20px;font-size:36px;color:white;background:none;border:none;cursor:pointer;line-height:1;">✕</button>
+  <iframe id="caodongModalIframe" src="" style="width:96vw;height:92vh;border:none;border-radius:8px;background:#f8f5f0;"></iframe>
+</div>
+
 <div id="bioModal" class="bio-modal" style="display:none;">
   <div class="bio-modal-content">
     <button class="bio-modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
@@ -218,7 +223,28 @@ const PAGE_MAP = {
   'blessing':   20,
 };
 
-function flipTo(name) {
+function openCaodongModal(src) {
+  const modal = document.getElementById('caodongModal');
+  const iframe = document.getElementById('caodongModalIframe');
+  iframe.src = src;
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeCaodongModal() {
+  const modal = document.getElementById('caodongModal');
+  const iframe = document.getElementById('caodongModalIframe');
+  modal.style.display = 'none';
+  iframe.src = '';
+  document.body.style.overflow = '';
+}
+document.getElementById('caodongModal').addEventListener('click', e => {
+  if (e.target.id === 'caodongModal') closeCaodongModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeCaodongModal();
+});
+
+
   var idx = PAGE_MAP[name];
   if (idx !== undefined) flipToPage(idx);
 }
