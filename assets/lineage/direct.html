@@ -164,19 +164,32 @@ graph TD
             window.parent.postMessage({ action: 'mouseMove', clientX: e.clientX, clientY: e.clientY }, '*');
         });
 
-        // 單擊：若是祖師傳記名單中的人，跳轉到對應頁面
-        var navigateMonks = ['妙蓮法師', '本忠和尚', '圓瑛大師', '白聖長老', '覺力禪師', '妙振老和尚', '達能老和尚', '達能和尚'];
+
+        var monkPageMap = {
+            '妙蓮法師': 5, '本忠和尚': 6, '圓瑛大師': 7, '圓瑛長老': 7,
+            '白聖長老': 8, '覺力禪師': 9, '妙振老和尚': 10,
+            '達能老和尚': 11, '達能和尚': 11
+        };
         document.addEventListener('click', function(e) {
             var node = e.target.closest('.node');
             if (!node) return;
             var name = getName(node);
             if (!name) return;
             var clean = name.replace(/\s+/g, '').replace(/【[^】]*】/g, '');
-            var match = navigateMonks.find(function(m) {
-                return clean.includes(m.replace(/\s+/g,'')) || m.replace(/\s+/g,'').includes(clean);
-            });
-            if (match) {
-                window.parent.postMessage({ action: 'navigateToMonk', name: name }, '*');
+            var leafIdx = null;
+            for (var key in monkPageMap) {
+                var kc = key.replace(/\s+/g,'');
+                if (clean.includes(kc) || kc.includes(clean)) {
+                    leafIdx = monkPageMap[key];
+                    break;
+                }
+            }
+            if (leafIdx !== null) {
+                try {
+                    window.top.flipToPage(leafIdx);
+                } catch(err) {
+                    window.parent.postMessage({ action: 'navigateToMonk', name: name }, '*');
+                }
             }
         });
     </script>
