@@ -140,6 +140,27 @@
                 window.parent.postMessage({ action: 'hideTooltip' }, '*');
         });
     })();
+
+        // 傳遞滑鼠座標給父層（讓 tooltip 跟著鼠標）
+        document.addEventListener('mousemove', function(e) {
+            window.parent.postMessage({ action: 'mouseMove', clientX: e.clientX, clientY: e.clientY }, '*');
+        });
+
+        // 單擊：若是祖師傳記名單中的人，跳轉到對應頁面
+        var navigateMonks = ['妙蓮法師', '本忠和尚', '圓瑛大師', '白聖長老', '覺力禪師', '妙振老和尚', '達能老師和尚', '達能和尚'];
+        document.addEventListener('click', function(e) {
+            var node = e.target.closest('.node');
+            if (!node) return;
+            var name = getName(node);
+            if (!name) return;
+            var clean = name.replace(/\s+/g, '').replace(/【[^】]*】/g, '');
+            var match = navigateMonks.find(function(m) {
+                return clean.includes(m.replace(/\s+/g,'')) || m.replace(/\s+/g,'').includes(clean);
+            });
+            if (match) {
+                window.parent.postMessage({ action: 'navigateToMonk', name: name }, '*');
+            }
+        });
     </script>
 
 </body>

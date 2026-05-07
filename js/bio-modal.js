@@ -124,8 +124,9 @@ function closeBioModal() { closeModal(); }
 
     document.addEventListener('mousemove', e => {
         if (!tip.classList.contains('show')) return;
-        let x = e.pageX + 18, y = e.pageY + 18;
-        if (x + 320 > window.innerWidth) x = e.pageX - 325;
+        let x = e.clientX + 12, y = e.clientY + 12;
+        if (x + 400 > window.innerWidth)  x = e.clientX - 405;
+        if (y + 200 > window.innerHeight) y = e.clientY - 210;
         tip.style.left = x + 'px';
         tip.style.top  = y + 'px';
     });
@@ -211,7 +212,6 @@ window.addEventListener('message', function(e) {
         const tip = document.getElementById('hoverTooltip');
         if (!tip) return;
         let short = data.short || '資料整理中...';
-        if (short.length > 60) short = short.slice(0, 57) + '…';
         const hint = data.full ? '<span class="tooltip-hint">雙擊查看完整傳記</span>' : '';
         const img  = data.image
             ? `<img class="tooltip-portrait" src="${data.image}" alt="${d.name}" onerror="this.style.display='none'">`
@@ -222,15 +222,42 @@ window.addEventListener('message', function(e) {
             ${hint}
         </div></div>`;
         tip.classList.add('show');
-        // 定位到法脈圖 iframe 中央上方
-        const frame = document.getElementById('lineage-frame');
-        if (frame) {
-            const r = frame.getBoundingClientRect();
-            tip.style.left = (r.left + r.width / 2 - 150) + 'px';
-            tip.style.top  = (r.top + 40) + 'px';
+        // 使用 iframe 傳來的滑鼠座標定位
+        if (d.clientX !== undefined) {
+            let x = d.clientX + 12, y = d.clientY + 12;
+            if (x + 400 > window.innerWidth)  x = d.clientX - 405;
+            if (y + 200 > window.innerHeight) y = d.clientY - 210;
+            tip.style.left = x + 'px';
+            tip.style.top  = y + 'px';
         }
+    }
+    else if (d.action === 'navigateToMonk') {
+        // 跳轉到祖師傳記對應頁面
+        const monkPageMap = {
+            '妙蓮法師': 5, '本忠和尚': 6, '圓瑛大師': 7,
+            '白聖長老': 8, '覺力禪師': 9, '妙振老和尚': 10,
+            '達能和尚': 11, '達能老師和尚': 11,
+        };
+        const name = d.name.replace(/\s+/g,'').replace(/【[^】]*】/g,'');
+        let leafIdx = null;
+        for (const [key, idx] of Object.entries(monkPageMap)) {
+            if (name.includes(key.replace(/\s+/g,'')) || key.replace(/\s+/g,'').includes(name)) {
+                leafIdx = idx;
+                break;
+            }
+        }
+        if (leafIdx !== null && typeof flipToPage === 'function') flipToPage(leafIdx);
     }
     else if (d.action === 'hideTooltip') {
         document.getElementById('hoverTooltip')?.classList.remove('show');
+    }
+    else if (d.action === 'mouseMove') {
+        const tip = document.getElementById('hoverTooltip');
+        if (!tip || !tip.classList.contains('show')) return;
+        let x = d.clientX + 12, y = d.clientY + 12;
+        if (x + 400 > window.innerWidth)  x = d.clientX - 405;
+        if (y + 200 > window.innerHeight) y = d.clientY - 210;
+        tip.style.left = x + 'px';
+        tip.style.top  = y + 'px';
     }
 });
