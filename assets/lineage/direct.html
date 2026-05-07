@@ -94,13 +94,13 @@ graph TD
     M_S --> N2_G["永覺 元賢"]
     N2_G --> O2_D["鼓山歷代"]
     O2_D --> ML["妙蓮法師"]
+    ML --> YY["圓瑛大師"]
     ML --> BZ["本忠和尚"]
-    ML --> YY["圓瑛長老"]
     YY --> BS["白聖長老"]
     BZ --> JL["覺力禪師"]
     JL --> MZ["妙振老和尚"]
-    BS --> MZ
-    MZ --> DN["【現脈】達能老師和尚"]
+    BS --> DN["達能老和尚"]
+    MZ --> DN
     style DN fill:#e8c37e,stroke:#5d4037,stroke-width:3px
                                 </div>
     </div>
@@ -165,7 +165,7 @@ graph TD
         });
 
         // 單擊：若是祖師傳記名單中的人，跳轉到對應頁面
-        var navigateMonks = ['妙蓮法師', '本忠和尚', '圓瑛大師', '白聖長老', '覺力禪師', '妙振老和尚', '達能老師和尚', '達能和尚'];
+        var navigateMonks = ['妙蓮法師', '本忠和尚', '圓瑛大師', '白聖長老', '覺力禪師', '妙振老和尚', '達能老和尚', '達能和尚'];
         document.addEventListener('click', function(e) {
             var node = e.target.closest('.node');
             if (!node) return;
