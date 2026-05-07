@@ -61,24 +61,25 @@
         <div class="page-back"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-2-back"></iframe></div>
       </div>
 
-      <!-- LEAF-3: front=空白, back=空白（法脈傳承的停留點） -->
-      <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="">
+      <!-- LEAF-3: front=空白, back=曹洞全圖(左) -->
+      <!-- 停在 leaf-3：左頁(leaf-2 back=法脈導言) | 右頁(leaf-3 front=空白) -->
+      <!-- 停在 leaf-4：左頁(leaf-3 back=曹洞全圖) | 右頁(leaf-4 front=曹洞全圖) 跨頁 -->
+      <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="曹洞全圖">
         <div class="page-front"></div>
-        <div class="page-back"></div>
+        <div class="page-back"><iframe src="assets/lineage/caodong.html" class="page-iframe" title="leaf-3-back"></iframe></div>
       </div>
 
-      <!-- LEAF-4: 曹洞全圖跨兩頁 -->
+      <!-- LEAF-4: front=曹洞全圖(右), back=直系傳承 -->
       <div class="leaf" id="leaf-4" data-nav="lineage" data-sub="曹洞全圖">
         <div class="page-front"><iframe src="assets/lineage/caodong.html" class="page-iframe" title="leaf-4-front"></iframe></div>
-        <div class="page-back"><iframe src="assets/lineage/caodong.html" class="page-iframe" title="leaf-4-back"></iframe></div>
+        <div class="page-back"><iframe src="assets/lineage/direct.html" class="page-iframe" title="leaf-4-back"></iframe></div>
       </div>
 
-      <!-- LEAF-5: front=壽昌法派, back=直系傳承 -->
-      <!-- 停在 leaf-5：左頁(leaf-5 back=直系傳承) | 右頁(leaf-6 front=空白) -->
-      <!-- 翻到 leaf-5 前：左頁(leaf-4 back=曹洞全圖) | 右頁(leaf-5 front=壽昌法派) -->
+      <!-- LEAF-5: front=壽昌法派, back=空白 -->
+      <!-- 停在 leaf-5：左頁(leaf-4 back=直系傳承) | 右頁(leaf-5 front=壽昌法派) -->
       <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="壽昌法派">
         <div class="page-front"><iframe src="assets/lineage/shouchang.html" class="page-iframe" title="leaf-5-front"></iframe></div>
-        <div class="page-back"><iframe src="assets/lineage/direct.html" class="page-iframe" title="leaf-5-back"></iframe></div>
+        <div class="page-back"></div>
       </div>
 
       <!-- ═══ LEAF-6~13 永久固定，禁止調整 ═══ -->
@@ -208,7 +209,7 @@ const PAGE_MAP = {
   'lineage':     3,
   'caodong':     4,
   'shouchang':   5,
-  'direct':      5,
+  'direct':      4,
   'monks':       6,
   '妙蓮法師':    7,
   '圓瑛大師':    8,
