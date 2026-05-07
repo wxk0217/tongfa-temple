@@ -143,39 +143,21 @@
         <div class="page-back"></div>
       </div>
 
-      <!-- LEAF-16: 一樓大殿 -->
-      <div class="leaf" id="leaf-16" data-nav="artifacts" data-sub="一樓大殿">
-        <div class="page-front"><iframe src="assets/pages/artifacts_floor1.html" class="page-iframe" title="leaf-16-front"></iframe></div>
-        <div class="page-back"></div>
+      <!-- LEAF-16: front=現任執事, back=寺務活動 -->
+      <div class="leaf" id="leaf-16" data-nav="members" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/members.html" class="page-iframe" title="leaf-16-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/activities.html" class="page-iframe" title="leaf-16-back"></iframe></div>
       </div>
 
-      <!-- LEAF-17: 三/四樓 -->
-      <div class="leaf" id="leaf-17" data-nav="artifacts" data-sub="三/四樓">
-        <div class="page-front"><iframe src="assets/pages/artifacts_floor34.html" class="page-iframe" title="leaf-17-front"></iframe></div>
-        <div class="page-back"></div>
+      <!-- LEAF-17: front=空白, back=聯絡我們 -->
+      <div class="leaf" id="leaf-17" data-nav="contact" data-sub="">
+        <div class="page-front"></div>
+        <div class="page-back"><iframe src="assets/pages/contact.html" class="page-iframe" title="leaf-17-back"></iframe></div>
       </div>
 
-      <!-- LEAF-18: 現任執事 -->
-      <div class="leaf" id="leaf-18" data-nav="members" data-sub="">
-        <div class="page-front"><iframe src="assets/pages/members.html" class="page-iframe" title="leaf-18-front"></iframe></div>
-        <div class="page-back"></div>
-      </div>
-
-      <!-- LEAF-19: 寺務活動 -->
-      <div class="leaf" id="leaf-19" data-nav="activities" data-sub="">
-        <div class="page-front"><iframe src="assets/pages/activities.html" class="page-iframe" title="leaf-19-front"></iframe></div>
-        <div class="page-back"></div>
-      </div>
-
-      <!-- LEAF-20: 聯絡我們 -->
-      <div class="leaf" id="leaf-20" data-nav="contact" data-sub="">
-        <div class="page-front"><iframe src="assets/pages/contact.html" class="page-iframe" title="leaf-20-front"></iframe></div>
-        <div class="page-back"></div>
-      </div>
-
-      <!-- LEAF-21: 結語 -->
-      <div class="leaf" id="leaf-21" data-nav="" data-sub="">
-        <div class="page-front"><iframe src="assets/pages/blessing.html" class="page-iframe" title="leaf-21-front"></iframe></div>
+      <!-- LEAF-18: 結語 -->
+      <div class="leaf" id="leaf-18" data-nav="" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/blessing.html" class="page-iframe" title="leaf-18-front"></iframe></div>
         <div class="page-back"></div>
       </div>
 
@@ -226,12 +208,10 @@ const PAGE_MAP = {
   '林貴圓居士': 12,
   '林和睦居士': 13,
   'artifacts':  14,
-  'floor1':     16,
-  'floor34':    17,
-  'members':    18,
-  'activities': 19,
-  'contact':    20,
-  'blessing':   21,
+  'members':    16,
+  'activities': 16,
+  'contact':    17,
+  'blessing':   18,
 };
 
 function flipTo(name) {
