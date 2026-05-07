@@ -61,21 +61,21 @@
         <div class="page-back"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-2-back"></iframe></div>
       </div>
 
-      <!-- LEAF-3: front=空白, back=空白 -->
-      <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="">
-        <div class="page-front"></div>
+      <!-- LEAF-3: front=曹洞全圖縮圖(點擊放大), back=直系傳承 -->
+      <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="曹洞全圖">
+        <div class="page-front"><iframe src="assets/lineage/caodong_thumb.html" class="page-iframe" title="leaf-3-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/lineage/direct.html" class="page-iframe" title="leaf-3-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-4: front=壽昌法派, back=空白 -->
+      <div class="leaf" id="leaf-4" data-nav="lineage" data-sub="壽昌法派">
+        <div class="page-front"><iframe src="assets/lineage/shouchang.html" class="page-iframe" title="leaf-4-front"></iframe></div>
         <div class="page-back"></div>
       </div>
 
-      <!-- LEAF-4: front=曹洞全圖縮圖(點擊放大), back=直系傳承 -->
-      <div class="leaf" id="leaf-4" data-nav="lineage" data-sub="曹洞全圖">
-        <div class="page-front"><iframe src="assets/lineage/caodong_thumb.html" class="page-iframe" title="leaf-4-front"></iframe></div>
-        <div class="page-back"><iframe src="assets/lineage/direct.html" class="page-iframe" title="leaf-4-back"></iframe></div>
-      </div>
-
-      <!-- LEAF-5: front=壽昌法派, back=祖師傳記導言 -->
-      <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="壽昌法派">
-        <div class="page-front"><iframe src="assets/lineage/shouchang.html" class="page-iframe" title="leaf-5-front"></iframe></div>
+      <!-- LEAF-5: front=空白, back=祖師傳記導言 -->
+      <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="monks">
+        <div class="page-front"></div>
         <div class="page-back"><iframe src="assets/pages/monk_intro.html" class="page-iframe" title="leaf-5-back"></iframe></div>
       </div>
 
@@ -177,9 +177,12 @@
   </div>
 </main>
 
-<div id="caodongModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;justify-content:center;align-items:center;z-index:99999;">
-  <button onclick="closeCaodongModal()" style="position:absolute;top:16px;right:20px;font-size:36px;color:white;background:none;border:none;cursor:pointer;line-height:1;">✕</button>
-  <iframe id="caodongModalIframe" src="" style="width:96vw;height:92vh;border:none;border-radius:8px;background:#f8f5f0;"></iframe>
+<div id="caodongModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;justify-content:center;align-items:center;z-index:99999;overflow:hidden;">
+  <button onclick="closeCaodongModal()" style="position:absolute;top:16px;right:20px;font-size:36px;color:white;background:none;border:none;cursor:pointer;line-height:1;z-index:100000;">✕</button>
+  <div id="caodongWrapper" style="position:relative;width:96vw;height:92vh;overflow:hidden;border-radius:8px;background:#f8f5f0;cursor:grab;">
+    <iframe id="caodongModalIframe" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;transform-origin:0 0;pointer-events:none;"></iframe>
+  </div>
+  <div style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.78rem;letter-spacing:1px;pointer-events:none;">滾輪或雙指縮放 · 拖曳移動</div>
 </div>
 
 <div id="bioModal" class="bio-modal" style="display:none;">
@@ -203,9 +206,9 @@ const PAGE_MAP = {
   'colophon':    1,
   'intro':       2,
   'lineage':     3,
-  'caodong':     4,
-  'shouchang':   5,
-  'direct':      4,
+  'caodong':     3,
+  'shouchang':   4,
+  'direct':      3,
   'monks':       5,
   '妙蓮法師':    6,
   '圓瑛大師':    7,
@@ -234,6 +237,9 @@ function openCaodongModal(src) {
   iframe.src = src;
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  // 重設縮放
+  _zoom = 1; _panX = 0; _panY = 0;
+  _applyTransform();
 }
 
 function closeCaodongModal() {
@@ -244,12 +250,96 @@ function closeCaodongModal() {
   document.body.style.overflow = '';
 }
 
+// 縮放拖曳狀態
+let _zoom = 1, _panX = 0, _panY = 0;
+let _dragging = false, _lastX = 0, _lastY = 0;
+let _lastDist = 0;
+
+function _applyTransform() {
+  const iframe = document.getElementById('caodongModalIframe');
+  const wrapper = document.getElementById('caodongWrapper');
+  if (!iframe || !wrapper) return;
+  const w = wrapper.clientWidth, h = wrapper.clientHeight;
+  // 限制 pan 範圍
+  const maxX = Math.max(0, w * _zoom - w);
+  const maxY = Math.max(0, h * _zoom - h);
+  _panX = Math.min(0, Math.max(-maxX, _panX));
+  _panY = Math.min(0, Math.max(-maxY, _panY));
+  iframe.style.transform = `translate(${_panX}px, ${_panY}px) scale(${_zoom})`;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('caodongModal').addEventListener('click', e => {
+  const modal = document.getElementById('caodongModal');
+  const wrapper = document.getElementById('caodongWrapper');
+
+  modal.addEventListener('click', e => {
     if (e.target.id === 'caodongModal') closeCaodongModal();
   });
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeCaodongModal();
+  });
+
+  // 滾輪縮放
+  wrapper.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    _zoom = Math.min(5, Math.max(1, _zoom * delta));
+    _applyTransform();
+  }, { passive: false });
+
+  // 滑鼠拖曳
+  wrapper.addEventListener('mousedown', e => {
+    _dragging = true; _lastX = e.clientX; _lastY = e.clientY;
+    wrapper.style.cursor = 'grabbing';
+  });
+  document.addEventListener('mousemove', e => {
+    if (!_dragging) return;
+    _panX += e.clientX - _lastX;
+    _panY += e.clientY - _lastY;
+    _lastX = e.clientX; _lastY = e.clientY;
+    _applyTransform();
+  });
+  document.addEventListener('mouseup', () => {
+    _dragging = false;
+    wrapper.style.cursor = 'grab';
+  });
+
+  // 觸控 pinch-to-zoom
+  wrapper.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      _lastDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    } else if (e.touches.length === 1) {
+      _dragging = true;
+      _lastX = e.touches[0].clientX;
+      _lastY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  wrapper.addEventListener('touchmove', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      if (_lastDist > 0) {
+        _zoom = Math.min(5, Math.max(1, _zoom * (dist / _lastDist)));
+        _applyTransform();
+      }
+      _lastDist = dist;
+    } else if (e.touches.length === 1 && _dragging) {
+      _panX += e.touches[0].clientX - _lastX;
+      _panY += e.touches[0].clientY - _lastY;
+      _lastX = e.touches[0].clientX;
+      _lastY = e.touches[0].clientY;
+      _applyTransform();
+    }
+  }, { passive: false });
+  wrapper.addEventListener('touchend', () => {
+    _dragging = false; _lastDist = 0;
   });
 });
 </script>

@@ -66,13 +66,26 @@
     justify-content: center;
     align-items: center;
     z-index: 99999;
+    overflow: hidden;
   }
-  #imageModal iframe {
+  #modalWrapper {
+    position: relative;
     width: 96vw;
     height: 92vh;
-    border: none;
+    overflow: hidden;
     border-radius: 8px;
     background: #f8f5f0;
+    cursor: grab;
+  }
+  #modalWrapper.grabbing { cursor: grabbing; }
+  #modalWrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    transform-origin: 0 0;
+    pointer-events: none;
   }
   .image-close {
     position: absolute;
@@ -84,8 +97,19 @@
     cursor: pointer;
     line-height: 1;
     opacity: 0.85;
+    z-index: 100000;
   }
   .image-close:hover { opacity: 1; }
+  .zoom-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.6);
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
@@ -103,17 +127,17 @@
 <!-- Modal -->
 <div id="imageModal">
   <button class="image-close" onclick="closeImageModal()">✕</button>
-  <iframe id="modalIframe" src=""></iframe>
+  <div id="modalWrapper">
+    <iframe id="modalIframe" src=""></iframe>
+  </div>
+  <div class="zoom-hint">滾輪或雙指縮放 · 拖曳移動</div>
 </div>
 
 <script>
 function openImageModal() {
-  // 嘗試呼叫父頁面的 Modal，若在 iframe 內則往上傳遞
   try {
-    const top = window.top;
-    top.openCaodongModal('assets/lineage/caodong.html');
+    window.top.openCaodongModal('assets/lineage/caodong.html');
   } catch(e) {
-    // fallback：在本頁開啟
     const modal = document.getElementById('imageModal');
     const iframe = document.getElementById('modalIframe');
     iframe.src = 'caodong.html';
