@@ -98,10 +98,16 @@ const monkDatabase = {
         mdFile: "docs/monk/達能老師和尚.md",
         full: null
     },
-    "林圓貴居士": {
+    "林貴圓居士": {
         short: "【民】(1902-1996) 開山護法居士，購置通法禪寺寺產，邀請妙振老和尚開山主持，親自捐資改建，功德無量。",
         image: null,
         mdFile: "docs/monk/林貴圓居士.md",
+        full: null
+    },
+    "林和睦居士": {
+        short: "通法禪寺第二代監院。",
+        image: null,
+        mdFile: "docs/monk/林和睦居士.md",
         full: null
     }
 };
