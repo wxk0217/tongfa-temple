@@ -8,10 +8,10 @@
 // ==========================================================================
 
 const monkDatabase = {
-    "洞山良价": {
+    "洞山良價": {
         short: "【唐】(807-869) 曹洞宗創始人，提倡「偏正五位」之說，禪風綿密，強調於日常生活中體悟佛法。",
         image: "assets/img/monks/monk_01.jpg",
-        mdFile: "docs/monk/洞山良价.md",
+        mdFile: "docs/monk/洞山良價.md",
         full: null
     },
     "曹山本寂": {
@@ -115,13 +115,31 @@ const monkDatabase = {
 // ─── 查詢函數（供外部呼叫）────────────────────────────────────────────────
 function getMonkData(name) {
     if (!name) return null;
-    // 完全符合
+
+    // 1. 完全符合
     if (monkDatabase[name]) return monkDatabase[name];
-    // 移除空格後比對
-    const clean = name.replace(/\s+/g, '');
+
+    // 2. 移除空格、【】標記、前後綴後比對
+    const clean = name.replace(/\s+/g, '').replace(/【[^】]*】/g, '').replace(/(老師|長老|法師|禪師|大師|和尚|居士|老和尚)$/, '');
     for (const key of Object.keys(monkDatabase)) {
-        if (key.replace(/\s+/g, '') === clean) return monkDatabase[key];
+        const keyClean = key.replace(/\s+/g, '').replace(/(老師|長老|法師|禪師|大師|和尚|居士|老和尚)$/, '');
+        if (keyClean === clean) return monkDatabase[key];
     }
+
+    // 3. 繁簡轉換後比對（价↔價 等常見字）
+    const simplify = s => s.replace(/價/g,'价').replace(/師/g,'师').replace(/傳/g,'传');
+    const cleanSimp = simplify(clean);
+    for (const key of Object.keys(monkDatabase)) {
+        const keySimp = simplify(key.replace(/\s+/g, ''));
+        if (keySimp === cleanSimp) return monkDatabase[key];
+    }
+
+    // 4. 包含匹配（節點名含 key 的核心字）
+    for (const key of Object.keys(monkDatabase)) {
+        const core = key.replace(/\s+/g, '').replace(/(老師|長老|法師|禪師|大師|和尚|居士|老和尚)$/, '');
+        if (core.length >= 2 && clean.includes(core)) return monkDatabase[key];
+    }
+
     return null;
 }
 
