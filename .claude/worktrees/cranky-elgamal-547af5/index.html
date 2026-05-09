@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>曹洞正宗 通法禪寺 — 互動翻頁書</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/fix.css">
+</head>
+<body>
+<header>
+  <nav id="mainNav" class="main-nav">
+    <button onclick="flipTo('cover')" class="nav-btn active-nav" data-nav="cover">封面</button>
+    <button onclick="flipTo('intro')" class="nav-btn" data-nav="intro">簡介</button>
+    <div class="nav-dropdown" data-nav="lineage">
+      <button onclick="flipTo('lineage')" class="nav-btn" data-nav="lineage">法脈傳承<i class="fas fa-chevron-down nav-chevron"></i></button>
+      <div class="nav-submenu">
+        <button onclick="flipTo('caodong')" class="submenu-btn"><i class="fas fa-sitemap"></i>曹洞正宗法脈全圖</button>
+        <button onclick="flipTo('shouchang')" class="submenu-btn"><i class="fas fa-code-branch"></i>壽昌法派</button>
+        <button onclick="flipTo('direct')" class="submenu-btn"><i class="fas fa-arrow-down"></i>直系傳承</button>
+        <button onclick="flipTo('monks')" class="submenu-btn"><i class="fas fa-user-circle"></i>祖師傳記</button>
+      </div>
+    </div>
+    <button onclick="flipTo('artifacts')" class="nav-btn" data-nav="artifacts">文物典藏</button>
+    <button onclick="flipTo('members')" class="nav-btn" data-nav="members">現任執事</button>
+    <button onclick="flipTo('activities')" class="nav-btn" data-nav="activities">寺務活動</button>
+    <button onclick="flipTo('contact')" class="nav-btn" data-nav="contact">聯絡我們</button>
+  </nav>
+  <div class="device-switcher" id="deviceSwitcher">
+    <button class="device-btn active" data-device="desktop" title="桌機版"><i class="fas fa-desktop"></i></button>
+    <button class="device-btn" data-device="tablet" title="平板版"><i class="fas fa-tablet-alt"></i></button>
+    <button class="device-btn" data-device="mobile" title="手機版"><i class="fas fa-mobile-alt"></i></button>
+  </div>
+</header>
+
+<div id="submenuBar" style="display:none;"></div>
+
+<main id="viewport">
+  <div class="book-container">
+    <div id="bookFlip" class="book">
+      <div class="book-bg-left"></div>
+      <div class="book-bg-right"></div>
+
+      <!-- LEAF-0: cover -->
+      <div class="leaf" id="leaf-0" data-nav="cover" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/cover.html" class="page-iframe" title="leaf-0-front"></iframe></div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- LEAF-1: 扉頁 -->
+      <div class="leaf" id="leaf-1" data-nav="" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/colophon.html" class="page-iframe" title="leaf-1-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/entrance.html" class="page-iframe" title="leaf-1-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-2: front=本寺簡介, back=法脈導言 -->
+      <!-- 停在 leaf-3：左頁(leaf-2 back=法脈導言) | 右頁(leaf-3 front=空白) -->
+      <div class="leaf" id="leaf-2" data-nav="intro" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/intro.html" class="page-iframe" title="leaf-2-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-2-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-3: front=曹洞全圖縮圖(點擊放大), back=直系傳承 -->
+      <div class="leaf" id="leaf-3" data-nav="lineage" data-sub="曹洞全圖">
+        <div class="page-front"><iframe src="assets/lineage/caodong_thumb.html" class="page-iframe" title="leaf-3-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/lineage/direct.html" class="page-iframe" title="leaf-3-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-4: front=壽昌法派, back=祖師傳記導言 -->
+      <div class="leaf" id="leaf-4" data-nav="lineage" data-sub="壽昌法派">
+        <div class="page-front"><iframe src="assets/lineage/shouchang.html" class="page-iframe" title="leaf-4-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monk_intro.html" class="page-iframe" title="leaf-4-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-5: front=空白, back=妙蓮法師肖像 -->
+      <div class="leaf" id="leaf-5" data-nav="lineage" data-sub="妙蓮法師">
+        <div class="page-front"></div>
+        <div class="page-back"><iframe src="assets/pages/monks/妙蓮法師_portrait.html" class="page-iframe" title="leaf-5-back"></iframe></div>
+      </div>
+
+      <!-- ═══ LEAF-6~14 永久固定，禁止調整 ═══ -->
+
+      <!-- LEAF-6: front=妙蓮法師傳記, back=本忠和尚肖像 -->
+      <div class="leaf" id="leaf-6" data-nav="lineage" data-sub="妙蓮法師">
+        <div class="page-front"><iframe src="assets/pages/monks/妙蓮法師_bio.html" class="page-iframe" title="leaf-6-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/本忠和尚_portrait.html" class="page-iframe" title="leaf-6-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-7: front=本忠和尚傳記, back=圓瑛大師肖像 -->
+      <div class="leaf" id="leaf-7" data-nav="lineage" data-sub="本忠和尚">
+        <div class="page-front"><iframe src="assets/pages/monks/本忠和尚_bio.html" class="page-iframe" title="leaf-7-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/圓瑛大師_portrait.html" class="page-iframe" title="leaf-7-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-8: front=圓瑛大師傳記, back=白聖長老肖像 -->
+      <div class="leaf" id="leaf-8" data-nav="lineage" data-sub="圓瑛大師">
+        <div class="page-front"><iframe src="assets/pages/monks/圓瑛大師_bio.html" class="page-iframe" title="leaf-8-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/白聖長老_portrait.html" class="page-iframe" title="leaf-8-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-9: front=白聖長老傳記, back=覺力禪師肖像 -->
+      <div class="leaf" id="leaf-9" data-nav="lineage" data-sub="白聖長老">
+        <div class="page-front"><iframe src="assets/pages/monks/白聖長老_bio.html" class="page-iframe" title="leaf-9-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/覺力禪師_portrait.html" class="page-iframe" title="leaf-9-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-10: front=覺力禪師傳記, back=妙振老和尚肖像 -->
+      <div class="leaf" id="leaf-10" data-nav="lineage" data-sub="覺力禪師">
+        <div class="page-front"><iframe src="assets/pages/monks/覺力禪師_bio.html" class="page-iframe" title="leaf-10-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/妙振老和尚_portrait.html" class="page-iframe" title="leaf-10-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-11: front=妙振老和尚傳記, back=達能和尚肖像 -->
+      <div class="leaf" id="leaf-11" data-nav="lineage" data-sub="妙振老和尚">
+        <div class="page-front"><iframe src="assets/pages/monks/妙振老和尚_bio.html" class="page-iframe" title="leaf-11-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/達能和尚_portrait.html" class="page-iframe" title="leaf-11-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-12: front=達能和尚傳記, back=林貴圓居士肖像 -->
+      <div class="leaf" id="leaf-12" data-nav="lineage" data-sub="達能和尚">
+        <div class="page-front"><iframe src="assets/pages/monks/達能和尚_bio.html" class="page-iframe" title="leaf-12-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/林貴圓居士_portrait.html" class="page-iframe" title="leaf-12-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-13: front=林貴圓居士傳記, back=林和睦居士肖像 -->
+      <div class="leaf" id="leaf-13" data-nav="lineage" data-sub="林貴圓居士">
+        <div class="page-front"><iframe src="assets/pages/monks/林貴圓居士_bio.html" class="page-iframe" title="leaf-13-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/monks/林和睦居士_portrait.html" class="page-iframe" title="leaf-13-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-14: front=林和睦居士傳記, back=文物說明導言 -->
+      <div class="leaf" id="leaf-14" data-nav="lineage" data-sub="林和睦居士">
+        <div class="page-front"><iframe src="assets/pages/monks/林和睦居士_bio.html" class="page-iframe" title="leaf-14-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/artifacts_desc.html" class="page-iframe" title="leaf-14-back"></iframe></div>
+      </div>
+
+      <!-- ═══ LEAF-6~14 結束 ═══ -->
+
+      <!-- LEAF-15: 文物典藏(院外) -->
+      <div class="leaf" id="leaf-15" data-nav="artifacts" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/artifacts.html" class="page-iframe" title="leaf-15-front"></iframe></div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- LEAF-16: front=現任執事, back=寺務活動 -->
+      <div class="leaf" id="leaf-16" data-nav="members" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/members.html" class="page-iframe" title="leaf-16-front"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/activities.html" class="page-iframe" title="leaf-16-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-17: front=空白, back=聯絡我們 -->
+      <div class="leaf" id="leaf-17" data-nav="activities" data-sub="">
+        <div class="page-front"></div>
+        <div class="page-back"><iframe src="assets/pages/contact.html" class="page-iframe" title="leaf-17-back"></iframe></div>
+      </div>
+
+      <!-- LEAF-18: 結語 -->
+      <div class="leaf" id="leaf-18" data-nav="contact" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/blessing.html" class="page-iframe" title="leaf-18-front"></iframe></div>
+        <div class="page-back"></div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<div id="caodongModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;justify-content:center;align-items:center;z-index:99999;overflow:hidden;">
+  <button onclick="closeCaodongModal()" style="position:absolute;top:16px;right:20px;font-size:36px;color:white;background:none;border:none;cursor:pointer;line-height:1;z-index:100000;">✕</button>
+  <div id="caodongWrapper" style="position:relative;width:96vw;height:92vh;overflow:hidden;border-radius:8px;background:#f8f5f0;cursor:grab;">
+    <iframe id="caodongModalIframe" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;transform-origin:0 0;pointer-events:none;"></iframe>
+  </div>
+  <div style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.78rem;letter-spacing:1px;pointer-events:none;">滾輪或雙指縮放 · 拖曳移動</div>
+</div>
+
+<div id="bioModal" class="bio-modal" style="display:none;">
+  <div class="bio-modal-content">
+    <button class="bio-modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <img id="bioPortrait" style="width:100px;height:120px;object-fit:cover;border-radius:4px;flex-shrink:0;display:none;">
+      <div style="flex:1;">
+        <h2 id="bioName" style="margin:0 0 12px;font-size:1.3rem;color:var(--primary-color)"></h2>
+        <p id="bioStory" style="white-space:pre-wrap;line-height:1.9;font-size:0.9rem;"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="hoverTooltip" class="hover-tooltip"></div>
+
+<script>
+const PAGE_MAP = {
+  'cover':       0,
+  'colophon':    1,
+  'intro':       2,
+  'lineage':     3,
+  'caodong':     3,
+  'shouchang':   4,
+  'direct':      3,
+  'monks':       4,
+  '妙蓮法師':    5,
+  '本忠和尚':    6,
+  '圓瑛大師':    7,
+  '白聖長老':    8,
+  '覺力禪師':    9,
+  '妙振老和尚': 10,
+  '達能和尚':   11,
+  '林貴圓居士': 12,
+  '林和睦居士': 13,
+  'artifacts':  15,
+  'members':    16,
+  'activities': 17,
+  'contact':    18,
+  'blessing':   18,
+};
+
+function flipTo(name) {
+  var idx = PAGE_MAP[name];
+  if (idx !== undefined) flipToPage(idx);
+}
+
+function openCaodongModal(src) {
+  const modal = document.getElementById('caodongModal');
+  const iframe = document.getElementById('caodongModalIframe');
+  iframe.src = src;
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  // 重設縮放
+  _zoom = 1; _panX = 0; _panY = 0;
+  _applyTransform();
+}
+
+function closeCaodongModal() {
+  const modal = document.getElementById('caodongModal');
+  const iframe = document.getElementById('caodongModalIframe');
+  modal.style.display = 'none';
+  iframe.src = '';
+  document.body.style.overflow = '';
+}
+
+// 縮放拖曳狀態
+let _zoom = 1, _panX = 0, _panY = 0;
+let _dragging = false, _lastX = 0, _lastY = 0;
+let _lastDist = 0;
+
+function _applyTransform() {
+  const iframe = document.getElementById('caodongModalIframe');
+  const wrapper = document.getElementById('caodongWrapper');
+  if (!iframe || !wrapper) return;
+  const w = wrapper.clientWidth, h = wrapper.clientHeight;
+  // 限制 pan 範圍
+  const maxX = Math.max(0, w * _zoom - w);
+  const maxY = Math.max(0, h * _zoom - h);
+  _panX = Math.min(0, Math.max(-maxX, _panX));
+  _panY = Math.min(0, Math.max(-maxY, _panY));
+  iframe.style.transform = `translate(${_panX}px, ${_panY}px) scale(${_zoom})`;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('caodongModal');
+  const wrapper = document.getElementById('caodongWrapper');
+
+  modal.addEventListener('click', e => {
+    if (e.target.id === 'caodongModal') closeCaodongModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeCaodongModal();
+  });
+
+  // 滾輪縮放
+  wrapper.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    _zoom = Math.min(5, Math.max(1, _zoom * delta));
+    _applyTransform();
+  }, { passive: false });
+
+  // 滑鼠拖曳
+  wrapper.addEventListener('mousedown', e => {
+    _dragging = true; _lastX = e.clientX; _lastY = e.clientY;
+    wrapper.style.cursor = 'grabbing';
+  });
+  document.addEventListener('mousemove', e => {
+    if (!_dragging) return;
+    _panX += e.clientX - _lastX;
+    _panY += e.clientY - _lastY;
+    _lastX = e.clientX; _lastY = e.clientY;
+    _applyTransform();
+  });
+  document.addEventListener('mouseup', () => {
+    _dragging = false;
+    wrapper.style.cursor = 'grab';
+  });
+
+  // 觸控 pinch-to-zoom
+  wrapper.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) {
+      _lastDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    } else if (e.touches.length === 1) {
+      _dragging = true;
+      _lastX = e.touches[0].clientX;
+      _lastY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  wrapper.addEventListener('touchmove', e => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      if (_lastDist > 0) {
+        _zoom = Math.min(5, Math.max(1, _zoom * (dist / _lastDist)));
+        _applyTransform();
+      }
+      _lastDist = dist;
+    } else if (e.touches.length === 1 && _dragging) {
+      _panX += e.touches[0].clientX - _lastX;
+      _panY += e.touches[0].clientY - _lastY;
+      _lastX = e.touches[0].clientX;
+      _lastY = e.touches[0].clientY;
+      _applyTransform();
+    }
+  }, { passive: false });
+  wrapper.addEventListener('touchend', () => {
+    _dragging = false; _lastDist = 0;
+  });
+});
+</script>
+
+<script>
+// 手機模式下拉選單：點擊切換（取代 :active hack）
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.nav-dropdown').forEach(function (dd) {
+    dd.querySelector('.nav-btn').addEventListener('click', function (e) {
+      var device = document.documentElement.getAttribute('data-device');
+      if (device === 'mobile' || window.innerWidth <= 767) {
+        e.stopPropagation();
+        var isOpen = dd.classList.toggle('nav-open');
+        // 關閉其他已展開的 dropdown
+        if (isOpen) {
+          document.querySelectorAll('.nav-dropdown.nav-open').forEach(function (other) {
+            if (other !== dd) other.classList.remove('nav-open');
+          });
+        }
+      }
+    });
+  });
+  // 點擊其他區域關閉
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.nav-dropdown.nav-open').forEach(function (dd) {
+      dd.classList.remove('nav-open');
+    });
+  });
+});
+</script>
+
+<script src="js/data.js"></script>
+<script src="js/flip-engine.js"></script>
+<script src="js/bio-modal.js"></script>
+<script src="js/lineage.js"></script>
+<script src="js/book-engine.js"></script>
+<script src="js/device-switcher.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
