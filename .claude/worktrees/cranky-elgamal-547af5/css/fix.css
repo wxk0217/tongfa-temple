@@ -41,9 +41,19 @@
     transform: translateY(-50%) scale(1.1);
 }
 
-/* 對齊書本左右邊緣外側 */
-.flip-btn-left  { left:  calc(50% - 640px - 48px); }
-.flip-btn-right { right: calc(50% - 640px - 48px); }
+/* 對齊書本左右邊緣外側，使用 CSS 變數動態計算 */
+.flip-btn-left  { left:  calc(50% - var(--book-width) / 2 - 48px); }
+.flip-btn-right { right: calc(50% - var(--book-width) / 2 - 48px); }
+
+/* 手機 / 平板：已有專屬導覽，隱藏桌面翻頁按鈕 */
+@media (max-width: 767px) {
+    .flip-btn { display: none !important; }
+}
+
+:root[data-device="mobile"] .flip-btn,
+:root[data-device="tablet"] .flip-btn {
+    display: none !important;
+}
 
 .flip-arrow {
     font-size: 1.2rem;
@@ -68,51 +78,3 @@
 }
 .book-bg-left  { left: 0;  background-image: linear-gradient(to right, rgba(0,0,0,0.05) 0%, transparent 8%); }
 .book-bg-right { right: 0; background-image: linear-gradient(to left,  rgba(0,0,0,0.05) 0%, transparent 8%); }
-
-/* ── Nav Dropdown ── */
-.nav-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.nav-dropdown:hover .nav-submenu,
-.nav-dropdown:focus-within .nav-submenu {
-    display: flex;
-}
-
-.nav-submenu {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(42, 27, 22, 0.97);
-    border: 1px solid rgba(198,160,89,0.4);
-    border-radius: 6px;
-    min-width: 160px;
-    z-index: 10000;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    overflow: hidden;
-    padding: 4px 0;
-}
-
-.submenu-btn {
-    background: none;
-    border: none;
-    color: rgba(255,252,245,0.85);
-    font-family: 'Noto Serif TC', serif;
-    font-size: 0.82rem;
-    letter-spacing: 1px;
-    padding: 9px 18px;
-    text-align: left;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.15s, color 0.15s;
-    width: 100%;
-}
-
-.submenu-btn:hover {
-    background: rgba(198,160,89,0.2);
-    color: #e8c37e;
-}

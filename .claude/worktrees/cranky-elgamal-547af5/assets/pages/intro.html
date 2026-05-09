@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本寺簡介</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 100%; height: 100%;
+            background: var(--paper-light, #fffcf5);
+            font-family: 'Noto Serif TC', 'STSong', serif;
+            overflow: auto;
+        }
+        .intro-wrap {
+            width: 100%; height: 100%;
+        }
+
+        /* 全頁文字內容 */
+        .intro-text {
+            width: 100%;
+            padding: 32px 28px;
+            overflow-y: auto;
+        }
+        .intro-text h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #5d4037;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(198,160,89,0.3);
+        }
+        .intro-text .content {
+            font-size: 0.88rem;
+            line-height: 2.1;
+            color: #3d2b1f;
+            white-space: pre-wrap;
+        }
+        .intro-text .content p {
+            margin-bottom: 14px;
+        }
+        .loading {
+            color: #c6a059;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-wrap">
+        <!-- 簡介文字 -->
+        <div class="intro-text">
+            <h2>本寺簡介</h2>
+            <div class="content" id="introContent">
+                <span class="loading">載入中...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    fetch('../../docs/temple/寺廟簡介.md')
+        .then(r => { if (!r.ok) throw new Error('404'); return r.text(); })
+        .then(text => {
+            const el = document.getElementById('introContent');
+            // 移除第一行標題（已有 h2），並把段落分開
+            const lines = text.replace(/\r/g, '').split('\n').filter(l => l.trim());
+            // 第一行若是標題就略過
+            const start = (lines[0] && !lines[0].startsWith('1') && lines[0].length < 20) ? 1 : 0;
+            el.innerHTML = lines.slice(start)
+                .map(l => `<p>${l}</p>`)
+                .join('');
+        })
+        .catch(() => {
+            document.getElementById('introContent').innerHTML =
+                '<p>通法禪寺座落於台北市中正區，承曹洞宗法脈，持戒清修，廣開法門，歡迎各方信士到訪。</p>';
+        });
+    </script>
+</body>
+</html>

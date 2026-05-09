@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寺務活動</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        html,body{margin:0;padding:0;width:100%;height:100%;overflow:auto;background:transparent;}
+        .spread{display:flex;width:100%;height:100%;}
+        .spread-photo{width:50%;height:100%;overflow:hidden;flex-shrink:0;}
+        .spread-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+        .spread-text{width:50%;height:100%;overflow:auto;flex-shrink:0;}
+        /* 窄版（嵌在平板或小書本）：單欄堆疊 */
+        @media (max-width: 500px) {
+            .spread{flex-direction:column;}
+            .spread-photo,.spread-text{width:100%;height:auto;flex-shrink:unset;}
+            .spread-photo{height:200px;}
+        }
+    </style>
+</head>
+<body>
+<div class="spread">
+    <div class="spread-photo">
+        <img src="../img/temple_entrance.jpg" alt="通法禪寺">
+    </div>
+    <div class="spread-text"><div class="content-container">
+        <h2>寺務活動</h2>
+        <ul class="activity-list">
+            <li><span class="activity-title">共修法會</span>每月初一、十五 09:00 - 11:30</li>
+            <li><span class="activity-title">禪修班</span>每週日 09:00 - 11:00</li>
+            <li><span class="activity-title">法華經持誦</span>每月初八 14:00 - 16:00</li>
+            <li><span class="activity-title">念佛法會</span>每季舉辦一次</li>
+        </ul>
+        <div class="page-num">伍</div>
+    </div></div>
+</div>
+</body>
+</html>

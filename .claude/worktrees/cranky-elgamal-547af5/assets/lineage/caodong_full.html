@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>曹洞正宗法脈全圖 (校訂版)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: "Microsoft JhengHei", "PingFang TC", sans-serif; background-color: #f8f5f0; margin: 0; }
+        #header { background: #3e2723; color: #d7ccc8; padding: 25px; text-align: center; border-bottom: 5px solid #8d6e63; position: sticky; top: 0; z-index: 1000; }
+        #diagram-container { padding: 40px; overflow: auto; }
+        .mermaid { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: inline-block; }
+        .legend { position: fixed; bottom: 20px; left: 20px; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 8px; border: 1px solid #d7ccc8; z-index: 1000; font-size: 14px; }
+        .legend span { display: inline-block; width: 15px; height: 15px; margin-right: 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <h1>曹洞正宗法脈全圖</h1>
+    <p>依據《壽昌法派．鼓山續派》歷代傳承校訂人名</p>
+</div>
+
+<div class="legend">
+    <strong>顏色標示：</strong><br>
+    <span style="background:#c62828"></span> 唐宋祖師 (核心)<br>
+    <span style="background:#ef6c00"></span> 江西壽昌系 (中興)<br>
+    <span style="background:#1976d2"></span> 福建鼓山派 (祖庭)<br>
+    <span style="background:#2e7d32"></span> 近代台灣分支
+</div>
+
+<div id="diagram-container">
+    <div class="mermaid">
+    graph LR
+        %% 樣式設定
+        classDef coreMaster fill:#c62828,color:#fff,stroke:#333,stroke-width:2px;
+        classDef shouchang fill:#ef6c00,color:#fff,stroke:#333;
+        classDef gushan fill:#1976d2,color:#fff,stroke:#333;
+        classDef taiwan fill:#2e7d32,color:#fff,stroke:#333;
+
+        %% 一、唐代開宗 (校訂字形：良价)
+        A["<b>洞山良价禪師</b><br/>(第1代)"]:::coreMaster --- B(曹山本寂)
+        A --- C(洞山道全)
+        A --- D["<b>雲居道膺禪師</b><br/>(第2代)"]:::coreMaster
+        
+        %% 二、五代至北宋 (校訂人名：道丕、大陽警玄)
+        D --- D1(同安道丕) --- D2(同安觀志) --- D3["<b>大陽警玄禪師</b><br/>(第6代)"]:::coreMaster
+        D3 --- E(投子義青) --- F["<b>芙蓉道楷禪師</b><br/>(第8代)"]:::coreMaster
+        
+        %% 三、南宋至元明 (校訂人名：宗書)[cite: 2]
+        F --- G(丹霞子淳)
+        G --- H1(宏智正覺)
+        G --- H2(真歇清了)
+        F --- I(鹿門自覺) --- I1(歷代傳承) --- I2(萬松行秀)
+        I2 --- J(雪庭福裕)
+        
+        %% 四、明末壽昌中興 (校訂人名：壽昌慧經)[cite: 2]
+        I1 --- K(大章宗書) --- L["<b>壽昌慧經禪師</b><br/>(第31代)"]:::shouchang
+        
+        %% 五、清初鼓山大興 (校訂人名：永覺元賢、為霖道霈)[cite: 2]
+        L --- M1(無異元來)
+        L --- M2["<b>永覺元賢禪師</b><br/>(第32代)"]:::gushan
+        M2 --- N1["<b>為霖道霈禪師</b><br/>(第33代)"]:::gushan --- N2(鼓山歷代傳統)
+        
+        %% 六、近代與台灣傳承 (校訂人名：圓瑛耀性、白聖古航、達能復融)[cite: 1, 2]
+        N2 --- ML["<b>妙蓮禪師</b><br/>(妙蓮地華)"]:::gushan
+        
+        ML --- BZ["本忠和尚"]:::gushan
+        ML --- YY["<b>圓瑛耀性禪師</b><br/>(第46代)"]:::gushan
+        
+        %% 台灣法脈具體流向
+        BZ --- JL["<b>覺力禪師</b><br/>(台灣大湖法雲寺系始祖)"]:::taiwan
+        JL --- MZ["<b>妙振老和尚</b><br/>(通法禪寺第一代住持)"]:::taiwan
+        YY --- BS["<b>白聖古航禪師</b><br/>(第47代)"]:::taiwan
+        
+        %% 共同傳承給達能老和尚
+        MZ --- DN["<b>達能復融禪師</b><br/>(第48代，通法禪寺第二代住持)"]:::taiwan
+        BS --- DN
+
+        subgraph "唐宋奠基"
+        A
+        D
+        D3
+        F
+        end
+
+        subgraph "明清中興"
+        L
+        M2
+        N1
+        end
+
+        subgraph "台灣傳承"
+        JL
+        MZ
+        BS
+        DN
+        end
+    </div>
+</div>
+
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        maxNodes: 1000,
+        flowchart: {
+            useMaxWidth: false,
+            htmlLabels: true,
+            curve: 'basis'
+        },
+        theme: 'neutral'
+    });
+</script>
+
+
+    <script>
+    // 法脈圖節點點擊 → 通知主頁面開啟傳記彈窗
+    (function() {
+        var tapTimer = null;
+
+        function getName(node) {
+            var label = node.querySelector('.nodeLabel, .label, text');
+            if (!label) return '';
+            return (label.textContent || label.innerHTML || '').replace(/<[^>]*>/g, '').trim();
+        }
+
+        // 桌機：雙擊
+        document.addEventListener('dblclick', function(e) {
+            var node = e.target.closest('.node');
+            if (!node) return;
+            var name = getName(node);
+            if (name) window.parent.postMessage({ action: 'openModal', name: name }, '*');
+        });
+
+        // 觸控：單點顯示 tooltip，雙點開彈窗
+        document.addEventListener('touchend', function(e) {
+            var node = e.target.closest('.node');
+            if (!node) return;
+            e.preventDefault();
+            var name = getName(node);
+            if (!name) return;
+            if (tapTimer) {
+                clearTimeout(tapTimer);
+                tapTimer = null;
+                window.parent.postMessage({ action: 'openModal', name: name }, '*');
+            } else {
+                tapTimer = setTimeout(function() {
+                    tapTimer = null;
+                    window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+                }, 280);
+            }
+        }, { passive: false });
+
+        // 桌機：hover → tooltip
+        document.addEventListener('mouseover', function(e) {
+            var node = e.target.closest('.node');
+            if (!node) return;
+            var name = getName(node);
+            if (name) window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+        });
+        document.addEventListener('mouseout', function(e) {
+            if (e.target.closest('.node'))
+                window.parent.postMessage({ action: 'hideTooltip' }, '*');
+        });
+    })();
+    </script>
+
+</body>
+</html>
