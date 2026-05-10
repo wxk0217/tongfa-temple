@@ -202,6 +202,8 @@
     caodongModal.setAttribute('aria-hidden', 'false');
     _applyTransform();
   }
+  // 暴露給子 iframe 呼叫（caodong_thumb.html 內的按鈕用 window.top.openCaodongModal）
+  window.openCaodongModal = openCaodongModal;
 
   function closeCaodongModal() {
     caodongModal.classList.remove('open');
@@ -285,6 +287,26 @@
 
   caodongWrapper.addEventListener('touchend', () => {
     _dragging = false; _lastDist = 0;
+  });
+
+  /* ══════════════════════════════
+     BGM 開關
+  ══════════════════════════════ */
+  const bgmBtn   = document.getElementById('mBgmBtn');
+  const bgmAudio = document.getElementById('mBgm');
+  let bgmPlaying = false;
+
+  bgmBtn.addEventListener('click', () => {
+    if (bgmPlaying) {
+      bgmAudio.pause();
+      bgmBtn.classList.remove('playing');
+      bgmBtn.setAttribute('aria-label', '播放背景音樂');
+    } else {
+      bgmAudio.play().catch(() => {});
+      bgmBtn.classList.add('playing');
+      bgmBtn.setAttribute('aria-label', '停止背景音樂');
+    }
+    bgmPlaying = !bgmPlaying;
   });
 
   /* ══════════════════════════════

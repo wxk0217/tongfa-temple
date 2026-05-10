@@ -2184,3 +2184,29 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
 }
 
 /* 書本尺寸由 book-engine.js 動態管理 */
+/* ══ BGM 開關按鈕（電腦版 header）══ */
+.bgm-btn {
+    background: rgba(255,252,245,0.2);
+    border: 1px solid rgba(198,160,89,0.3);
+    color: rgba(198,160,89,0.6);
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-right: 12px;
+    transition: all 0.2s ease;
+    align-self: center;
+}
+.bgm-btn:hover {
+    background: rgba(198,160,89,0.1);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+.bgm-btn.playing {
+    background: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+}
+.bgm-btn .bgm-icon-on  { display: none; }
+.bgm-btn.playing .bgm-icon-off { display: none; }
+.bgm-btn.playing .bgm-icon-on  { display: inline; }

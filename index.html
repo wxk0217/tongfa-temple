@@ -41,6 +41,11 @@
     <button class="device-btn" data-device="tablet" title="平板版"><i class="fas fa-tablet-alt"></i></button>
     <button class="device-btn" data-device="mobile" title="手機版"><i class="fas fa-mobile-alt"></i></button>
   </div>
+  <button class="bgm-btn" id="bgmBtn" title="背景音樂開關" aria-label="播放背景音樂">
+    <i class="fas fa-volume-xmark bgm-icon-off"></i>
+    <i class="fas fa-volume-high  bgm-icon-on"></i>
+  </button>
+  <audio id="bgmAudio" src="assets/studio/songbo_web.mp3" loop preload="none"></audio>
 </header>
 
 <div id="submenuBar" style="display:none;"></div>
@@ -341,5 +346,17 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="js/book-engine.js"></script>
 <script src="js/device-switcher.js"></script>
 <script src="js/main.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById("bgmBtn");
+  var audio = document.getElementById("bgmAudio");
+  var playing = false;
+  btn.addEventListener("click", function(){
+    if(playing){ audio.pause(); btn.classList.remove("playing"); btn.setAttribute("aria-label","播放背景音樂"); }
+    else { audio.play().catch(function(){}); btn.classList.add("playing"); btn.setAttribute("aria-label","停止背景音樂"); }
+    playing = !playing;
+  });
+})();
+</script>
 </body>
 </html>

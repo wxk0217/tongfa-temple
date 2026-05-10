@@ -368,6 +368,32 @@ html, body {
   flex-shrink: 0;
 }
 
+/* ══ BGM 開關按鈕 ══ */
+.m-bgm-btn {
+  position: fixed;
+  bottom: calc(var(--m-fab-size) + 36px);
+  right: 20px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--m-white);
+  border: 1px solid #e8e8e6;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  color: var(--m-gray-mid);
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 200;
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.m-bgm-btn.playing {
+  color: var(--m-gold);
+  border-color: var(--m-gold);
+  box-shadow: 0 2px 12px rgba(184,154,90,0.25);
+}
+.m-bgm-btn .m-bgm-on  { display: none; }
+.m-bgm-btn.playing .m-bgm-off { display: none; }
+.m-bgm-btn.playing .m-bgm-on  { display: inline; }
+
 /* ══════════════════════════════
    電腦版開啟時自動跳轉提示
 ══════════════════════════════ */

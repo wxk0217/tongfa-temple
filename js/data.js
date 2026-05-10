@@ -28,19 +28,19 @@ const monkDatabase = {
     },
     "芙蓉道楷": {
         short: "【北宋】(1043-1118) 曹洞宗中興之祖，風骨卓絕，曾拒絕宋徽宗賜紫衣而遭貶，使曹洞法脈重振紀律。",
-        image: null,
+        image: "assets/img/monks/芙蓉道楷.jpg",
         mdFile: "docs/monk/芙蓉道楷.md",
         full: null
     },
     "萬松行秀": {
         short: "【金/元】(1166-1246) 曹洞大宗師，著有《從容錄》，將「默照禪」心法系統化，對後世禪修影響深遠。",
-        image: null,
+        image: "assets/img/monks/萬松行秀.jpg",
         mdFile: "docs/monk/萬松行秀.md",
         full: null
     },
     "雪庭福裕": {
         short: "【元】(1203-1275) 少林寺曹洞宗初祖，奉詔入主嵩山少林寺，定下「七十字輩」傳承。",
-        image: null,
+        image: "assets/img/monks/雪庭福裕.jpg",
         mdFile: "docs/monk/雪庭福裕.md",
         full: null
     },
@@ -58,13 +58,13 @@ const monkDatabase = {
     },
     "妙蓮法師": {
         short: "【清】(1824-1907) 曹洞鼓山法派向海外播種的先驅，開創馬來西亞檳城極樂寺，1904年入宮面見光緒皇帝，外號欽命方丈。",
-        image: null,
+        image: "assets/img/monks/妙蓮法師.jpg",
         mdFile: "docs/monk/妙蓮法師.md",
         full: null
     },
     "本忠和尚": {
         short: "【清/民】(1866-1936) 繼任檳城極樂寺住持，創立「念佛蓮社」，致力於南洋的弘化護教。",
-        image: null,
+        image: "assets/img/monks/本忠和尚.jpg",
         mdFile: null,
         full: null
     },
@@ -94,13 +94,13 @@ const monkDatabase = {
     },
     "達能和尚": {
         short: "通法禪寺第二代住持，為妙振老和尚剃度弟子，亦為白聖長老法子，融匯曹洞與臨濟二宗法脈，弘法足跡遍及東南亞。",
-        image: null,
+        image: "assets/img/monks/達能和尚.jpg",
         mdFile: "docs/monk/達能老師和尚.md",
         full: null
     },
     "林貴圓居士": {
         short: "【民】(1902-1996) 開山護法居士，購置通法禪寺寺產，邀請妙振老和尚開山主持，親自捐資改建，功德無量。",
-        image: null,
+        image: "assets/img/monks/林貴圓居士.jpg",
         mdFile: "docs/monk/林貴圓居士.md",
         full: null
     },
