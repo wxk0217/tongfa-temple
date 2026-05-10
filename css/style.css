@@ -74,10 +74,12 @@ p {
    ========================================================================== */
 header {
     background-color: var(--header-bg);
-    padding: 12px 0;
+    padding: 8px 16px;
     z-index: 1000;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 nav {
@@ -1479,8 +1481,8 @@ footer { background: var(--header-bg); color: #d7ccc8; text-align: center; paddi
     justify-content: center;
     flex-wrap: wrap;
     position: relative;
+    flex: 1;
 }
-
 .nav-btn {
     background: rgba(93,64,55,0.95);
     color: #fffcf5;
