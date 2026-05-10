@@ -162,15 +162,21 @@
         <div class="page-back"><iframe src="assets/pages/activities.html" class="page-iframe" title="leaf-16-back"></iframe></div>
       </div>
 
-      <!-- LEAF-17: front=空白, back=聯絡我們 -->
+       <!-- LEAF-17: front=空白, back=聯絡說明 -->
       <div class="leaf" id="leaf-17" data-nav="contact" data-sub="">
         <div class="page-front"></div>
-        <div class="page-back"><iframe src="assets/pages/contact.html" class="page-iframe" title="leaf-17-back"></iframe></div>
+        <div class="page-back"><iframe src="assets/pages/contact_info.html" class="page-iframe" title="leaf-17-back"></iframe></div>
       </div>
 
-      <!-- LEAF-18: 結語 -->
-      <div class="leaf" id="leaf-18" data-nav="" data-sub="">
-        <div class="page-front"><iframe src="assets/pages/blessing.html" class="page-iframe" title="leaf-18-front"></iframe></div>
+      <!-- LEAF-18: front=地圖, back=空白 -->
+      <div class="leaf" id="leaf-18" data-nav="contact" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/contact_map.html" class="page-iframe" title="leaf-18-front"></iframe></div>
+        <div class="page-back"></div>
+      </div>
+
+      <!-- LEAF-19: front=結語, back=空白 -->
+      <div class="leaf" id="leaf-19" data-nav="" data-sub="">
+        <div class="page-front"><iframe src="assets/pages/blessing.html" class="page-iframe" title="leaf-19-front"></iframe></div>
         <div class="page-back"></div>
       </div>
 
@@ -224,7 +230,7 @@ const PAGE_MAP = {
   'members':    16,
   'activities': 17,
   'contact':    18,
-  'blessing':   18,
+  'blessing':   19,
 };
 function flipTo(name) {
   var idx = PAGE_MAP[name];
