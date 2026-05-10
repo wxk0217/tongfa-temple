@@ -7,17 +7,32 @@
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
         html,body{width:100%;height:100%;overflow:hidden;background:#1b3040;font-family:'Noto Serif TC','STSong',serif;}
-        .portrait-wrap{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:32px;}
-        .portrait-placeholder{width:180px;height:220px;border:3px solid #c6a059;border-radius:4px;background:#21384a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
-        .placeholder-char{font-size:4rem;color:rgba(198,160,89,0.5);font-weight:300;}
-        .placeholder-label{font-size:0.75rem;color:rgba(198,160,89,0.4);letter-spacing:2px;}
+        
+        .portrait-wrap{
+            width:100%;height:100%;
+            display:flex;flex-direction:column;
+            align-items:center;justify-content:center;
+            gap:24px;padding:32px;
+        }
+
+        /* 關鍵：必須對 img 標籤設定固定的寬高與裁切方式 */
+        .portrait-wrap img {
+            width: 180px;
+            height: 220px;
+            object-fit: cover; /* 確保圖片不變形地填滿邊框 */
+            border: 3px solid #c6a059;
+            border-radius: 4px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .portrait-divider{width:60px;height:1px;background:rgba(198,160,89,0.4);}
         .portrait-name{font-size:1.6rem;font-weight:700;color:#f0e6c8;letter-spacing:6px;text-align:center;}
         .portrait-era{font-size:0.85rem;color:rgba(198,160,89,0.7);letter-spacing:3px;text-align:center;}
-        .portrait-divider{width:60px;height:1px;background:rgba(198,160,89,0.4);}
     </style>
 </head>
 <body>
     <div class="portrait-wrap">
+        <!-- 現在圖片會乖乖待在 180x220 的框框裡了 -->
         <img src="../../../assets/img/monks/本忠和尚.jpg" alt="本忠和尚">
         <div class="portrait-divider"></div>
         <div class="portrait-name">本忠和尚</div>
