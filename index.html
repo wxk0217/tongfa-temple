@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>曹洞正宗 通法禪寺 — 互動翻頁書</title>
+<script>
+  (function () {
+    var w = window.innerWidth;
+    var ua = navigator.userAgent;
+    if (w <= 768 || /Mobi|Android|iPhone|iPad/i.test(ua)) {
+      location.replace('mobile.html');
+    }
+  })();
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/fix.css">
@@ -55,7 +64,6 @@
       </div>
 
       <!-- LEAF-2: front=本寺簡介, back=法脈導言 -->
-      <!-- 停在 leaf-3：左頁(leaf-2 back=法脈導言) | 右頁(leaf-3 front=空白) -->
       <div class="leaf" id="leaf-2" data-nav="intro" data-sub="">
         <div class="page-front"><iframe src="assets/pages/intro.html" class="page-iframe" title="leaf-2-front"></iframe></div>
         <div class="page-back"><iframe src="assets/pages/lineage_intro.html" class="page-iframe" title="leaf-2-back"></iframe></div>
@@ -225,7 +233,6 @@ function openCaodongModal(src) {
   iframe.src = src;
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  // 重設縮放
   _zoom = 1; _panX = 0; _panY = 0;
   _applyTransform();
 }
@@ -238,7 +245,6 @@ function closeCaodongModal() {
   document.body.style.overflow = '';
 }
 
-// 縮放拖曳狀態
 let _zoom = 1, _panX = 0, _panY = 0;
 let _dragging = false, _lastX = 0, _lastY = 0;
 let _lastDist = 0;
@@ -248,7 +254,6 @@ function _applyTransform() {
   const wrapper = document.getElementById('caodongWrapper');
   if (!iframe || !wrapper) return;
   const w = wrapper.clientWidth, h = wrapper.clientHeight;
-  // 限制 pan 範圍
   const maxX = Math.max(0, w * _zoom - w);
   const maxY = Math.max(0, h * _zoom - h);
   _panX = Math.min(0, Math.max(-maxX, _panX));
@@ -268,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Escape') closeCaodongModal();
   });
 
-  // 滾輪縮放
   wrapper.addEventListener('wheel', e => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? 0.9 : 1.1;
@@ -276,7 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
     _applyTransform();
   }, { passive: false });
 
-  // 滑鼠拖曳
   wrapper.addEventListener('mousedown', e => {
     _dragging = true; _lastX = e.clientX; _lastY = e.clientY;
     wrapper.style.cursor = 'grabbing';
@@ -293,7 +296,6 @@ document.addEventListener('DOMContentLoaded', function() {
     wrapper.style.cursor = 'grab';
   });
 
-  // 觸控 pinch-to-zoom
   wrapper.addEventListener('touchstart', e => {
     if (e.touches.length === 2) {
       _lastDist = Math.hypot(

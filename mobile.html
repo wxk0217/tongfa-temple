@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>通法禪寺</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+
+<!-- ══ 頂部標題欄 ══ -->
+<header class="m-header">
+  <span class="m-header-logo">通法禪寺</span>
+  <span class="m-header-section" id="mSectionName">封面</span>
+</header>
+
+<!-- ══ 主內容 iframe ══ -->
+<main class="m-main" id="mMain">
+  <iframe
+    id="mIframe"
+    class="m-iframe"
+    src="assets/pages/cover.html"
+    title="頁面內容"
+    scrolling="yes"
+  ></iframe>
+
+  <!-- 法脈子選單（底部滑出橫列）-->
+  <div class="m-lineage-bar" id="mLineageBar" aria-hidden="true">
+    <button class="m-lineage-btn" data-src="assets/lineage/caodong_thumb.html" data-label="曹洞全圖">曹洞全圖</button>
+    <button class="m-lineage-btn" data-src="assets/lineage/shouchang.html"     data-label="壽昌法派">壽昌法派</button>
+    <button class="m-lineage-btn" data-src="assets/lineage/direct.html"        data-label="直系傳承">直系傳承</button>
+    <button class="m-lineage-btn" data-src="assets/pages/lineage_intro.html"   data-label="祖師傳記">祖師傳記</button>
+  </div>
+</main>
+
+<!-- ══ 浮動選單 ══ -->
+<nav class="m-menu" id="mMenu" aria-hidden="true">
+  <div class="m-menu-item active" data-section="cover"      data-src="assets/pages/cover.html"         data-label="封面">
+    <i class="fas fa-torii-gate m-menu-icon" aria-hidden="true"></i><span>封面</span>
+  </div>
+  <div class="m-menu-item" data-section="intro"      data-src="assets/pages/intro.html"         data-label="本寺簡介">
+    <i class="fas fa-circle-info m-menu-icon" aria-hidden="true"></i><span>本寺簡介</span>
+  </div>
+  <div class="m-menu-item" data-section="lineage"    data-src="assets/pages/lineage_intro.html"  data-label="法脈傳承" data-has-sub="true">
+    <i class="fas fa-sitemap m-menu-icon" aria-hidden="true"></i><span>法脈傳承</span><i class="fas fa-chevron-right m-menu-arrow" aria-hidden="true"></i>
+  </div>
+  <div class="m-menu-item" data-section="artifacts"  data-src="assets/pages/artifacts.html"     data-label="文物典藏">
+    <i class="fas fa-scroll m-menu-icon" aria-hidden="true"></i><span>文物典藏</span>
+  </div>
+  <div class="m-menu-item" data-section="members"    data-src="assets/pages/members.html"       data-label="現任執事">
+    <i class="fas fa-users m-menu-icon" aria-hidden="true"></i><span>現任執事</span>
+  </div>
+  <div class="m-menu-item" data-section="activities" data-src="assets/pages/activities.html"    data-label="寺務活動">
+    <i class="fas fa-calendar-days m-menu-icon" aria-hidden="true"></i><span>寺務活動</span>
+  </div>
+  <div class="m-menu-item" data-section="contact"    data-src="assets/pages/contact.html"       data-label="聯絡我們">
+    <i class="fas fa-envelope m-menu-icon" aria-hidden="true"></i><span>聯絡我們</span>
+  </div>
+</nav>
+
+<!-- 遮罩 -->
+<div class="m-overlay" id="mOverlay"></div>
+
+<!-- FAB -->
+<button class="m-fab" id="mFab" aria-label="開啟選單">
+  <i class="fas fa-bars  m-fab-open"  aria-hidden="true"></i>
+  <i class="fas fa-xmark m-fab-close" aria-hidden="true"></i>
+</button>
+
+<!-- ══ 曹洞全圖 Modal ══ -->
+<div class="m-caodong-modal" id="mCaodongModal" aria-hidden="true">
+  <div class="m-caodong-topbar">
+    <span class="m-caodong-title">曹洞正宗法脈全圖</span>
+    <button class="m-caodong-close" id="mCaodongClose" aria-label="關閉">
+      <i class="fas fa-xmark" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="m-caodong-wrapper" id="mCaodongWrapper">
+    <iframe id="mCaodongIframe" class="m-caodong-iframe" src="" title="曹洞全圖"></iframe>
+  </div>
+  <p class="m-caodong-hint">雙指縮放 · 拖曳移動</p>
+</div>
+
+<script src="js/mobile.js"></script>
+</body>
+</html>
