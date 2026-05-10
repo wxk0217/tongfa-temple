@@ -309,6 +309,15 @@
     bgmPlaying = !bgmPlaying;
   });
 
+  // 切換到背景或離開頁面時自動暫停，返回後恢復
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (bgmPlaying) bgmAudio.pause();
+    } else {
+      if (bgmPlaying) bgmAudio.play().catch(() => {});
+    }
+  });
+
   /* ══════════════════════════════
      初始化：封面淡入
   ══════════════════════════════ */
