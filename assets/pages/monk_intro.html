@@ -98,12 +98,7 @@
 (function(){
     'use strict';
 
-    var isMobile = (window.top === window) ||
-                   /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ||
-                   window.innerWidth <= 768;
-
-    if (!isMobile) return;
-
+if (window.top !== window) return;  // 在 iframe 內（電腦版翻頁書）→ 直接離開，顯示靜態說明
     document.getElementById('desktopView').style.display = 'none';
     document.getElementById('mobileView').style.display  = 'block';
 
