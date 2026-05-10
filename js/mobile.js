@@ -87,11 +87,13 @@
     if (section === 'lineage') {
       lineageBar.classList.add('visible');
       lineageBar.setAttribute('aria-hidden', 'false');
+      mMain.classList.add('lineage-active');
       // 重設子頁 active（預設第一個）
       lineageBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
     } else {
       lineageBar.classList.remove('visible');
       lineageBar.setAttribute('aria-hidden', 'true');
+      mMain.classList.remove('lineage-active');
     }
 
     currentSection = section;

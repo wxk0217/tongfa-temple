@@ -95,7 +95,7 @@ html, body {
 /* iframe */
 .m-iframe {
   position: absolute;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   width: 100%;
   height: 100%;
   border: none;
@@ -104,6 +104,12 @@ html, body {
   background: var(--m-off-white);
 }
 .m-iframe.visible { opacity: 1; }
+
+/* 法脈子選單顯示時，iframe 底部讓位，防止文字被遮住 */
+.m-main.lineage-active .m-iframe {
+  bottom: var(--m-lineage-h);
+  height: calc(100% - var(--m-lineage-h));
+}
 
 /* ── 法脈子選單（底部固定橫列）── */
 .m-lineage-bar {
