@@ -42,8 +42,8 @@
 }
 
 /* 對齊書本左右邊緣外側 */
-.flip-btn-left  { left:  calc(50% - 640px - 48px); }
-.flip-btn-right { right: calc(50% - 640px - 48px); }
+.flip-btn-left  { left:  calc(50% - var(--book-width, 1100px) / 2 - 48px); }
+.flip-btn-right { right: calc(50% - var(--book-width, 1100px) / 2 - 48px); }
 
 .flip-arrow {
     font-size: 1.2rem;
