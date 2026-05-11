@@ -120,18 +120,21 @@
         if (data.mdFile) {
             fetch('../../' + data.mdFile)
                 .then(function(r){ return r.ok ? r.text() : Promise.reject(); })
-                .then(function(md){
-                    bioText.textContent = md
-                        .replace(/^#{1,6}\s+/gm, '')
-                        .replace(/\*\*(.+?)\*\*/g, '$1')
-                        .replace(/\*(.+?)\*/g, '$1')
-                        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-                        .trim();
-                })
-                .catch(function(){ bioText.textContent = data.short || '暫無詳細資料。'; });
-        } else {
-            bioText.textContent = data.short || '暫無詳細資料。';
-        }
+               .then(function(md){
+    // 1. 統一換行符號，防止 Windows 格式的檔案在手機上解析斷掉
+    var cleanText = md.replace(/\r\n/g, '\n');
+
+    // 2. 進行 Markdown 標籤清理
+    cleanText = cleanText
+        .replace(/^#{1,6}\s+/gm, '')
+        .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/\*(.+?)\*/g, '$1')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .trim();
+
+    // 3. 改用 innerText，這對手機瀏覽器的換行渲染更友善
+    bioText.innerText = cleanText;
+})
     }
 
     function closeBio(){
