@@ -102,6 +102,10 @@ html, body {
   opacity: 0;
   transition: opacity 0.4s var(--m-ease);
   background: var(--m-off-white);
+
+  /* ── 關鍵修復：針對 iOS (iPhone) 的捲動支援 ── */
+  overflow-y: auto; 
+  -webkit-overflow-scrolling: touch; 
 }
 .m-iframe.visible { opacity: 1; }
 
