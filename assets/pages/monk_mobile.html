@@ -1,150 +1,293 @@
 <!DOCTYPE html>
+
 <html lang="zh-TW">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>祖師傳記</title>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;700&display=swap">
+
     <style>
+
         *{margin:0;padding:0;box-sizing:border-box;}
+
         html,body{width:100%;min-height:100%;overflow-y:auto;
+
                   background:#fffcf5;font-family:'Noto Serif TC','STSong',serif;}
+
         .wrap{padding:28px 20px 40px;}
+
         h2{font-size:1.2rem;font-weight:700;color:#5d4037;letter-spacing:5px;margin-bottom:6px;}
+
         .subtitle{font-size:0.78rem;color:#c6a059;letter-spacing:3px;margin-bottom:16px;}
+
         .divider{width:100%;height:1px;background:rgba(198,160,89,0.3);margin-bottom:20px;}
 
+
+
         .monk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+
         .monk-card{
+
             background:#fff;border:1px solid #e3dcc8;border-radius:10px;
+
             padding:14px 12px;display:flex;flex-direction:column;
+
             align-items:center;gap:8px;cursor:pointer;
+
             transition:box-shadow 0.18s,border-color 0.18s;text-align:center;
+
         }
+
         .monk-card:active{box-shadow:0 2px 10px rgba(93,64,55,0.12);border-color:#c6a059;}
+
         .monk-avatar{width:64px;height:64px;border-radius:50%;
+
             object-fit:cover;border:2px solid #e3dcc8;background:#f3ede0;}
+
         .monk-avatar-placeholder{width:64px;height:64px;border-radius:50%;
+
             background:#f3ede0;border:2px solid #e3dcc8;
+
             display:flex;align-items:center;justify-content:center;
+
             font-size:1.4rem;color:#c6a059;}
+
         .monk-name{font-size:0.92rem;font-weight:700;color:#5d4037;letter-spacing:2px;}
+
         .monk-era{font-size:0.7rem;color:#9a8a7a;letter-spacing:1px;}
+
         .monk-short{font-size:0.72rem;color:#6a5a4a;line-height:1.6;
+
             display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 
+
+
         /* 彈窗 */
+
         #bioOverlay{display:none;position:fixed;inset:0;
+
             background:rgba(0,0,0,0.55);z-index:9000;
+
             align-items:flex-end;justify-content:center;}
+
         #bioOverlay.open{display:flex;}
+
         #bioSheet{background:#fffcf5;border-radius:18px 18px 0 0;
+
             width:100%;max-height:78vh;overflow-y:auto;
+
             padding:24px 20px 36px;animation:slideUp 0.28s ease;}
+
         @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+
         .bio-handle{width:40px;height:4px;border-radius:2px;
+
             background:#d4c8b8;margin:0 auto 20px;}
+
         .bio-name{font-size:1.1rem;font-weight:700;color:#5d4037;
+
             letter-spacing:4px;margin-bottom:4px;}
+
         .bio-era{font-size:0.78rem;color:#c6a059;margin-bottom:14px;}
+
         .bio-divider{height:1px;background:rgba(198,160,89,0.3);margin-bottom:16px;}
+
         .bio-text{font-size:0.85rem;line-height:2.1;color:#3d2b1f;white-space:pre-wrap;}
+
         .bio-close{margin-top:24px;width:100%;padding:12px;
+
             background:#5d4037;color:#fff;border:none;border-radius:8px;
+
             font-family:inherit;font-size:0.9rem;letter-spacing:2px;cursor:pointer;}
+
     </style>
+
 </head>
+
 <body>
+
 <div class="wrap">
+
     <h2>祖師傳記</h2>
+
     <div class="subtitle">法脈傳承人物誌</div>
+
     <div class="divider"></div>
+
     <div class="monk-grid" id="monkGrid"></div>
+
 </div>
+
+
 
 <div id="bioOverlay">
+
   <div id="bioSheet">
+
     <div class="bio-handle"></div>
+
     <div class="bio-name" id="bioName"></div>
+
     <div class="bio-era"  id="bioEra"></div>
+
     <div class="bio-divider"></div>
+
     <div class="bio-text" id="bioText">載入中…</div>
+
     <button class="bio-close" id="bioClose">關閉</button>
+
   </div>
+
 </div>
 
+
+
 <script src="../../js/data.js"></script>
+
 <script>
+
 (function(){
+
     'use strict';
 
+
+
     var grid    = document.getElementById('monkGrid');
+
     var overlay = document.getElementById('bioOverlay');
+
     var bioName = document.getElementById('bioName');
+
     var bioEra  = document.getElementById('bioEra');
+
     var bioText = document.getElementById('bioText');
+
     var bioClose= document.getElementById('bioClose');
 
+
+
     Object.entries(monkDatabase).forEach(function(entry){
+
         var name = entry[0], data = entry[1];
+
         var eraMatch   = (data.short||'').match(/^【([^】]*)】/);
+
         var era        = eraMatch ? eraMatch[1] : '';
+
         var shortClean = (data.short||'')
+
             .replace(/^【[^】]*】\s*\([^)]*\)\s*/, '')
+
             .replace(/^【[^】]*】\s*/, '');
 
+
+
         var card = document.createElement('div');
+
         card.className = 'monk-card';
 
+
+
         var imgHtml = data.image
+
             ? '<img class="monk-avatar" src="../../' + data.image + '" alt="' + name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+
               + '<div class="monk-avatar-placeholder" style="display:none">☸</div>'
+
             : '<div class="monk-avatar-placeholder">☸</div>';
 
+
+
         card.innerHTML = imgHtml
+
             + '<div class="monk-name">' + name + '</div>'
+
             + (era ? '<div class="monk-era">' + era + '</div>' : '')
+
             + '<div class="monk-short">' + shortClean + '</div>';
 
+
+
         card.addEventListener('click', function(){ openBio(name, era, data); });
+
         grid.appendChild(card);
+
     });
 
+
+
     function openBio(name, era, data) {
+
         bioName.textContent = name;
+
         bioEra.textContent  = era ? '【' + era + '】' : '';
+
         bioText.textContent = '載入中…';
+
         overlay.classList.add('open');
+
         document.body.style.overflow = 'hidden';
 
+
+
         if (data.mdFile) {
+
             fetch('../../' + data.mdFile)
+
                 .then(function(r){ return r.ok ? r.text() : Promise.reject(); })
-               .then(function(md){
-    // 1. 統一換行符號，防止 Windows 格式的檔案在手機上解析斷掉
-    var cleanText = md.replace(/\r\n/g, '\n');
 
-    // 2. 進行 Markdown 標籤清理
-    cleanText = cleanText
-        .replace(/^#{1,6}\s+/gm, '')
-        .replace(/\*\*(.+?)\*\*/g, '$1')
-        .replace(/\*(.+?)\*/g, '$1')
-        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-        .trim();
+                .then(function(md){
 
-    // 3. 改用 innerText，這對手機瀏覽器的換行渲染更友善
-    bioText.innerText = cleanText;
-})
+                    bioText.textContent = md
+
+                        .replace(/^#{1,6}\s+/gm, '')
+
+                        .replace(/\*\*(.+?)\*\*/g, '$1')
+
+                        .replace(/\*(.+?)\*/g, '$1')
+
+                        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+
+                        .trim();
+
+                })
+
+                .catch(function(){ bioText.textContent = data.short || '暫無詳細資料。'; });
+
+        } else {
+
+            bioText.textContent = data.short || '暫無詳細資料。';
+
+        }
+
     }
+
+
 
     function closeBio(){
+
         overlay.classList.remove('open');
+
         document.body.style.overflow = '';
+
     }
 
+
+
     bioClose.addEventListener('click', closeBio);
+
     overlay.addEventListener('click', function(e){ if(e.target===overlay) closeBio(); });
+
 })();
+
 </script>
+
 </body>
+
 </html>
