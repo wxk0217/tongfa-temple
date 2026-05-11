@@ -85,8 +85,13 @@
     var bioText = document.getElementById('bioText');
     var bioClose= document.getElementById('bioClose');
 
-    Object.entries(monkDatabase).forEach(function(entry){
-        var name = entry[0], data = entry[1];
+    if (typeof monkDatabase === 'undefined') {
+        grid.innerHTML = '<p style="color:#9a8a7a;text-align:center;padding:20px;">資料載入失敗，請重新整理。</p>';
+        return;
+    }
+
+    Object.keys(monkDatabase).forEach(function(name){
+        var data = monkDatabase[name];
         var eraMatch   = (data.short||'').match(/^【([^】]*)】/);
         var era        = eraMatch ? eraMatch[1] : '';
         var shortClean = (data.short||'')
@@ -120,7 +125,7 @@
         if (data.mdFile) {
             fetch('../../' + data.mdFile)
                 .then(function(r){ return r.ok ? r.text() : Promise.reject(); })
-                  .then(function(md){
+                .then(function(md){
                     var cleanText = md
                         .replace(/\r\n/g, '\n')
                         .replace(/^#{1,6}\s+/gm, '')
@@ -131,6 +136,10 @@
                     bioText.innerText = cleanText;
                     console.log("成功載入字數：", cleanText.length);
                 })
+                .catch(function(){ bioText.textContent = data.short || '暫無詳細資料。'; });
+        } else {
+            bioText.textContent = data.short || '暫無詳細資料。';
+        }
     }
 
     function closeBio(){
