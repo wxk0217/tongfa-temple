@@ -220,12 +220,6 @@
   });
 
   function _applyTransform() {
-    const w = caodongWrapper.clientWidth;
-    const h = caodongWrapper.clientHeight;
-    const maxX = Math.max(0, w * _zoom - w);
-    const maxY = Math.max(0, h * _zoom - h);
-    _panX = Math.min(0, Math.max(-maxX, _panX));
-    _panY = Math.min(0, Math.max(-maxY, _panY));
     caodongIframe.style.transform =
       `translate(${_panX}px,${_panY}px) scale(${_zoom})`;
   }
