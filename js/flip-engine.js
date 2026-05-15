@@ -50,16 +50,8 @@ function flipToPage(targetLeafIndex) {
     if (isFlipping) return;
     if (targetLeafIndex === currentLeaf) return;
     if (targetLeafIndex < 0 || targetLeafIndex >= leaves.length) return;
-
-    isFlipping = true;
-    updateNavActive(targetLeafIndex);
-
-    if (isMobile()) {
-        _flipMobile(targetLeafIndex);
-    } else {
-        _flipDesktop(targetLeafIndex);
-    }
-}
+    // 保險：強制清除任何殘留的 flipping class
+    leaves.forEach(function(l) { l.classList.remove('flipping'); });
 
 function _flipMobile(targetIdx) {
     var outLeaf = leaves[currentLeaf];
