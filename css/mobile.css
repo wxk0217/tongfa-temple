@@ -3,12 +3,6 @@
    完全獨立，不依賴 style.css / fix.css
    ═══════════════════════════════════════════════ */
 
-/* ── 設計語言：
-   黑白為主，大字體，極度留白，
-   用一條細線和間距說話，而非裝飾。
-   唯一點綴：金色細線作為禪意錨點。
-── */
-
 :root {
   --m-black:       #111111;
   --m-gray-dark:   #444444;
@@ -25,7 +19,6 @@
   --m-ease:        cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
@@ -79,7 +72,6 @@ html, body {
   background: var(--m-off-white);
 }
 
-/* 換頁白色遮罩 */
 .m-main::after {
   content: '';
   position: absolute;
@@ -102,34 +94,28 @@ html, body {
   opacity: 0;
   transition: opacity 0.4s var(--m-ease);
   background: var(--m-off-white);
-
-  /* ── 關鍵修復：針對 iOS (iPhone) 的捲動支援 ── */
-  overflow-y: auto; 
-  -webkit-overflow-scrolling: touch; 
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .m-iframe.visible { opacity: 1; }
 
-/* 法脈子選單顯示時，iframe 底部讓位，防止文字被遮住 */
 .m-main.lineage-active .m-iframe {
   bottom: var(--m-lineage-h);
   height: calc(100% - var(--m-lineage-h));
 }
 
-/* ── 法脈子選單（底部固定橫列）── */
+/* ── 法脈子選單 ── */
 .m-lineage-bar {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: var(--m-lineage-h);
-  display: none;                   /* JS 控制顯示 */
+  display: none;
   background: var(--m-white);
   border-top: 1px solid #e8e8e6;
   z-index: 10;
-  /* 滑入動畫 */
   animation: lineageSlideUp 0.3s var(--m-ease) both;
 }
-.m-lineage-bar.visible {
-  display: flex;
-}
+.m-lineage-bar.visible { display: flex; }
 
 @keyframes lineageSlideUp {
   from { transform: translateY(100%); }
@@ -157,16 +143,13 @@ html, body {
 .m-lineage-btn.active {
   color: var(--m-black);
   font-weight: 600;
-  /* 頂部金色指示線 */
   border-top: 2px solid var(--m-gold);
   margin-top: -1px;
 }
-.m-lineage-btn:not(.active):active {
-  background: #f0f0ee;
-}
+.m-lineage-btn:not(.active):active { background: #f0f0ee; }
 
 /* ══════════════════════════════
-   浮動選單（從右側滑入的全高 sheet）
+   浮動選單
 ══════════════════════════════ */
 .m-menu {
   position: fixed;
@@ -180,16 +163,11 @@ html, body {
   justify-content: center;
   padding: 40px 0;
   gap: 0;
-
-  /* 關閉狀態 */
   transform: translateX(100%);
   transition: transform 0.38s var(--m-ease);
 }
-.m-menu.open {
-  transform: translateX(0);
-}
+.m-menu.open { transform: translateX(0); }
 
-/* 每個選單項 */
 .m-menu-item {
   display: flex;
   align-items: center;
@@ -204,7 +182,6 @@ html, body {
 .m-menu-item:active { background: #f7f7f5; }
 
 .m-menu-item.active {
-  /* 左側金色指示條 */
   border-left: 3px solid var(--m-gold);
   padding-left: 25px;
 }
@@ -220,9 +197,7 @@ html, body {
   text-align: center;
   flex-shrink: 0;
 }
-.m-menu-item.active .m-menu-icon {
-  color: var(--m-gold);
-}
+.m-menu-item.active .m-menu-icon { color: var(--m-gold); }
 
 .m-menu-item span {
   font-size: 15px;
@@ -276,7 +251,6 @@ html, body {
 }
 .m-fab:active { transform: scale(0.91); }
 
-/* 漢堡 ↔ X 切換 */
 .m-fab-open,
 .m-fab-close {
   position: absolute;
@@ -305,7 +279,6 @@ html, body {
   z-index: 500;
   display: flex;
   flex-direction: column;
-
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -350,17 +323,13 @@ html, body {
   margin: 12px;
   border-radius: 10px;
   background: #f7f7f5;
-  cursor: grab;
 }
-.m-caodong-wrapper:active { cursor: grabbing; }
 
 .m-caodong-iframe {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   border: none;
-  transform-origin: 0 0;
-  pointer-events: none;
 }
 
 .m-caodong-hint {
@@ -398,9 +367,6 @@ html, body {
 .m-bgm-btn.playing .m-bgm-off { display: none; }
 .m-bgm-btn.playing .m-bgm-on  { display: inline; }
 
-/* ══════════════════════════════
-   電腦版開啟時自動跳轉提示
-══════════════════════════════ */
 @media (min-width: 769px) {
   body::before {
     content: '正在導向電腦版…';

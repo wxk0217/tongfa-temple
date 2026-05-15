@@ -186,8 +186,8 @@
 
 <div id="caodongModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;justify-content:center;align-items:center;z-index:99999;overflow:hidden;">
   <button onclick="closeCaodongModal()" style="position:absolute;top:16px;right:20px;font-size:36px;color:white;background:none;border:none;cursor:pointer;line-height:1;z-index:100000;">✕</button>
-  <div id="caodongWrapper" style="position:relative;width:96vw;height:92vh;overflow:hidden;border-radius:8px;background:#f8f5f0;cursor:grab;">
-    <iframe id="caodongModalIframe" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;transform-origin:0 0;pointer-events:none;"></iframe>
+<div id="caodongWrapper" style="position:relative;width:96vw;height:92vh;overflow:hidden;border-radius:8px;background:#f8f5f0;">
+    <iframe id="caodongModalIframe" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" scrolling="yes"></iframe>
   </div>
   <div style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.78rem;letter-spacing:1px;pointer-events:none;">滾輪或雙指縮放 · 拖曳移動</div>
 </div>
@@ -243,8 +243,6 @@ function openCaodongModal(src) {
   iframe.src = src;
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  _zoom = 1; _panX = 0; _panY = 0;
-  _applyTransform();
 }
 
 function closeCaodongModal() {
@@ -255,25 +253,8 @@ function closeCaodongModal() {
   document.body.style.overflow = '';
 }
 
-let _zoom = 1, _panX = 0, _panY = 0;
-let _dragging = false, _lastX = 0, _lastY = 0;
-let _lastDist = 0;
-
-function _applyTransform() {
-  const iframe = document.getElementById('caodongModalIframe');
-  const wrapper = document.getElementById('caodongWrapper');
-  if (!iframe || !wrapper) return;
-  const w = wrapper.clientWidth, h = wrapper.clientHeight;
-  const maxX = Math.max(0, w * _zoom - w);
-  const maxY = Math.max(0, h * _zoom - h);
-  _panX = Math.min(0, Math.max(-maxX, _panX));
-  _panY = Math.min(0, Math.max(-maxY, _panY));
-  iframe.style.transform = `translate(${_panX}px, ${_panY}px) scale(${_zoom})`;
-}
-
 document.addEventListener('DOMContentLoaded', function() {
   const modal = document.getElementById('caodongModal');
-  const wrapper = document.getElementById('caodongWrapper');
 
   modal.addEventListener('click', e => {
     if (e.target.id === 'caodongModal') closeCaodongModal();
@@ -282,6 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeCaodongModal();
   });
+});
 
   wrapper.addEventListener('wheel', e => {
     e.preventDefault();

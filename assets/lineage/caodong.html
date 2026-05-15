@@ -5,293 +5,230 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>曹洞正宗法脈全圖</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{font-family:"PingFang TC","Microsoft JhengHei",sans-serif;background:#fdfcf8;color:#2c2c2a;height:100%;overflow:hidden;}
-#header{background:#3e2723;color:#d7ccc8;padding:10px 24px;text-align:center;border-bottom:4px solid #8d6e63;flex-shrink:0;}
-#header h1{font-size:1.1rem;letter-spacing:3px;font-weight:500}
-#header p{font-size:0.75rem;opacity:.8;margin-top:3px}
-#legend{display:flex;flex-wrap:wrap;gap:8px 16px;padding:10px 20px;border-bottom:1px solid #e0ddd8;flex-shrink:0;}
-.li{display:flex;align-items:center;gap:5px;font-size:11px;color:#5f5e5a}
-.ls{width:11px;height:11px;border-radius:2px;flex-shrink:0}
-#wrap{flex:1;padding:14px 16px 24px;overflow:visible;}
-#co{position:relative;display:inline-block;}
-canvas{display:block;}
-.tip{position:absolute;background:#fff;border:1px solid #c0bdb5;border-radius:6px;padding:5px 9px;font-size:11px;color:#2c2c2a;pointer-events:none;white-space:nowrap;z-index:20;display:none;line-height:1.6;box-shadow:0 2px 8px rgba(0,0,0,.12)}
-body{display:flex;flex-direction:column;}
-#mobile-hint{
-  display:none;
-  text-align:center;
-  font-size:11px;
-  color:#9a8a7a;
-  padding:6px;
-  background:#fdfcf8;
-  border-bottom:1px solid #e0ddd8;
-  flex-shrink:0;
-  letter-spacing:1px;
+* { box-sizing: border-box; }
+html, body {
+    font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: #fdfcf8; margin: 0; padding: 0;
+    width: 100%; height: 100%;
 }
-@media (max-width:768px){
-  #mobile-hint{display:block;}
-  #legend{display:none;}
-  #header p{display:none;}
+#header {
+    background: #3e2723; color: #d7ccc8;
+    padding: 10px 24px; text-align: center;
+    border-bottom: 4px solid #8d6e63;
+}
+#header h1 { margin: 0; font-size: 1.1rem; letter-spacing: 3px; font-weight: 500; }
+#header p  { margin: 3px 0 0; font-size: 0.75rem; opacity: 0.8; }
+.legend {
+    display: flex; flex-wrap: wrap; gap: 8px 16px;
+    padding: 10px 20px; border-bottom: 1px solid #e0ddd8;
+    font-size: 11px; color: #5f5e5a;
+}
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0; }
+#diagram-container {
+    padding: 14px 16px 24px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.mermaid { background: #fdfcf8; }
+.mermaid svg { max-width: none !important; }
+#mobile-hint {
+    display: none; text-align: center; font-size: 11px;
+    color: #9a8a7a; padding: 6px; background: #fdfcf8;
+    border-bottom: 1px solid #e0ddd8; letter-spacing: 1px;
+}
+@media (max-width: 768px) {
+    #mobile-hint { display: block; }
+    .legend { display: none; }
+    #header p { display: none; }
 }
 </style>
 </head>
 <body>
+
 <div id="header">
-  <h1>曹洞正宗法脈全圖</h1>
-  <p>依朝代分色 · 鼓山一脈居中 · 含日本曹洞宗旁支</p>
+    <h1>曹洞正宗法脈全圖</h1>
+    <p>依朝代分色 · 鼓山一脈居中 · 含日本曹洞宗旁支</p>
 </div>
-<div id="mobile-hint">雙指縮放 · 拖曳移動</div>
-<div id="legend">
-  <div class="li"><div class="ls" style="background:#7a3b10"></div>唐代</div>
-  <div class="li"><div class="ls" style="background:#8a6010"></div>五代</div>
-  <div class="li"><div class="ls" style="background:#14527a"></div>北宋</div>
-  <div class="li"><div class="ls" style="background:#1a3e6b"></div>南宋</div>
-  <div class="li"><div class="ls" style="background:#4a235a"></div>元代</div>
-  <div class="li"><div class="ls" style="background:#1a5c38"></div>明代</div>
-  <div class="li"><div class="ls" style="background:#0d4a72"></div>清代</div>
-  <div class="li"><div class="ls" style="background:#1a5c2a"></div>近代</div>
-  <div class="li"><div class="ls" style="background:#2e7030"></div>台灣傳承</div>
-  <div class="li"><div class="ls" style="background:#5a3080"></div>日本曹洞宗</div>
-  <div class="li"><div class="ls" style="background:#b8930a;border:1px solid #f0c040"></div>主脈（鼓山中心線）</div>
+<div id="mobile-hint">左右捲動瀏覽全圖</div>
+<div class="legend">
+    <span><i style="background:#7a3b10"></i>唐代</span>
+    <span><i style="background:#8a6010"></i>五代</span>
+    <span><i style="background:#14527a"></i>北宋</span>
+    <span><i style="background:#1a3e6b"></i>南宋</span>
+    <span><i style="background:#4a235a"></i>元代</span>
+    <span><i style="background:#1a5c38"></i>明代</span>
+    <span><i style="background:#0d4a72"></i>清代</span>
+    <span><i style="background:#2e7030"></i>台灣傳承</span>
+    <span><i style="background:#5a3080"></i>日本曹洞宗</span>
 </div>
-<div id="wrap"><div id="co"><canvas id="c"></canvas><div class="tip" id="tip"></div></div></div>
 
+<div id="diagram-container">
+<div class="mermaid">
+%%{init: {'theme': 'base', 'themeVariables': {
+  'primaryColor': '#fdfcf8',
+  'primaryTextColor': '#2c2c2a',
+  'primaryBorderColor': '#aaa',
+  'lineColor': '#8B6914',
+  'fontSize': '13px'
+}}}%%
+graph LR
+
+classDef tang   fill:#fdf0e0,stroke:#7a3b10,color:#7a3b10,stroke-width:2px
+classDef wudai  fill:#fef9e7,stroke:#8a6010,color:#8a6010,stroke-width:1px
+classDef nsong  fill:#eaf4fb,stroke:#14527a,color:#14527a,stroke-width:2px
+classDef ssong  fill:#e8f4f8,stroke:#1a3e6b,color:#1a3e6b,stroke-width:1px
+classDef yuan   fill:#f5eef8,stroke:#4a235a,color:#4a235a,stroke-width:1px
+classDef ming   fill:#e9f7ef,stroke:#1a5c38,color:#1a5c38,stroke-width:2px
+classDef qing   fill:#e8f4fb,stroke:#0d4a72,color:#0d4a72,stroke-width:2px
+classDef tw     fill:#f0faea,stroke:#2e7030,color:#2e7030,stroke-width:2px
+classDef jp     fill:#f3edfb,stroke:#5a3080,color:#5a3080,stroke-width:1px
+
+%% 唐代主脈
+洞山["洞山 良價<br/>始祖 807–869"]:::tang
+曹山["曹山 本寂<br/>840–901"]:::tang
+龍牙["龍牙 居遁<br/>835–923"]:::tang
+雲居["雲居 道膺<br/>三祖 848–902"]:::tang
+洞山 --> 曹山
+洞山 --> 龍牙
+龍牙 --> 雲居
+
+%% 五代
+同安丕["同安 僧丕<br/>898–955"]:::wudai
+同安志["同安 觀志<br/>910–970"]:::wudai
+雲居 --> 同安丕
+雲居 --> 同安志
+
+%% 北宋主脈
+梁山["梁山 緣觀<br/>五祖"]:::nsong
+太陽["太陽 警玄<br/>六祖 943–1027"]:::nsong
+投子["投子 義青<br/>1032–1083"]:::nsong
+芙蓉["芙蓉 道楷<br/>七祖 1043–1118"]:::nsong
+同安丕 --> 梁山
+同安志 --> 梁山
+梁山 --> 太陽 --> 投子 --> 芙蓉
+
+%% 芙蓉分兩支
+丹霞["丹霞 子淳<br/>1054–1119"]:::nsong
+鹿門["鹿門 自覺<br/>北宋"]:::nsong
+芙蓉 --> 丹霞
+芙蓉 --> 鹿門
+
+%% 丹霞支（南宋旁支）
+宏智["宏智 正覺<br/>默照禪"]:::ssong
+真歇["真歇 清了<br/>1088–1151"]:::ssong
+丹霞 --> 宏智
+丹霞 --> 真歇
+
+%% 真歇 → 日本曹洞宗
+宗玨["天童 宗玨<br/>南宋"]:::jp
+智鑑["雪竇 智鑑<br/>南宋"]:::jp
+如淨["天童 如淨<br/>1163–1228"]:::jp
+道元["永平 道元<br/>1200–1253"]:::jp
+懷奘["孤雲 懷奘<br/>1198–1280"]:::jp
+瑩山["瑩山 紹瑾<br/>太祖 1268–1325"]:::jp
+真歇 -.-> 宗玨 -.-> 智鑑 -.-> 如淨 -.-> 道元 -.-> 懷奘 -.-> 瑩山
+
+%% 鹿門支 → 中國主脈
+歷代傳["歷代傳承<br/>元明間數代"]:::yuan
+萬松["萬松 行秀<br/>金元之際"]:::yuan
+雪庭["雪庭 福裕<br/>九祖 1203–1276"]:::yuan
+大章["大章 宗書<br/>元明間"]:::ming
+慧經["無明 慧經<br/>壽昌 1548–1618"]:::ming
+鹿門 --> 歷代傳 --> 萬松 --> 雪庭 --> 大章 --> 慧經
+
+%% 慧經分支
+元來["無異 元來<br/>博山 1575–1630"]:::ming
+元賢["永覺 元賢<br/>鼓山 1578–1657"]:::ming
+元鏡["晦台 元鏡<br/>1578–1631"]:::ming
+慧經 --> 元來
+慧經 --> 元賢
+慧經 --> 元鏡
+
+%% 鼓山主脈
+道霈["為霖 道霈<br/>鼓山 1615–1702"]:::qing
+鼓山歷["鼓山歷代<br/>清代歷代住持"]:::qing
+妙蓮["妙蓮 地華<br/>鼓山住持"]:::qing
+元賢 --> 道霈 --> 鼓山歷 --> 妙蓮
+
+%% 近代
+本忠["本忠 和尚"]:::qing
+圓瑛["圓瑛 耀性<br/>第46代"]:::qing
+妙蓮 --> 本忠
+妙蓮 --> 圓瑛
+
+%% 台灣傳承
+覺力["覺力 禪師<br/>法雲寺始祖"]:::tw
+白聖["白聖 古航<br/>第47代"]:::tw
+妙振["妙振 老和尚<br/>通法禪寺住持"]:::tw
+達能["達能 復融<br/>第48代"]:::tw
+本忠 --> 覺力
+圓瑛 --> 白聖
+覺力 --> 妙振
+妙振 --> 達能
+白聖 --> 達能
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
-const DEV = window.devicePixelRatio || 1;
-
-const DC = {
-  tang:'#7a3b10', wudai:'#8a6010', nsong:'#14527a', ssong:'#1a3e6b',
-  yuan:'#4a235a', ming:'#1a5c38', qing:'#0d4a72', modq:'#1a5c2a',
-  tw:'#2e7030', jp:'#5a3080'
-};
-const FC = {
-  tang:'#fdf0e0', wudai:'#fef9e7', nsong:'#eaf4fb', ssong:'#e8f4f8',
-  yuan:'#f5eef8', ming:'#e9f7ef', qing:'#e8f4fb', modq:'#eafaf1',
-  tw:'#f0faea', jp:'#f3edfb'
-};
-const MAIN_EDGE = '#8B6914';
-const SIDE_EDGE = '#c0bdb5';
-const JP_EDGE   = '#7a4ab0';
-const BG        = '#fdfcf8';
-const TXTSEC    = '#5f5e5a';
-
-const NW=128, NH=50, HG=46, VG=30, PL=20, PT=28, PB=28;
-
-const nodes = [
-  {id:'洞山',  l:'洞山 良價',  s:'始祖 807–869',    dy:'tang',  c:0,  r:0,  main:1},
-  {id:'曹山',  l:'曹山 本寂',  s:'840–901',         dy:'tang',  c:1,  r:-2},
-  {id:'龍牙',  l:'龍牙 居遁',  s:'835–923',         dy:'tang',  c:1,  r:0,  main:1},
-  {id:'雲居',  l:'雲居 道膺',  s:'三祖 848–902',    dy:'tang',  c:2,  r:0,  main:1},
-  {id:'同安丕',l:'同安 僧丕',  s:'898–955',         dy:'wudai', c:3,  r:-1},
-  {id:'同安志',l:'同安 觀志',  s:'910–970',         dy:'wudai', c:3,  r:0,  main:1},
-  {id:'梁山',  l:'梁山 緣觀',  s:'五祖',            dy:'nsong', c:4,  r:0,  main:1},
-  {id:'太陽',  l:'太陽 警玄',  s:'六祖 943–1027',   dy:'nsong', c:5,  r:0,  main:1},
-  {id:'投子',  l:'投子 義青',  s:'1032–1083',       dy:'nsong', c:6,  r:0,  main:1},
-  {id:'芙蓉',  l:'芙蓉 道楷',  s:'七祖 1043–1118',  dy:'nsong', c:7,  r:0,  main:1},
-  {id:'丹霞',  l:'丹霞 子淳',  s:'1054–1119',       dy:'nsong', c:8,  r:0,  main:1},
-  {id:'鹿門',  l:'鹿門 自覺',  s:'北宋',            dy:'nsong', c:8,  r:0,  main:1},
-  {id:'宏智',  l:'宏智 正覺',  s:'默照禪',          dy:'ssong', c:9,  r:-1},
-  {id:'真歇',  l:'真歇 清了',  s:'1088–1151',       dy:'ssong', c:9,  r:-3},
-  {id:'歷代傳',l:'歷代傳承',   s:'元明間數代',      dy:'yuan',  c:9,  r:0,  main:1},
-  {id:'萬松',  l:'萬松 行秀',  s:'金元之際',        dy:'yuan',  c:10, r:0,  main:1},
-  {id:'雪庭',  l:'雪庭 福裕',  s:'九祖 1203–1276',  dy:'yuan',  c:11, r:0,  main:1},
-  {id:'大章',  l:'大章 宗書',  s:'元明間',          dy:'ming',  c:12, r:0,  main:1},
-  {id:'宗玨',  l:'天童 宗玨',  s:'南宋',            dy:'jp',    c:10, r:-4},
-  {id:'智鑑',  l:'雪竇 智鑑',  s:'南宋',            dy:'jp',    c:11, r:-4},
-  {id:'如淨',  l:'天童 如淨',  s:'1163–1228',       dy:'jp',    c:12, r:-4},
-  {id:'道元',  l:'永平 道元',  s:'1200–1253',       dy:'jp',    c:13, r:-4},
-  {id:'懷奘',  l:'孤雲 懷奘',  s:'1198–1280',       dy:'jp',    c:14, r:-4},
-  {id:'瑩山',  l:'瑩山 紹瑾',  s:'太祖 1268–1325',  dy:'jp',    c:15, r:-4},
-  {id:'慧經',  l:'無明 慧經',  s:'壽昌 1548–1618',  dy:'ming',  c:13, r:0,  main:1},
-  {id:'元來',  l:'無異 元來',  s:'博山 1575–1630',  dy:'ming',  c:14, r:-2},
-  {id:'元賢',  l:'永覺 元賢',  s:'鼓山 1578–1657',  dy:'ming',  c:14, r:0,  main:1},
-  {id:'元鏡',  l:'晦台 元鏡',  s:'1578–1631',       dy:'ming',  c:14, r:2},
-  {id:'道霈',  l:'為霖 道霈',  s:'鼓山 1615–1702',  dy:'qing',  c:15, r:0,  main:1},
-  {id:'鼓山歷',l:'鼓山歷代',   s:'清代歷代住持',    dy:'qing',  c:16, r:0,  main:1},
-  {id:'妙蓮',  l:'妙蓮 地華',  s:'鼓山住持',        dy:'qing',  c:17, r:0,  main:1},
-  {id:'本忠',  l:'本忠 和尚',  s:'',                dy:'qing',  c:18, r:-1},
-  {id:'圓瑛',  l:'圓瑛 耀性',  s:'第46代',          dy:'qing',  c:18, r:0,  main:1},
-  {id:'覺力',  l:'覺力 禪師',  s:'法雲寺始祖',      dy:'tw',    c:19, r:-1},
-  {id:'白聖',  l:'白聖 古航',  s:'第47代',          dy:'tw',    c:19, r:0,  main:1},
-  {id:'妙振',  l:'妙振 老和尚',s:'通法禪寺住持',    dy:'tw',    c:20, r:-1},
-  {id:'達能',  l:'達能 復融',  s:'第48代',          dy:'tw',    c:21, r:0,  main:1},
-];
-
-const edges = [
-  ['洞山','曹山'], ['洞山','龍牙'],
-  ['龍牙','雲居'],
-  ['雲居','同安丕'], ['雲居','同安志'],
-  ['同安丕','梁山'], ['同安志','梁山'],
-  ['梁山','太陽'], ['太陽','投子'], ['投子','芙蓉'],
-  ['芙蓉','丹霞'], ['芙蓉','鹿門'],
-  ['丹霞','宏智'], ['丹霞','真歇'],
-  ['鹿門','歷代傳'], ['歷代傳','萬松'], ['萬松','雪庭'],
-  ['雪庭','大章'], ['大章','慧經'],
-  ['真歇','宗玨'], ['宗玨','智鑑'], ['智鑑','如淨'],
-  ['如淨','道元'], ['道元','懷奘'], ['懷奘','瑩山'],
-  ['慧經','元來'], ['慧經','元賢'], ['慧經','元鏡'],
-  ['元賢','道霈'],
-  ['道霈','鼓山歷'], ['鼓山歷','妙蓮'],
-  ['妙蓮','本忠'], ['妙蓮','圓瑛'],
-  ['本忠','覺力'], ['圓瑛','白聖'],
-  ['覺力','妙振'],
-  ['妙振','達能'], ['白聖','達能'],
-];
-
-const mainSet = new Set([
-  '洞山','龍牙','雲居','同安志','梁山','太陽','投子','芙蓉',
-  '丹霞','鹿門','歷代傳','萬松','雪庭','大章','慧經','元賢','道霈','鼓山歷','妙蓮','圓瑛','白聖','達能'
-]);
-const jpEdgeKeys = new Set([
-  '真歇→宗玨','宗玨→智鑑','智鑑→如淨',
-  '如淨→道元','道元→懷奘','懷奘→瑩山'
-]);
-
-const mainEdgeSet = new Set();
-edges.forEach(([a,b]) => {
-  if(mainSet.has(a) && mainSet.has(b)) mainEdgeSet.add(a+'→'+b);
-});
-
-const nm = {};
-nodes.forEach(n => { nm[n.id] = n; });
-
-const rVals = nodes.map(n => n.r);
-const RMIN = Math.min(...rVals), RMAX = Math.max(...rVals);
-const COLS = Math.max(...nodes.map(n => n.c)) + 1;
-
-const W = PL + COLS*(NW+HG) - HG + PL;
-const H = PT + (RMAX-RMIN+1)*(NH+VG) - VG + PB;
-
-const cvs = document.getElementById('c');
-cvs.width  = W * DEV;
-cvs.height = H * DEV;
-cvs.style.width  = W + 'px';
-cvs.style.height = H + 'px';
-document.getElementById('co').style.width = W + 'px';
-
-const g = cvs.getContext('2d');
-g.scale(DEV, DEV);
-g.fillStyle = BG;
-g.fillRect(0, 0, W, H);
-
-function nx(c){ return PL + c*(NW+HG); }
-function ny(r){ return PT + (r - RMIN)*(NH+VG); }
-function cy_r(r){ return ny(r) + NH/2; }
-
-function rrect(x,y,w,h,r){
-  g.beginPath();
-  g.moveTo(x+r,y); g.lineTo(x+w-r,y); g.quadraticCurveTo(x+w,y,x+w,y+r);
-  g.lineTo(x+w,y+h-r); g.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-  g.lineTo(x+r,y+h); g.quadraticCurveTo(x,y+h,x,y+h-r);
-  g.lineTo(x,y+r); g.quadraticCurveTo(x,y,x+r,y);
-  g.closePath();
-}
-
-function arrow(x1,y1,x2,y2,color,lw,dashed){
-  g.save();
-  g.strokeStyle = color; g.lineWidth = lw; g.lineCap = 'round';
-  if(dashed) g.setLineDash([5,4]);
-  const mx = (x1+x2)/2;
-  g.beginPath(); g.moveTo(x1,y1);
-  g.bezierCurveTo(mx,y1, mx,y2, x2,y2);
-  g.stroke();
-  g.setLineDash([]);
-  const dx = x2-(x2+(x1-x2)*0.04);
-  const dy = y2-(y2+(y1-y2)*0.04);
-  const ang = Math.atan2(dy,dx);
-  const al=7, aw=0.38;
-  g.beginPath(); g.moveTo(x2,y2);
-  g.lineTo(x2-al*Math.cos(ang-aw), y2-al*Math.sin(ang-aw));
-  g.lineTo(x2-al*Math.cos(ang+aw), y2-al*Math.sin(ang+aw));
-  g.closePath(); g.fillStyle=color; g.fill();
-  g.restore();
-}
-
-(function(){
-  const x0 = nx(10) - 10;
-  const x1 = nx(15) + NW + 10;
-  const y0 = ny(-4) - 18;
-  const y1 = ny(-4) + NH + 10;
-  g.save();
-  g.fillStyle   = 'rgba(180,140,220,0.08)';
-  g.strokeStyle = 'rgba(120,70,180,0.28)';
-  g.lineWidth   = 0.8;
-  g.setLineDash([5,4]);
-  g.beginPath();
-  g.roundRect(x0, y0, x1-x0, y1-y0, 8);
-  g.fill(); g.stroke();
-  g.setLineDash([]);
-  g.fillStyle = '#7a4ab0';
-  g.font = '500 11px "PingFang TC","Microsoft JhengHei",sans-serif';
-  g.textAlign = 'left'; g.textBaseline = 'top';
-  g.fillText('日本曹洞宗旁支', x0+8, y0+4);
-  g.restore();
-})();
-
-edges.forEach(([a,b]) => {
-  const na=nm[a], nb=nm[b];
-  if(!na||!nb) return;
-  const key = a+'→'+b;
-  const isM  = mainEdgeSet.has(key);
-  const isJP = jpEdgeKeys.has(key);
-  let color, lw, dashed;
-  if(isJP)    { color=JP_EDGE;   lw=1.5; dashed=true;  }
-  else if(isM){ color=MAIN_EDGE; lw=2;   dashed=false; }
-  else        { color=SIDE_EDGE; lw=1;   dashed=false; }
-  const x1 = nx(na.c)+NW, y1 = cy_r(na.r);
-  const x2 = nx(nb.c),    y2 = cy_r(nb.r);
-  arrow(x1,y1,x2,y2,color,lw,dashed);
-});
-
-nodes.forEach(n => {
-  const x=nx(n.c), y=ny(n.r);
-  const fc=FC[n.dy], bc=DC[n.dy];
-  g.save();
-  rrect(x,y,NW,NH,6);
-  g.fillStyle=fc; g.fill();
-  g.strokeStyle=bc; g.lineWidth=n.main?2:0.8; g.stroke();
-  if(n.main){
-    g.strokeStyle='#b8930a';
-    g.lineWidth=0.5; g.setLineDash([3,3]); g.stroke(); g.setLineDash([]);
-  }
-  g.restore();
-  g.save();
-  g.textAlign='center'; g.textBaseline='middle';
-  g.fillStyle=bc;
-  g.font='500 12px "PingFang TC","Microsoft JhengHei",sans-serif';
-  g.fillText(n.l, x+NW/2, y+NH/2-(n.s?8:0));
-  if(n.s){
-    g.fillStyle=TXTSEC;
-    g.font='400 10px "PingFang TC","Microsoft JhengHei",sans-serif';
-    g.fillText(n.s, x+NW/2, y+NH/2+9);
-  }
-  g.restore();
-});
-
-cvs.addEventListener('mousemove', e => {
-  const r  = cvs.getBoundingClientRect();
-  const mx = (e.clientX - r.left) * (W / r.width);
-  const my = (e.clientY - r.top)  * (H / r.height);
-  const tip = document.getElementById('tip');
-  let found = null;
-  nodes.forEach(n => {
-    const x=nx(n.c), y=ny(n.r);
-    if(mx>=x && mx<=x+NW && my>=y && my<=y+NH) found=n;
-  });
-  if(found){
-    const cor = document.getElementById('co').getBoundingClientRect();
-    tip.style.display = 'block';
-    tip.style.left = (e.clientX - cor.left + 12) + 'px';
-    tip.style.top  = (e.clientY - cor.top  - 42) + 'px';
-    tip.innerHTML  = '<b>'+found.l+'</b>'+(found.s?'<br>'+found.s:'');
-  } else {
-    tip.style.display = 'none';
-  }
-});
-cvs.addEventListener('mouseleave', () => {
-  document.getElementById('tip').style.display = 'none';
+mermaid.initialize({
+    startOnLoad: true,
+    securityLevel: 'loose',
+    flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: 'basis',
+        rankSpacing: 60,
+        nodeSpacing: 40
+    },
+    theme: 'base'
 });
 </script>
+
+<script>
+(function() {
+    function getName(node) {
+        var label = node.querySelector('.nodeLabel, .label, text');
+        if (!label) return '';
+        return (label.textContent || '').replace(/<[^>]*>/g, '').trim().split('\n')[0];
+    }
+    var tapTimer = null;
+    document.addEventListener('dblclick', function(e) {
+        var node = e.target.closest('.node');
+        if (!node) return;
+        var name = getName(node);
+        if (name) window.parent.postMessage({ action: 'openModal', name: name }, '*');
+    });
+    document.addEventListener('touchend', function(e) {
+        var node = e.target.closest('.node');
+        if (!node) return;
+        e.preventDefault();
+        var name = getName(node);
+        if (!name) return;
+        if (tapTimer) {
+            clearTimeout(tapTimer); tapTimer = null;
+            window.parent.postMessage({ action: 'openModal', name: name }, '*');
+        } else {
+            tapTimer = setTimeout(function() {
+                tapTimer = null;
+                window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+            }, 280);
+        }
+    }, { passive: false });
+    document.addEventListener('mouseover', function(e) {
+        var node = e.target.closest('.node');
+        if (!node) return;
+        var name = getName(node);
+        if (name) window.parent.postMessage({ action: 'showTooltip', name: name }, '*');
+    });
+    document.addEventListener('mouseout', function(e) {
+        if (e.target.closest('.node'))
+            window.parent.postMessage({ action: 'hideTooltip' }, '*');
+    });
+})();
+</script>
+
 </body>
 </html>

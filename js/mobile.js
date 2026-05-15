@@ -40,11 +40,7 @@
   ══════════════════════════════ */
   let menuOpen       = false;
   let currentSection = 'cover';
-  let busy           = false;   // 換頁動畫進行中，忽略重複觸發
-
-  // 全圖縮放
-  let _zoom = 1, _panX = 0, _panY = 0;
-  let _dragging = false, _lastX = 0, _lastY = 0, _lastDist = 0;
+  let busy           = false;
 
   /* ══════════════════════════════
      選單開關
@@ -71,24 +67,21 @@
   /* ══════════════════════════════
      頁面切換（fade）
   ══════════════════════════════ */
-  const FADE_OUT = 200;   // ms，遮罩蓋住
-  const FADE_IN  = 400;   // ms，新頁淡入
+  const FADE_OUT = 200;
+  const FADE_IN  = 400;
 
   function goTo(section, src, label) {
     if (busy) return;
     closeMenu();
 
-    // 更新選單 active
     menuItems.forEach(item =>
       item.classList.toggle('active', item.dataset.section === section)
     );
 
-    // 法脈子選單顯示 / 隱藏
     if (section === 'lineage') {
       lineageBar.classList.add('visible');
       lineageBar.setAttribute('aria-hidden', 'false');
       mMain.classList.add('lineage-active');
-      // 重設子頁 active（預設第一個）
       lineageBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
     } else {
       lineageBar.classList.remove('visible');
@@ -99,7 +92,6 @@
     currentSection = section;
     busy = true;
 
-    // 淡出
     mMain.classList.add('fading');
     iframe.classList.remove('visible');
     sectionName.style.opacity = '0';
@@ -119,7 +111,6 @@
       }
       iframe.addEventListener('load', onLoad);
 
-      // 保險計時器（iframe 有時不觸發 load）
       setTimeout(() => {
         if (busy) {
           mMain.classList.remove('fading');
@@ -148,17 +139,14 @@
       const src   = btn.dataset.src;
       const label = btn.dataset.label;
 
-      // 曹洞全圖 → Modal
       if (label === '曹洞全圖') {
         openCaodongModal(src);
         return;
       }
 
-      // 更新子頁 active
       lineageBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // 子頁 fade 切換（section 不變）
       if (busy) return;
       busy = true;
 
@@ -196,13 +184,10 @@
      曹洞全圖 Modal
   ══════════════════════════════ */
   function openCaodongModal(src) {
-    _zoom = 1; _panX = 0; _panY = 0;
     caodongIframe.src = src;
     caodongModal.classList.add('open');
     caodongModal.setAttribute('aria-hidden', 'false');
-    _applyTransform();
   }
-  // 暴露給子 iframe 呼叫（caodong_thumb.html 內的按鈕用 window.top.openCaodongModal）
   window.openCaodongModal = openCaodongModal;
 
   function closeCaodongModal() {
@@ -217,70 +202,6 @@
   });
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeCaodongModal();
-  });
-
-  function _applyTransform() {
-    caodongIframe.style.transform =
-      `translate(${_panX}px,${_panY}px) scale(${_zoom})`;
-  }
-
-  // 滾輪縮放
-  caodongWrapper.addEventListener('wheel', e => {
-    e.preventDefault();
-    _zoom = Math.min(6, Math.max(1, _zoom * (e.deltaY > 0 ? 0.88 : 1.14)));
-    _applyTransform();
-  }, { passive: false });
-
-  // 滑鼠拖曳
-  caodongWrapper.addEventListener('mousedown', e => {
-    _dragging = true; _lastX = e.clientX; _lastY = e.clientY;
-  });
-  document.addEventListener('mousemove', e => {
-    if (!_dragging) return;
-    _panX += e.clientX - _lastX;
-    _panY += e.clientY - _lastY;
-    _lastX = e.clientX; _lastY = e.clientY;
-    _applyTransform();
-  });
-  document.addEventListener('mouseup', () => { _dragging = false; });
-
-  // 觸控 pinch + 拖曳
-  caodongWrapper.addEventListener('touchstart', e => {
-    if (e.touches.length === 2) {
-      _lastDist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-    } else {
-      _dragging = true;
-      _lastX = e.touches[0].clientX;
-      _lastY = e.touches[0].clientY;
-    }
-  }, { passive: true });
-
-  caodongWrapper.addEventListener('touchmove', e => {
-    if (e.touches.length === 2) {
-      e.preventDefault();
-      const dist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-      if (_lastDist > 0) {
-        _zoom = Math.min(6, Math.max(1, _zoom * (dist / _lastDist)));
-        _applyTransform();
-      }
-      _lastDist = dist;
-    } else if (_dragging) {
-      _panX += e.touches[0].clientX - _lastX;
-      _panY += e.touches[0].clientY - _lastY;
-      _lastX = e.touches[0].clientX;
-      _lastY = e.touches[0].clientY;
-      _applyTransform();
-    }
-  }, { passive: false });
-
-  caodongWrapper.addEventListener('touchend', () => {
-    _dragging = false; _lastDist = 0;
   });
 
   /* ══════════════════════════════
@@ -303,7 +224,6 @@
     bgmPlaying = !bgmPlaying;
   });
 
-  // 切換到背景或離開頁面時自動暫停，返回後恢復
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       if (bgmPlaying) bgmAudio.pause();
