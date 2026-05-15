@@ -186,7 +186,7 @@
 
 <div id="caodongModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;justify-content:center;align-items:center;z-index:99999;overflow:hidden;">
   <button onclick="closeCaodongModal()" style="position:absolute;top:16px;right:20px;font-size:36px;color:white;background:none;border:none;cursor:pointer;line-height:1;z-index:100000;">✕</button>
-<div id="caodongWrapper" style="position:relative;width:96vw;height:92vh;overflow:auto;-webkit-overflow-scrolling:touch;border-radius:8px;background:#f8f5f0;">
+  <div id="caodongWrapper" style="position:relative;width:96vw;height:92vh;overflow:auto;-webkit-overflow-scrolling:touch;border-radius:8px;background:#f8f5f0;cursor:grab;">
     <iframe id="caodongModalIframe" src="" style="position:absolute;top:0;left:0;width:3200px;height:900px;border:none;" scrolling="no"></iframe>
   </div>
   <div style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.78rem;letter-spacing:1px;pointer-events:none;">滾輪或雙指縮放 · 拖曳移動</div>
@@ -254,8 +254,19 @@ function closeCaodongModal() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('caodongModal');
+  const modal   = document.getElementById('caodongModal');
+  const wrapper = document.getElementById('caodongWrapper');
 
+  let _zoom = 1, _panX = 0, _panY = 0;
+  let _dragging = false, _lastX = 0, _lastY = 0, _lastDist = 0;
+
+  function _applyTransform() {
+    const iframe = document.getElementById('caodongModalIframe');
+    iframe.style.transformOrigin = '0 0';
+    iframe.style.transform = 'scale(' + _zoom + ') translate(' + (_panX / _zoom) + 'px, ' + (_panY / _zoom) + 'px)';
+  }
+
+  // 每次開啟 modal 時重置狀態
   modal.addEventListener('click', e => {
     if (e.target.id === 'caodongModal') closeCaodongModal();
   });
@@ -263,8 +274,16 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeCaodongModal();
   });
-});
 
+  // 重置 zoom/pan（關閉時呼叫）
+  const _origClose = window.closeCaodongModal;
+  window.closeCaodongModal = function() {
+    _zoom = 1; _panX = 0; _panY = 0; _dragging = false; _lastDist = 0;
+    _applyTransform();
+    _origClose();
+  };
+
+  // 滾輪縮放
   wrapper.addEventListener('wheel', e => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? 0.9 : 1.1;
@@ -272,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
     _applyTransform();
   }, { passive: false });
 
+  // 滑鼠拖曳
   wrapper.addEventListener('mousedown', e => {
     _dragging = true; _lastX = e.clientX; _lastY = e.clientY;
     wrapper.style.cursor = 'grabbing';
@@ -288,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
     wrapper.style.cursor = 'grab';
   });
 
+  // 觸控手勢
   wrapper.addEventListener('touchstart', e => {
     if (e.touches.length === 2) {
       _lastDist = Math.hypot(
