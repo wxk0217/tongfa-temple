@@ -53,6 +53,16 @@ function flipToPage(targetLeafIndex) {
     // 保險：強制清除任何殘留的 flipping class
     leaves.forEach(function(l) { l.classList.remove('flipping'); });
 
+    isFlipping = true;
+    updateNavActive(targetLeafIndex);
+
+    if (isMobile()) {
+        _flipMobile(targetLeafIndex);
+    } else {
+        _flipDesktop(targetLeafIndex);
+    }
+}
+
 function _flipMobile(targetIdx) {
     var outLeaf = leaves[currentLeaf];
     var inLeaf  = leaves[targetIdx];
