@@ -76,19 +76,19 @@ const monkDatabase = {
     },
     "白聖長老": {
         short: "【民】(1904-1989) 來台後創辦佛學院，對台灣佛教傳戒、制度化與國際化貢獻卓著，為台灣當代佛教領袖。",
-        image: "assets/img/monks/monk_06.webp",
+        image: "assets/img/monks/monk_06.jpg",
         mdFile: "docs/monk/白聖長老.md",
         full: null
     },
     "覺力禪師": {
         short: "【清/民】(1881-1933) 1909年渡海來台，開創「大湖法雲寺派」，為台灣曹洞宗傳承奠定堅實基礎。",
-        image: null,
+        image: "assets/img/monks/覺力禪師.jpg",
         mdFile: "docs/monk/覺力禪師.md",
         full: null
     },
     "妙振老和尚": {
         short: "【民】通法禪寺首任住持，承覺力禪師法脈，長年持誦法華經，以謙和慈悲著稱，1945年應邀主持通法寺。",
-        image: null,
+        image: "assets/img/monks/妙振和尚.jpg",
         mdFile: "docs/monk/妙振老和尚.md",
         full: null
     },
