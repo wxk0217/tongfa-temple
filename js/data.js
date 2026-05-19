@@ -65,7 +65,7 @@ const monkDatabase = {
     "本忠和尚": {
         short: "【清/民】(1866-1936) 繼任檳城極樂寺住持，創立「念佛蓮社」，致力於南洋的弘化護教。",
         image: "assets/img/monks/本忠和尚.jpg",
-        mdFile: null,
+        mdFile: "docs/monk/本忠和尚.md",
         full: null
     },
     "圓瑛大師": {
@@ -95,7 +95,7 @@ const monkDatabase = {
     "達能和尚": {
         short: "通法禪寺第二代住持，為妙振老和尚剃度弟子，亦為白聖長老法子，融匯曹洞與臨濟二宗法脈，弘法足跡遍及東南亞。",
         image: "assets/img/monks/達能和尚.jpg",
-        mdFile: "docs/monk/達能老師和尚.md",
+        mdFile: "docs/monk/達能和尚.md",
         full: null
     },
     "林貴圓居士": {
