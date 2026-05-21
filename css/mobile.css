@@ -96,6 +96,7 @@ html, body {
   background: var(--m-off-white);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 .m-iframe.visible { opacity: 1; }
 

@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         *{margin:0;padding:0;box-sizing:border-box;}
-        html,body{width:100%;min-height:100%;overflow-y:auto;
+        html,body{width:100%;height:100%;overflow:hidden;
                   background:#fffcf5;font-family:'Noto Serif TC','STSong',serif;}
+        .scroll-wrap{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
         .wrap{padding:28px 20px 40px;}
         h2{font-size:1.2rem;font-weight:700;color:#5d4037;letter-spacing:5px;margin-bottom:6px;}
         .subtitle{font-size:0.78rem;color:#c6a059;letter-spacing:3px;margin-bottom:16px;}
@@ -36,6 +37,7 @@
     </style>
 </head>
 <body>
+<div class="scroll-wrap">
 <div class="wrap">
     <h2>聯絡我們</h2>
     <div class="subtitle">通法禪寺</div>
@@ -98,5 +100,6 @@
             </iframe>
         </div>
     </div>
+</div>
 </body>
 </html>
