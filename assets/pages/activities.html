@@ -17,44 +17,10 @@
                         <!-- 左頁：活動照片 -->
                         <img src="../../assets/img/1000010663.jpg" alt="寺務活動" style="width: 100%; height: 100%; object-fit: cover;">
                     </div></div>
-    <div style="width:50%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch;"><div class="content-container" style="overflow-y:auto;-webkit-overflow-scrolling:touch;">
-                        <div id="activity-content"></div>
+    <div style="width:50%;height:100%;overflow:auto;-webkit-overflow-scrolling:touch;"><div class="content-container" style="overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0;">
+                        <iframe src="https://calendar.google.com/calendar/embed?src=10643d72784d8acc38d5b39404664ce3dd791fa85263339bea13f7b40ba9f33f%40group.calendar.google.com&ctz=Asia%2FTaipei" style="border:0;display:block;" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
                         <div class="page-num">伍</div>
                     </div></div>
 </div>
-
-<script>
-fetch('../../docs/temple/寺務活動行事曆.md')
-  .then(r => r.text())
-  .then(md => {
-    var html = '';
-    var inList = false;
-    md.split('\n').forEach(function(line) {
-      var t = line.trim();
-      if (!t) {
-        if (inList) { html += '</ul>'; inList = false; }
-        return;
-      }
-      if (t.startsWith('# ')) {
-        if (inList) { html += '</ul>'; inList = false; }
-        html += '<h2>' + t.slice(2) + '</h2>';
-      } else if (t.startsWith('## ')) {
-        if (inList) { html += '</ul>'; inList = false; }
-        html += '<h3>' + t.slice(3) + '</h3>';
-      } else if (t.startsWith('- ') || t.startsWith('* ')) {
-        if (!inList) { html += '<ul class="activity-list">'; inList = true; }
-        html += '<li>' + t.slice(2) + '</li>';
-      } else {
-        if (inList) { html += '</ul>'; inList = false; }
-        html += '<p>' + t + '</p>';
-      }
-    });
-    if (inList) html += '</ul>';
-    document.getElementById('activity-content').innerHTML = html;
-  })
-  .catch(function() {
-    document.getElementById('activity-content').innerHTML = '<p>（無法載入活動資料）</p>';
-  });
-</script>
 </body>
 </html>
