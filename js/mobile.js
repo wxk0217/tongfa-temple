@@ -65,6 +65,39 @@
   overlay.addEventListener('click', closeMenu);
 
   /* ══════════════════════════════
+     iOS iframe 捲動修正
+     在同源 iframe 載入後注入 CSS，將內部捲動容器從
+     overflow:auto 強制改為 overflow:scroll，
+     並套用 GPU 合成層讓 iOS Safari 正確辨識捲動區域。
+  ══════════════════════════════ */
+  function fixIOSScroll() {
+    try {
+      const doc = iframe.contentDocument;
+      if (!doc || !doc.head) return;
+      const old = doc.getElementById('_iosfix');
+      if (old) old.remove();
+      const s = doc.createElement('style');
+      s.id = '_iosfix';
+      s.textContent =
+        'html{height:100%!important;overflow:hidden!important;}' +
+        'body{height:100%!important;overflow:visible!important;}' +
+        '.scroll-wrap,.intro-text{' +
+          'overflow-y:scroll!important;' +
+          '-webkit-overflow-scrolling:touch!important;' +
+          'transform:translateZ(0);}' +
+        'div[style*="overflow:auto"],div[style*="overflow: auto"]{' +
+          'overflow-y:scroll!important;' +
+          '-webkit-overflow-scrolling:touch!important;' +
+          'transform:translateZ(0);}' +
+        'div[style*="overflow-y:auto"],div[style*="overflow-y: auto"]{' +
+          'overflow-y:scroll!important;' +
+          '-webkit-overflow-scrolling:touch!important;' +
+          'transform:translateZ(0);}';
+      doc.head.appendChild(s);
+    } catch (e) {}
+  }
+
+  /* ══════════════════════════════
      頁面切換（fade）
   ══════════════════════════════ */
   const FADE_OUT = 200;
@@ -102,6 +135,7 @@
       sectionName.style.opacity = '1';
 
       function onLoad() {
+        fixIOSScroll();
         mMain.classList.remove('fading');
         requestAnimationFrame(() => {
           iframe.classList.add('visible');
@@ -113,6 +147,7 @@
 
       setTimeout(() => {
         if (busy) {
+          fixIOSScroll();
           mMain.classList.remove('fading');
           iframe.classList.add('visible');
           busy = false;
@@ -160,6 +195,7 @@
         sectionName.style.opacity = '1';
 
         function onLoad() {
+          fixIOSScroll();
           mMain.classList.remove('fading');
           requestAnimationFrame(() => {
             iframe.classList.add('visible');
@@ -171,6 +207,7 @@
 
         setTimeout(() => {
           if (busy) {
+            fixIOSScroll();
             mMain.classList.remove('fading');
             iframe.classList.add('visible');
             busy = false;
@@ -236,6 +273,7 @@
      初始化：封面淡入
   ══════════════════════════════ */
   iframe.addEventListener('load', function onFirstLoad() {
+    fixIOSScroll();
     mMain.classList.remove('fading');
     iframe.classList.add('visible');
     iframe.removeEventListener('load', onFirstLoad);

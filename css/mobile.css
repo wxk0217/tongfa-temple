@@ -70,6 +70,7 @@ html, body {
   left: 0; right: 0; bottom: 0;
   overflow: hidden;
   background: var(--m-off-white);
+  touch-action: pan-y;
 }
 
 .m-main::after {
@@ -94,8 +95,6 @@ html, body {
   opacity: 0;
   transition: opacity 0.4s var(--m-ease);
   background: var(--m-off-white);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
 }
 .m-iframe.visible { opacity: 1; }
